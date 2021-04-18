@@ -51,6 +51,29 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+  assets:
+  - assets/images/logo.png
+  - assets/images/menu.png
+  - assets/images/cart.png
+  - assets/images/avatar.png
+  - assets/images/adjust.png
+  - assets/images/grape.png
+  - assets/images/pizza.png
+  - assets/images/burger.png
+  - assets/images/next.png
+  - assets/images/star.png
+  - assets/images/pizzaseafood.png
+  - assets/images/crown.png
+  - assets/images/hambogo.png
+  - assets/images/cart-icon.png
+  - assets/images/address-icon.png
+  - assets/images/contact-icon.png
+  - assets/images/order-icon.png
+  - assets/images/payment-icon.png
+  - assets/images/profile-icon.png
+  - assets/images/setting-icon.png
+  - assets/images/voucher-icon.png
+  - assets/images/avatar-icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
