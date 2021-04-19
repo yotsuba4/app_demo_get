@@ -1,4 +1,4 @@
-import 'package:app_demo_get/productmodule/views/food_list_view.dart';
+import 'package:app_demo_get/views/home-page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

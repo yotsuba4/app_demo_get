@@ -1,6 +1,8 @@
-import 'package:app_demo_get/productmodule/controllers/food_controller.dart';
-import 'package:app_demo_get/productmodule/views/widget/popular-item.dart';
+import 'package:app_demo_get/controllers/find_food_controller.dart';
+import 'package:app_demo_get/controllers/popular_food_controller.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/views/search.dart';
+import 'package:app_demo_get/views/widget/popular-item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final FoodController foodController = Get.put(FoodController());
+  final FindFoodController findFoodController = Get.put(FindFoodController());
 
   double xOffset = 0;
   double yOffset = 0;
@@ -84,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                       Container(
                         child: Text(
-                          'Instant Eats',
+                          'Food Offer',
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               color: AppColor.title,
@@ -102,31 +105,33 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   padding: EdgeInsets.only(left: 25),
                   child: Text(
-                    'What you would like \n to order?',
+                    'Ăn gì hôm nay?',
                     style: TextStyle(
                         color: AppColor.commonText,
                         fontSize: 16,
                         fontWeight: FontWeight.w400),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(25),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(5),
-                    elevation: 5,
-                    child: TextField(
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: InputBorder.none,
-                        prefixIcon: Icon(Icons.search),
-                        suffixIcon: Container(
-                            decoration: BoxDecoration(
-                                color: AppColor.primary,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(5),
-                                    bottomRight: Radius.circular(5))),
-                            child: Image.asset('assets/images/adjust.png')),
+                GestureDetector(
+                  onTap: () {
+                    print('sự kiện tìm kiếm');
+                    showSearch(context: context, delegate: DataSearch());
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(25),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(30),
+                      elevation: 5,
+                      child: TextFormField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 30.0, vertical: 14.0),
+                          hintText: 'Tìm kiếm...',
+                          fillColor: Colors.white,
+                          border: InputBorder.none,
+                          suffixIcon: Icon(Icons.search),
+                        ),
                       ),
                     ),
                   ),
@@ -197,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   padding: EdgeInsets.only(left: 25),
                   child: Text(
-                    "Popular",
+                    "Thịnh hành",
                     style: TextStyle(
                         fontSize: 20,
                         color: AppColor.commonText,
@@ -215,8 +220,7 @@ class _HomePageState extends State<HomePage> {
                       itemCount: foodController.foodList.length,
                       itemBuilder: (context, index) {
                         return PopularFoods(
-                          resName: foodController
-                              .foodList[index].restaurant.restaurantName,
+                          resName: "Quán ăn Đức sine",
                           imgUrl: foodController.foodList[index].image,
                           title: foodController.foodList[index].foodName,
                           price: foodController.foodList[index].price,
