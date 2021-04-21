@@ -28,12 +28,10 @@ class _PopularFoodsState extends State<PopularFoods> {
       margin: EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         boxShadow: [
-          //background color of box
           BoxShadow(
             color: Colors.grey[100],
-            blurRadius: 25.0, // soften the shadow
+            blurRadius: 25.0,
             spreadRadius: 6.0,
-            //extend the shadow
           ),
         ],
         color: Color(0xffffffff),

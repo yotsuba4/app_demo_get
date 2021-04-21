@@ -1,4 +1,5 @@
 import 'package:app_demo_get/controllers/find_food_controller.dart';
+import 'package:app_demo_get/views/home/widget/popular-item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,32 +44,26 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    var listfoods = findFoodController.fetchFoods(query);
-    return listfoods == null
-        ? Container(
-            height: 100.0,
-            width: 100.0,
-            child: Card(
-              color: Colors.red,
-              shape: StadiumBorder(),
-              child: Center(
-                child: Text('Khong co du lieu'),
-              ),
-            ),
-          )
-        : Obx(() {
-            return Container(
-              height: 100.0,
-              width: 100.0,
-              child: Card(
-                color: Colors.red,
-                shape: StadiumBorder(),
-                child: Center(
-                  child: Text(listfoods[0]),
-                ),
-              ),
-            );
-          });
+    findFoodController.fetchFoods(query);
+
+    return Obx(() {
+      return SingleChildScrollView(
+        child: ListView.builder(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            itemCount: findFoodController.findFoodPopuler.length,
+            itemBuilder: (context, index) {
+              return PopularFoods(
+                resName: findFoodController
+                    .findFoodPopuler[index].restaurant.restaurantName,
+                imgUrl: findFoodController.findFoodPopuler[index].image,
+                title: findFoodController.findFoodPopuler[index].foodName,
+                price: findFoodController.findFoodPopuler[index].price,
+                rating: findFoodController.findFoodPopuler[index].rate,
+              );
+            }),
+      );
+    });
   }
 
   @override
