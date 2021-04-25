@@ -22,15 +22,15 @@ class ApiPopular {
 }
 
 class Data {
-  List<Food> food;
+  List<Foods> food;
 
   Data({this.food});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['food'] != null) {
-      food = <Food>[];
+      food = <Foods>[];
       json['food'].forEach((v) {
-        food.add(new Food.fromJson(v));
+        food.add(new Foods.fromJson(v));
       });
     }
   }
@@ -43,6 +43,3 @@ class Data {
     return data;
   }
 }
-
-
-

@@ -1,12 +1,12 @@
 import 'package:app_demo_get/models/object/food-object.dart';
 
-class FindFood {
+class ApiNewFood {
   String status;
   Data data;
 
-  FindFood({this.status, this.data});
+  ApiNewFood({this.status, this.data});
 
-  FindFood.fromJson(Map<String, dynamic> json) {
+  ApiNewFood.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
@@ -22,30 +22,24 @@ class FindFood {
 }
 
 class Data {
-  List<Foods> food;
-  int productsTotal;
-  int pageTotal;
+  List<Foods> foods;
 
-  Data({this.food, this.productsTotal, this.pageTotal});
+  Data({this.foods});
 
   Data.fromJson(Map<String, dynamic> json) {
-    if (json['food'] != null) {
-      food = [];
-      json['food'].forEach((v) {
-        food.add(new Foods.fromJson(v));
+    if (json['foods'] != null) {
+      foods = <Foods>[];
+      json['foods'].forEach((v) {
+        foods.add(new Foods.fromJson(v));
       });
     }
-    productsTotal = json['productsTotal'];
-    pageTotal = json['pageTotal'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.food != null) {
-      data['food'] = this.food.map((v) => v.toJson()).toList();
+    if (this.foods != null) {
+      data['foods'] = this.foods.map((v) => v.toJson()).toList();
     }
-    data['productsTotal'] = this.productsTotal;
-    data['pageTotal'] = this.pageTotal;
     return data;
   }
 }

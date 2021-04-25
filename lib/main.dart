@@ -1,5 +1,4 @@
-import 'package:app_demo_get/views/home/drawer.dart';
-import 'package:app_demo_get/views/home/home-page.dart';
+import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,23 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Home(),
-    );
-  }
-}
-class Home extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          DrawerScreen(),
-          HomePage(),
-        ],
-      ),
+      debugShowCheckedModeBanner: false,
+      home: MainPage(),
     );
   }
 }

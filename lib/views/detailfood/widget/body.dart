@@ -1,12 +1,12 @@
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
-import 'package:app_demo_get/views/detailfood/widget/relate_food.dart';
+import 'package:app_demo_get/views/detailfood/widget/relate-food.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class Body extends StatelessWidget {
-  final Food food;
+  final Foods food;
   final double expandedHeight = 400;
   final double roundedContainerHeight = 50;
   Body({@required this.food});
@@ -172,7 +172,9 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  food.restaurant.restaurantName,
+                  food.restaurant.restaurantName == null
+                      ? 'Quán ăn Đức sine'
+                      : food.restaurant.restaurantName,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -192,7 +194,7 @@ class Body extends StatelessWidget {
 }
 
 class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
-  final Food food;
+  final Foods food;
   final double expandeHeight;
   final double roundedContainerHeight;
   DetailSliverDelegate(

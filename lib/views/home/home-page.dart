@@ -1,10 +1,12 @@
-import 'package:app_demo_get/controllers/popular_food_controller.dart';
-import 'package:app_demo_get/shared/color.dart';
-import 'package:app_demo_get/views/detailfood/food-detail.dart';
-import 'package:app_demo_get/views/home/search.dart';
-import 'package:app_demo_get/views/home/widget/popular-item.dart';
+import 'package:app_demo_get/shared/widget/common-items.dart';
+import 'package:app_demo_get/controllers/new-food-controller.dart';
+import 'package:app_demo_get/controllers/popular-food-controller.dart';
+import 'package:app_demo_get/models/test/nearbyItems.dart';
+import 'package:app_demo_get/views/home/widget/banner-item.dart';
+import 'package:app_demo_get/views/home/widget/home-title.dart';
+import 'package:app_demo_get/views/home/widget/new-items.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,229 +15,137 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final FoodController foodController = Get.put(FoodController());
+  NewFoodController newFoods = Get.put(NewFoodController());
+  PopularFoodController popularFoodController =
+      Get.put(PopularFoodController());
 
-  double xOffset = 0;
-  double yOffset = 0;
-  double scaleFactor = 1;
-
-  bool isDrawerOpen = false;
+  List<NearByItems> nearbyItems = [
+    NearByItems(
+        text: "Sotto || Ponte Pizza\nPasta Tradizionali",
+        image: "images/ponte_pizza.jpeg"),
+    NearByItems(
+        text: "Delicious Pizza & Pasta\nTraditionaly",
+        image: "images/delicious.jpeg"),
+    NearByItems(
+        text: "Delicious Pizza & Pasta\nTraditionaly",
+        image: "images/delicious.jpeg"),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      if (foodController.isLoading.value)
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      else
-        return AnimatedContainer(
-          transform: Matrix4.translationValues(xOffset, yOffset, 0)
-            ..scale(scaleFactor)
-            ..rotateY(isDrawerOpen ? -0.5 : 0),
-          duration: Duration(milliseconds: 250),
-          decoration: BoxDecoration(
-            color: AppColor.background,
-            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 77,
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      isDrawerOpen
-                          ? Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    xOffset = 0;
-                                    yOffset = 0;
-                                    scaleFactor = 1;
-                                    isDrawerOpen = false;
-                                  });
-                                },
-                                child: Image.asset('assets/images/menu.png'),
-                                style: ElevatedButton.styleFrom(
-                                    primary: AppColor.background, elevation: 0),
-                              ),
-                            )
-                          : Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    xOffset = 230;
-                                    yOffset = 100;
-                                    scaleFactor = 0.8;
-                                    isDrawerOpen = true;
-                                  });
-                                },
-                                child: Image.asset('assets/images/menu.png'),
-                                style: ElevatedButton.styleFrom(
-                                    primary: AppColor.background, elevation: 0),
-                              ),
-                            ),
-                      Container(
-                        child: Text(
-                          'Food Offer',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              color: AppColor.title,
-                              fontSize: 20),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 95,
-                      ),
-                      Image.asset('assets/images/cart.png'),
-                      Image.asset('assets/images/avatar.png')
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 25),
-                  child: Text(
-                    'Ăn gì hôm nay?',
-                    style: TextStyle(
-                        color: AppColor.commonText,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    print('sự kiện tìm kiếm');
-                    showSearch(context: context, delegate: DataSearch());
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(25),
-                    child: Material(
-                      borderRadius: BorderRadius.circular(30),
-                      elevation: 5,
-                      child: TextFormField(
-                        enabled: false,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(
-                              horizontal: 30.0, vertical: 14.0),
-                          hintText: 'Tìm kiếm...',
-                          fillColor: Colors.white,
-                          border: InputBorder.none,
-                          suffixIcon: Icon(Icons.search),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 25, right: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Categories',
-                        style: TextStyle(
-                            color: AppColor.commonText,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        'See all',
-                        style: TextStyle(
-                            color: AppColor.title.withOpacity(0.7),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                /* Container(
-                        padding: EdgeInsets.only(left: 25),
-                        height: 178,
-                        child: ListView.builder(
-                            itemCount: listCategories.length,
-                            shrinkWrap: true,
-                            physics: ClampingScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return ItemCategories(
-                                label: listCategories[index].name,
-                                imgUrl: listCategories[index].image,
-                                isSelected: this.indexSelected == index,
-                                onPressed: () async {
-                                  setState(() {
-                                    this.indexSelected = index;
-                                  });
-                                  final result = await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DetailPage(
-                                            tit: listCategories[index].name),
-                                      ));
-                                  if (result != null) {
-                                    if (result is bool) {
-                                      print("result from Details: $result");
-                                    } else if (result is Category) {}
-                                  }
-                                },
-                              );
-                            }),
-                      ),
-                      SizedBox(
-                        height: 14,
-                      ), */
-                Container(
-                  padding: EdgeInsets.only(left: 25),
-                  child: Text(
-                    "Thịnh hành",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: AppColor.commonText,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(
-                    left: 25,
-                    right: 25,
-                  ),
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: foodController.foodList.length,
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            Get.to(DetailsScreen(),
-                                arguments: foodController.foodList[index]);
-                          },
-                          child: PopularFoods(
-                            resName: foodController
-                                .foodList[index].restaurant.restaurantName,
-                            imgUrl: foodController.foodList[index].image,
-                            title: foodController.foodList[index].foodName,
-                            price: foodController.foodList[index].price,
-                            rating: foodController.foodList[index].rate,
-                          ),
-                        );
-                      }),
-                )
-              ],
+    // ignore: unused_local_variable
+    int _current = 0;
+    return Scaffold(
+      backgroundColor: Colors.grey.shade200,
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 20,
             ),
-          ),
-        );
-    });
+            SafeArea(
+              child: Padding(
+                padding: EdgeInsets.only(left: 16, right: 16),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Tìm kiếm",
+                    hintStyle: TextStyle(color: Colors.grey.shade400),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: 20,
+                      color: Colors.grey.shade400,
+                    ),
+                    contentPadding: EdgeInsets.all(8),
+                    filled: true,
+                    fillColor: Colors.white,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6),
+                        borderSide: BorderSide(color: Colors.white)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6),
+                        borderSide: BorderSide(color: Colors.white)),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            /*  HomeTitle(text: "Cuisine"),
+            SizedBox(
+              height: 16,
+            ), 
+            Container(
+              height: 150,
+              child: ListView.builder(
+                itemCount: cuisineItems.length,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.only(left: 16),
+                shrinkWrap: true,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return CuisineItemsCard(cuisineItems: cuisineItems[index]);
+                },
+              ),
+            ),*/
+            CarouselSlider(
+              items: imageSliders,
+              options: CarouselOptions(
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  aspectRatio: 2.0,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });
+                  }),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            HomeTitle(text: "Món mới"),
+            SizedBox(
+              height: 16,
+            ),
+            Obx(() {
+              return Container(
+                height: 200,
+                child: ListView.builder(
+                  itemCount: newFoods.foodList.length,
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(left: 16),
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return NewItemCard(newItems: newFoods.foodList[index]);
+                  },
+                ),
+              );
+            }),
+            SizedBox(
+              height: 20,
+            ),
+            HomeTitle(text: "Thịnh hành"),
+            SizedBox(
+              height: 16,
+            ),
+            ListView.builder(
+              itemCount: popularFoodController.foodList.length,
+              scrollDirection: Axis.vertical,
+              padding: EdgeInsets.only(left: 16),
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                return CommonItemCard(
+                    nearByItems: popularFoodController.foodList[index]);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
