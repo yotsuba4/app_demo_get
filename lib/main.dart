@@ -1,4 +1,5 @@
 import 'package:app_demo_get/views/mainpage.dart';
+import 'package:app_demo_get/views/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +14,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      theme: theme(),
       home: MainPage(),
     );
   }

@@ -1,12 +1,14 @@
-import 'package:app_demo_get/views/sign-in/widget/body.dart';
 import 'package:flutter/material.dart';
 
-class SignInPage extends StatelessWidget {
+import 'components/body.dart';
+
+class LoginSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sign In"),
+        leading: SizedBox(),
+        title: Text("Login Success"),
       ),
       body: Body(),
     );
