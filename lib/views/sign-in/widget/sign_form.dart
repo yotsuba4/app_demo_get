@@ -1,9 +1,13 @@
 import 'package:app_demo_get/components/custom_surfix_icon.dart';
 import 'package:app_demo_get/components/form_error.dart';
+import 'package:app_demo_get/controllers/auth-controller.dart';
+
 import 'package:app_demo_get/helper/keyboard.dart';
 import 'package:app_demo_get/login_success/login_success_screen.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/form-error.dart';
+import 'package:app_demo_get/spref/constain.dart';
+import 'package:app_demo_get/spref/spref.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +20,7 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
+  AuthController authController = Get.put(AuthController());
   final _formKey = GlobalKey<FormState>();
   String email;
   String password;
@@ -72,12 +77,18 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                Get.to(LoginSuccessScreen());
+                AuthController.instance.signIn(email, password);
+                if (AuthController.instance.isSuccess.value) {
+                  var token = await SPref.get(SPrefCache.KEY_TOKEN);
+                  print('Day la token da luu : $token');
+                  Get.offAll(LoginSuccessScreen());
+                } else {
+                  Get.snackbar('Sign In Failed', 'Try again');
+                }
               }
             },
           ),
@@ -111,8 +122,6 @@ class _SignFormState extends State<SignForm> {
       decoration: InputDecoration(
         labelText: "Password",
         hintText: "Enter your password",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
@@ -144,8 +153,6 @@ class _SignFormState extends State<SignForm> {
       decoration: InputDecoration(
         labelText: "Email",
         hintText: "Enter your email",
-        // If  you are using latest version of flutter then lable text and hint text shown like this
-        // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),

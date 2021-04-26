@@ -1,6 +1,6 @@
 import 'package:app_demo_get/components/default_button.dart';
 import 'package:app_demo_get/size_config.dart';
-import 'package:app_demo_get/views/home/home-page.dart';
+import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,7 +29,7 @@ class Body extends StatelessWidget {
           child: DefaultButton(
             text: "Back to home",
             press: () {
-              Get.to(HomePage());
+              Get.to(MainPage());
             },
           ),
         ),

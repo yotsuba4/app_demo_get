@@ -1,4 +1,7 @@
+import 'package:app_demo_get/spref/constain.dart';
+import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
+import 'package:app_demo_get/views/profile/profile.dart';
 import 'package:app_demo_get/views/sign-in/sign-in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +23,14 @@ class _MainPageState extends State<MainPage> {
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         currentIndex: _currentIndex,
-        onTap: (index) {
+        onTap: (index) async {
+          var token = await SPref.get(SPrefCache.KEY_TOKEN);
+          print(token);
           if (index == 4) {
-            Get.to(SignInPage());
+            if (token.isEmpty)
+              Get.to(SignInPage());
+            else
+              Get.to(ProfilePage());
           } else {
             setState(() {
               _currentIndex = index;
