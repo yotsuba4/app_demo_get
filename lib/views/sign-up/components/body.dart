@@ -1,13 +1,13 @@
-import 'package:app_demo_get/components/no_account_text.dart';
 import 'package:app_demo_get/components/socal_card.dart';
+import 'package:app_demo_get/shared/form-error.dart';
+import 'package:app_demo_get/size_config.dart';
 import 'package:flutter/material.dart';
-import '../../../size_config.dart';
-import 'sign_form.dart';
+
+import 'sign_up_form.dart';
 
 class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return SafeArea(
       child: SizedBox(
         width: double.infinity,
@@ -17,21 +17,14 @@ class Body extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
+                Text("Register Account", style: headingStyle),
                 Text(
-                  "Chào mừng",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: getProportionateScreenWidth(28),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  "Đăng nhập với tên đăng nhập và mật khẩu  \n hoặc với các tài khoản mạng xã hội",
+                  "Complete your details or continue \nwith social media",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SignForm(),
+                SignUpForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +44,11 @@ class Body extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
-                NoAccountText(),
+                Text(
+                  'By continuing your confirm that you agree \nwith our Term and Condition',
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.caption,
+                )
               ],
             ),
           ),

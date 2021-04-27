@@ -1,5 +1,7 @@
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/views/sign-up/sign-up.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../size_config.dart';
 
 class NoAccountText extends StatelessWidget {
@@ -13,13 +15,15 @@ class NoAccountText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Don’t have an account? ",
+          "Chưa có tài khoản? ",
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.to(SignUpScreen());
+          },
           child: Text(
-            "Sign Up",
+            "Đăng ký",
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(16),
                 color: AppColor.primary),

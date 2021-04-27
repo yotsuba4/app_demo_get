@@ -1,15 +1,10 @@
-import 'package:app_demo_get/components/custom_surfix_icon.dart';
 import 'package:app_demo_get/components/form_error.dart';
 import 'package:app_demo_get/controllers/auth-controller.dart';
 
 import 'package:app_demo_get/helper/keyboard.dart';
-import 'package:app_demo_get/login_success/login_success_screen.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/form-error.dart';
-import 'package:app_demo_get/spref/constain.dart';
-import 'package:app_demo_get/spref/spref.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../../components/default_button.dart';
 import '../../../size_config.dart';
@@ -20,9 +15,8 @@ class SignForm extends StatefulWidget {
 }
 
 class _SignFormState extends State<SignForm> {
-  AuthController authController = Get.put(AuthController());
   final _formKey = GlobalKey<FormState>();
-  String email;
+  String username;
   String password;
   bool remember = false;
   final List<String> errors = [];
@@ -47,7 +41,7 @@ class _SignFormState extends State<SignForm> {
       key: _formKey,
       child: Column(
         children: [
-          buildEmailFormField(),
+          buildUsernameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -62,12 +56,12 @@ class _SignFormState extends State<SignForm> {
                   });
                 },
               ),
-              Text("Remember me"),
+              Text("Ghi nhớ đăng nhập"),
               Spacer(),
               GestureDetector(
                 onTap: () {},
                 child: Text(
-                  "Forgot Password",
+                  "Quên mật khẩu",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -76,19 +70,12 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 KeyboardUtil.hideKeyboard(context);
-                AuthController.instance.signIn(email, password);
-                if (AuthController.instance.isSuccess.value) {
-                  var token = await SPref.get(SPrefCache.KEY_TOKEN);
-                  print('Day la token da luu : $token');
-                  Get.offAll(LoginSuccessScreen());
-                } else {
-                  Get.snackbar('Sign In Failed', 'Try again');
-                }
+                AuthController.instance.signIn(username, password);
               }
             },
           ),
@@ -120,42 +107,41 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
+        labelText: "Mật khẩu",
+        hintText: "Nhập mật khẩu",
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: Icon(Icons.lock),
       ),
     );
   }
 
-  TextFormField buildEmailFormField() {
+  TextFormField buildUsernameFormField() {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      keyboardType: TextInputType.text,
+      onSaved: (newValue) => username = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: kEmailNullError);
-        } else if (emailValidatorRegExp.hasMatch(value)) {
-          removeError(error: kInvalidEmailError);
+          removeError(error: kUserNameNullError);
+        } else if (userNameValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidUserNameError);
         }
         return null;
       },
       validator: (value) {
         if (value.isEmpty) {
-          addError(error: kEmailNullError);
+          addError(error: kUserNameNullError);
           return "";
-        } else if (!emailValidatorRegExp.hasMatch(value)) {
-          addError(error: kInvalidEmailError);
+        } else if (!userNameValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidUserNameError);
           return "";
         }
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
-      ),
+          labelText: "Tên đăng nhập",
+          hintText: "Nhập tên đăng nhập",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.account_box)),
     );
   }
 }

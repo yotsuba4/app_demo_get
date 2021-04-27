@@ -11,9 +11,7 @@ class ApiLogin {
           "username": username,
           "password": password,
         });
-    print(response);
     var userlogin = LoginModel.fromJson(response.data);
-    print(userlogin.status);
     if (userlogin.status == "success") {
       var token = userlogin.data.token;
       //  print(token);
