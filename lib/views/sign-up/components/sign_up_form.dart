@@ -1,6 +1,6 @@
 import 'package:app_demo_get/components/custom_surfix_icon.dart';
-import 'package:app_demo_get/components/default_button.dart';
-import 'package:app_demo_get/components/form_error.dart';
+import 'package:app_demo_get/components/default-button.dart';
+import 'package:app_demo_get/components/form-error.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:flutter/material.dart';
 

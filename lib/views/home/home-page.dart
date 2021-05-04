@@ -1,13 +1,18 @@
+import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
 import 'package:app_demo_get/controllers/new-food-controller.dart';
 import 'package:app_demo_get/controllers/popular-food-controller.dart';
-import 'package:app_demo_get/models/test/nearbyItems.dart';
+import 'package:app_demo_get/spref/constain.dart';
+import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/views/cart/cart.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
 import 'package:app_demo_get/views/home/widget/home-title.dart';
 import 'package:app_demo_get/views/home/widget/new-items.dart';
+import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -19,23 +24,41 @@ class _HomePageState extends State<HomePage> {
   PopularFoodController popularFoodController =
       Get.put(PopularFoodController());
 
-  List<NearByItems> nearbyItems = [
-    NearByItems(
-        text: "Sotto || Ponte Pizza\nPasta Tradizionali",
-        image: "images/ponte_pizza.jpeg"),
-    NearByItems(
-        text: "Delicious Pizza & Pasta\nTraditionaly",
-        image: "images/delicious.jpeg"),
-    NearByItems(
-        text: "Delicious Pizza & Pasta\nTraditionaly",
-        image: "images/delicious.jpeg"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     int _current = 0;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        elevation: 0,
+        backgroundColor: Colors.grey.shade200,
+        onPressed: () async {
+          var token = await SPref.get(SPrefCache.KEY_TOKEN);
+
+          CartController.instance.getCartController(token);
+          showBarModalBottomSheet(
+            context: context,
+            builder: (context) => Container(
+              color: Colors.white,
+              child: ShoppingCartWidget(),
+            ),
+          );
+        },
+        tooltip: 'Your cart',
+        child: Badge(
+          animationDuration: Duration(milliseconds: 100),
+          animationType: BadgeAnimationType.slide,
+          badgeContent: Text(
+            '${CartController.instance.count}',
+            style: TextStyle(color: Colors.white, fontSize: 10),
+          ),
+          child: Icon(
+            Icons.shopping_cart_outlined,
+            color: Colors.black,
+            size: 30,
+          ),
+        ),
+      ),
       backgroundColor: Colors.grey.shade200,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -74,23 +97,6 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20,
             ),
-            /*  HomeTitle(text: "Cuisine"),
-            SizedBox(
-              height: 16,
-            ), 
-            Container(
-              height: 150,
-              child: ListView.builder(
-                itemCount: cuisineItems.length,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.only(left: 16),
-                shrinkWrap: true,
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return CuisineItemsCard(cuisineItems: cuisineItems[index]);
-                },
-              ),
-            ),*/
             CarouselSlider(
               items: imageSliders,
               options: CarouselOptions(

@@ -1,4 +1,4 @@
-import 'package:app_demo_get/components/socal_card.dart';
+import 'package:app_demo_get/components/socal-card.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:app_demo_get/size_config.dart';
 import 'package:flutter/material.dart';

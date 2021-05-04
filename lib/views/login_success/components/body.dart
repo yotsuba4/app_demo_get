@@ -1,4 +1,4 @@
-import 'package:app_demo_get/components/default_button.dart';
+import 'package:app_demo_get/components/default-button.dart';
 import 'package:app_demo_get/size_config.dart';
 import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';

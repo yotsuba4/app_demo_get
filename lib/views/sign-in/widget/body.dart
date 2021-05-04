@@ -1,5 +1,5 @@
-import 'package:app_demo_get/components/no_account_text.dart';
-import 'package:app_demo_get/components/socal_card.dart';
+import 'package:app_demo_get/components/no-account-text.dart';
+import 'package:app_demo_get/components/socal-card.dart';
 import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';

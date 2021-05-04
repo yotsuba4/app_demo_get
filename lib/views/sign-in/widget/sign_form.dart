@@ -1,4 +1,4 @@
-import 'package:app_demo_get/components/form_error.dart';
+import 'package:app_demo_get/components/form-error.dart';
 import 'package:app_demo_get/controllers/auth-controller.dart';
 
 import 'package:app_demo_get/helper/keyboard.dart';
@@ -6,7 +6,7 @@ import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/default_button.dart';
+import '../../../components/default-button.dart';
 import '../../../size_config.dart';
 
 class SignForm extends StatefulWidget {
