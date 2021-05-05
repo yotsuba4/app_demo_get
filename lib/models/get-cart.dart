@@ -107,7 +107,7 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['cart'] != null) {
-      cart = new List<Cart>();
+      cart = <Cart>[];
       json['cart'].forEach((v) {
         cart.add(new Cart.fromJson(v));
       });

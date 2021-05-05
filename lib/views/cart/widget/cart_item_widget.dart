@@ -43,8 +43,8 @@ class CartItemWidget extends StatelessWidget {
                 ),
                 IconButton(
                     icon: Icon(Icons.chevron_right),
-                    onPressed: () {
-                      // cartController.increaseQuantity(cartItem);
+                    onPressed: () async {
+                      // CartController.instance.increaseQuantity(cartItem);
                     }),
               ],
             )
@@ -53,7 +53,7 @@ class CartItemWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(14),
           child: CustomText(
-            text: "\$${cartItem.food.price}",
+            text: "${cartItem.food.price * cartItem.amount} vnd",
             size: 22,
             weight: FontWeight.bold,
           ),

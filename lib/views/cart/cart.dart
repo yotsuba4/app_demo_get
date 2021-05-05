@@ -34,17 +34,16 @@ class ShoppingCartWidget extends StatelessWidget {
                 )),
           ],
         ),
-        /*   Positioned(
+        Positioned(
             bottom: 30,
             child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.all(8),
                 child: Obx(
                   () => CustomButton(
-                      text: 'Total: ',
-                      // "Pay (\$${cartController.totalCartPrice.value.toStringAsFixed(2)})",
+                      text: "Pay (\$${CartController.instance.total})",
                       onTap: () {}),
-                ))) */
+                )))
       ],
     );
   }

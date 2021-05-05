@@ -32,8 +32,6 @@ class _MainPageState extends State<MainPage> {
           var token = await SPref.get(SPrefCache.KEY_TOKEN);
           print(token);
           if (index == 4) {
-            /* print('TRang dang nhap');
-            Get.to(SignInPage()); */
             if (token == null)
               Get.to(SignInPage());
             else {
