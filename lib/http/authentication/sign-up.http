@@ -1,0 +1,19 @@
+POST https://kltn-foodoffer.herokuapp.com/api/user/auth/register
+Content-Type: application/json
+
+{
+"username":"9punpun",
+"password":"123456789",
+"email":"083514@gmail.com"
+}
+
+###
+
+POST https://kltn-foodoffer.herokuapp.com/api/user/auth/verificationAccount HTTP/1.1
+Content-Type: application/json
+
+{
+"OTP":"FO-517999",
+"email":"h083514@gmail.com"
+}
+

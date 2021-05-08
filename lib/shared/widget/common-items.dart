@@ -95,8 +95,8 @@ class _NearByItemsCardState extends State<CommonItemCard> {
                         ),
                         onPressed: () async {
                           var token = await SPref.get(SPrefCache.KEY_TOKEN);
-                          CartController.instance
-                              .addToCartController(token, widget.nearByItems.sId, 1);
+                          CartController.instance.addToCartController(
+                              token, widget.nearByItems.sId, 1);
                         })
                   ],
                 ),

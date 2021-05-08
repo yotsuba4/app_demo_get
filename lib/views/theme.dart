@@ -1,7 +1,6 @@
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:flutter/material.dart';
 
-
 ThemeData theme() {
   return ThemeData(
     scaffoldBackgroundColor: Colors.white,

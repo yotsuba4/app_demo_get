@@ -1,6 +1,6 @@
-import 'package:app_demo_get/components/custom_surfix_icon.dart';
 import 'package:app_demo_get/components/default-button.dart';
 import 'package:app_demo_get/components/form-error.dart';
+import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +13,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String username;
   String email;
   String password;
   // ignore: non_constant_identifier_names
@@ -42,6 +43,8 @@ class _SignUpFormState extends State<SignUpForm> {
         children: [
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
+          buildUsernameFormField(),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildConformPassFormField(),
@@ -52,13 +55,42 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                // if all are valid then go to success screen
-                //  Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                AuthController.instance.signUp(email, username, password);
               }
             },
           ),
         ],
       ),
+    );
+  }
+
+  TextFormField buildUsernameFormField() {
+    return TextFormField(
+      keyboardType: TextInputType.text,
+      onSaved: (newValue) => username = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kUserNameNullError);
+        } else if (userNameValidatorRegExp.hasMatch(value)) {
+          removeError(error: kInvalidUserNameError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          addError(error: kUserNameNullError);
+          return "";
+        } else if (!userNameValidatorRegExp.hasMatch(value)) {
+          addError(error: kInvalidUserNameError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+          labelText: "Tên đăng nhập",
+          hintText: "Nhập tên đăng nhập",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Icon(Icons.account_box_outlined)),
     );
   }
 
@@ -85,12 +117,12 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Confirm Password",
-        hintText: "Re-enter your password",
+        labelText: "Nhập mật khẩu",
+        hintText: "Nhập lại mật khẩu",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: Icon(Icons.lock_outline),
       ),
     );
   }
@@ -123,7 +155,7 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+        suffixIcon: Icon(Icons.lock_outline),
       ),
     );
   }
@@ -156,7 +188,7 @@ class _SignUpFormState extends State<SignUpForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+        suffixIcon: Icon(Icons.email_outlined),
       ),
     );
   }

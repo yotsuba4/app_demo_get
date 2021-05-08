@@ -30,9 +30,8 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _currentIndex,
         onTap: (index) async {
           var token = await SPref.get(SPrefCache.KEY_TOKEN);
-          print(token);
           if (index == 4) {
-            if (token == null)
+            if (token == null || token == '')
               Get.to(SignInPage());
             else {
               AuthController.instance.getProfile(token);

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-class PopularItems{
+class PopularItems {
   String text;
   String image;
-  PopularItems({@required this.text,@required this.image});
+  PopularItems({@required this.text, @required this.image});
 }
