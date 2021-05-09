@@ -2,9 +2,9 @@ POST https://kltn-foodoffer.herokuapp.com/api/user/auth/register
 Content-Type: application/json
 
 {
-"username":"9punpun",
+"username":"yotsuba10so4",
 "password":"123456789",
-"email":"083514@gmail.com"
+"email":"display.flv@gmail.com"
 }
 
 ###
@@ -13,7 +13,7 @@ POST https://kltn-foodoffer.herokuapp.com/api/user/auth/verificationAccount HTTP
 Content-Type: application/json
 
 {
-"OTP":"FO-517999",
-"email":"h083514@gmail.com"
+"OTP":"FO-694088",
+"email":"display.flv@gmail.com"
 }
 

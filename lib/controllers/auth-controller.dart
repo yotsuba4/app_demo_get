@@ -4,11 +4,13 @@ import 'package:app_demo_get/apimodule/auth/api-sign-up.dart';
 import 'package:app_demo_get/models/object/user.dart';
 import 'package:app_demo_get/views/login_success/login_success_screen.dart';
 import 'package:app_demo_get/views/otp/otp.dart';
+import 'package:app_demo_get/views/sign-in/sign-in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
+  static String emailController = '';
 
   void signIn(String username, String password) async {
     try {
@@ -30,6 +32,19 @@ class AuthController extends GetxController {
         Get.to(OtpPage());
       } else {
         Get.snackbar('Đăng ký thất bại', 'Thử lại');
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void verificationOTP(String otp) async {
+    try {
+      var check = await ApiSignUp.verificationOTP(emailController, otp);
+      if (check) {
+        Get.off(SignInPage());
+      } else {
+        Get.snackbar('OTP không đúng', 'Thử lại');
       }
     } catch (e) {
       debugPrint(e.toString());

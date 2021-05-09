@@ -1,4 +1,5 @@
 import 'package:app_demo_get/components/default-button.dart';
+import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:app_demo_get/size_config.dart';
 import 'package:flutter/material.dart';
@@ -178,7 +179,9 @@ class _OtpFormState extends State<OtpForm> {
             text: "Continue",
             press: () {
               _formKey.currentState.save();
+              var otp = 'FO-' + box1 + box2 + box3 + box4 + box5 + box6;
               print('FO-' + box1 + box2 + box3 + box4 + box5 + box6);
+              AuthController.instance.verificationOTP(otp);
             },
           )
         ],

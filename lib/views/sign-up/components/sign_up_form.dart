@@ -55,6 +55,7 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+                AuthController.emailController = email;
                 AuthController.instance.signUp(email, username, password);
               }
             },
