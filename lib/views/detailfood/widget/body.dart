@@ -1,8 +1,11 @@
+import 'dart:ui';
+
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/detailfood/widget/relate-food.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class Body extends StatelessWidget {
@@ -98,7 +101,7 @@ class Body extends StatelessWidget {
               left: 15,
               right: 30,
               top: 10,
-              bottom: 10,
+              bottom: 20,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,34 +110,134 @@ class Body extends StatelessWidget {
                   "Liên quan",
                   style: TextStyle(
                     color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    letterSpacing: 1.6,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 20,
                   ),
                 ),
                 Text(
                   "Xem tất cả",
                   style: TextStyle(
                     color: Colors.deepOrange,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ],
             ),
           ),
           SizedBox(height: 120, child: RelatedWidget()),
+          SizedBox(
+            height: 30,
+          ),
           Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 15,
-              horizontal: 15,
+            padding: EdgeInsets.only(bottom: 20),
+            child: Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15,
+                    horizontal: 15,
+                  ),
+                  child: Text(
+                    "Xếp hạng và đánh giá",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Icon(
+                  Icons.info_outline,
+                  size: 20,
+                )
+              ],
             ),
-            child: Text(
-              "Đây là bình luận đánh giá",
-              style: TextStyle(
-                color: Colors.black38,
-                height: 1.4,
-                fontSize: 14,
-              ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 30, right: 30, bottom: 30),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text(
+                      food.rate.toString(),
+                      style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87),
+                    ),
+                    SmoothStarRating(
+                      allowHalfRating: true,
+                      color: AppColor.primary,
+                      rating: food.rate.toDouble(),
+                      isReadOnly: true,
+                      borderColor: AppColor.primary,
+                    )
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    LinearPercentIndicator(
+                      width: 180,
+                      lineHeight: 10.0,
+                      percent: 0.5,
+                      leading: Text('5  '),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      backgroundColor: Colors.grey[300],
+                      progressColor: AppColor.primary,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    LinearPercentIndicator(
+                      width: 180,
+                      lineHeight: 10.0,
+                      percent: 0,
+                      leading: Text('4  '),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      backgroundColor: Colors.grey[300],
+                      progressColor: AppColor.primary,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    LinearPercentIndicator(
+                      width: 180,
+                      lineHeight: 10.0,
+                      percent: 0,
+                      leading: Text('3  '),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      backgroundColor: Colors.grey[300],
+                      progressColor: AppColor.primary,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    LinearPercentIndicator(
+                      width: 180,
+                      lineHeight: 10.0,
+                      percent: 0,
+                      leading: Text('2  '),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      backgroundColor: Colors.grey[300],
+                      progressColor: AppColor.primary,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    LinearPercentIndicator(
+                      width: 180,
+                      lineHeight: 10.0,
+                      percent: 0,
+                      leading: Text('1  '),
+                      linearStrokeCap: LinearStrokeCap.roundAll,
+                      backgroundColor: Colors.grey[300],
+                      progressColor: AppColor.primary,
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

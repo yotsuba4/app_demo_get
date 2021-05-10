@@ -1,0 +1,7 @@
+# @name top10 foods
+GET https://kltn-foodoffer.herokuapp.com/api/cus/topRate HTTP/1.1
+
+###
+
+#@name showrate
+GET https://kltn-foodoffer.herokuapp.com/api/cus/showRate?query=607d7b649178410c107285cf HTTP/1.1
