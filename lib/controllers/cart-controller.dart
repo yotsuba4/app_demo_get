@@ -43,6 +43,7 @@ class CartController extends GetxController {
   void increaseQuantity(Cart item) async {}
 
   void totalCart() {
+    total.value = 0;
     if (carts.isNotEmpty) {
       carts.forEach((element) {
         total += element.food.price * element.amount;

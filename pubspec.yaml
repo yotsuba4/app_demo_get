@@ -33,12 +33,14 @@ dependencies:
   flutter_svg: ^0.21.0+1
   smooth_star_rating: 1.1.1
   carousel_slider: ^3.0.0
-  flutter_screenutil: ^5.0.0
+  flutter_screenutil: ^5.0.0+2
   shared_preferences: ^2.0.5
   modal_bottom_sheet: ^2.0.0
   badges: ^1.2.0
   comment_box: ^0.0.16
   percent_indicator: ^3.0.1
+  circular_profile_avatar: ^2.0.0
+  
  
 
 dev_dependencies:

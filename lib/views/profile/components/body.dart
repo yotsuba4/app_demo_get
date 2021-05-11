@@ -1,4 +1,5 @@
 import 'package:app_demo_get/models/object/user.dart';
+import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/mainpage.dart';
@@ -18,7 +19,7 @@ class Body extends StatelessWidget {
       child: Column(
         children: [
           ProfilePic(
-            avatar: user.avatar,
+            avatar: xuLyHttp(user.avatar),
           ),
           SizedBox(height: 20),
           ProfileMenu(
@@ -46,7 +47,7 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Log out.svg",
             press: () {
               SPref.set(SPrefCache.KEY_TOKEN, '');
-              Get.to(MainPage());
+              Get.offAll(MainPage());
             },
           ),
         ],

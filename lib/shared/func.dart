@@ -1,4 +1,4 @@
 String xuLyHttp(String http) {
   var link = http.split(':');
-  return 'https' + link[1];
+  return 'https:' + link[1];
 }

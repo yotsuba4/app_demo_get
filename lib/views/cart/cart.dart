@@ -1,8 +1,10 @@
 import 'package:app_demo_get/components/custom-btn.dart';
 import 'package:app_demo_get/components/custom-text.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/views/bill/bill_screen.dart';
 import 'package:app_demo_get/views/cart/widget/cart_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ShoppingCartWidget extends StatelessWidget {
@@ -37,13 +39,15 @@ class ShoppingCartWidget extends StatelessWidget {
         Positioned(
             bottom: 30,
             child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(8),
-                child: Obx(
-                  () => CustomButton(
-                      text: "Pay (\$${CartController.instance.total})",
-                      onTap: () {}),
-                )))
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(8),
+              child: CustomButton(
+                  text: "Xác nhận",
+                  onTap: () {
+                    Navigator.pop(context);
+                    Get.to(BillScreen());
+                  }),
+            ))
       ],
     );
   }

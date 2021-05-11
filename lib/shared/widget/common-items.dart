@@ -31,8 +31,8 @@ class _NearByItemsCardState extends State<CommonItemCard> {
               borderRadius: BorderRadius.circular(6),
               child: Image.network(
                 widget.nearByItems.image,
-                height: 100,
-                width: 100,
+                height: 120,
+                width: 115,
                 fit: BoxFit.fill,
               ),
             ),
@@ -42,15 +42,21 @@ class _NearByItemsCardState extends State<CommonItemCard> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  widget.nearByItems.foodName,
-                  style: TextStyle(
-                      height: 1.3, fontSize: 20, fontWeight: FontWeight.w600),
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    widget.nearByItems.foodName,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        height: 1.3, fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
                 ),
                 SizedBox(
                   height: 5,
                 ),
-                Text('Tiệm ăn Đức Sine'),
+                Text(widget.nearByItems.restaurant.restaurantName),
                 SizedBox(
                   height: 5,
                 ),
@@ -101,9 +107,6 @@ class _NearByItemsCardState extends State<CommonItemCard> {
                   ],
                 ),
               ],
-            ),
-            Expanded(
-              child: SizedBox(),
             ),
           ],
         ),
