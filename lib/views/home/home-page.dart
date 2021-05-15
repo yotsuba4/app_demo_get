@@ -2,8 +2,6 @@ import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
 import 'package:app_demo_get/controllers/new-food-controller.dart';
 import 'package:app_demo_get/controllers/popular-food-controller.dart';
-import 'package:app_demo_get/spref/constain.dart';
-import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/cart/cart.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
 import 'package:app_demo_get/views/home/widget/home-title.dart';
@@ -27,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    print('init home');
+    CartController.instance.getCartController();
   }
 
   @override
@@ -38,9 +36,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton(
         elevation: 0,
         backgroundColor: Colors.grey.shade200,
-        onPressed: () async {
-          var token = await SPref.get(SPrefCache.KEY_TOKEN);
-          CartController.instance.getCartController(token);
+        onPressed: () {
           showBarModalBottomSheet(
             context: context,
             builder: (context) => Container(

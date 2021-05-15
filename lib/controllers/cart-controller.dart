@@ -1,5 +1,7 @@
 import 'package:app_demo_get/apimodule/product/api-cart.dart';
 import 'package:app_demo_get/models/get-cart.dart';
+import 'package:app_demo_get/spref/constain.dart';
+import 'package:app_demo_get/spref/spref.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,7 +10,9 @@ class CartController extends GetxController {
   RxInt count = 0.obs;
   RxList<Cart> carts = RxList([]);
   RxInt total = 0.obs;
+
   
+
   increaseItem() => count++;
 
   void addToCartController(String token, String foodID, int amount) async {
@@ -25,7 +29,8 @@ class CartController extends GetxController {
     }
   }
 
-  void getCartController(String token) async {
+  void getCartController() async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
     try {
       var list = await ApiAddToCart.getCart(token);
       if (list.isNotEmpty) {

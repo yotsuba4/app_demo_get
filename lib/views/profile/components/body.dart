@@ -48,7 +48,7 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Log out.svg",
             press: () {
               SPref.set(SPrefCache.KEY_TOKEN, '');
-              CartController.instance.carts.clear();
+              CartController.instance.count(0);
               /* print(
                   'Độ dài của cart luc nay:  ${CartController.instance.carts.length}'); */
               Get.offAll(MainPage());

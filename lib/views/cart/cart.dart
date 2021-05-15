@@ -22,7 +22,7 @@ class ShoppingCartWidget extends StatelessWidget {
                           print('Đến trang của hàng');
                         },
                         child: Padding(
-                          padding: EdgeInsets.only(left: 5),
+                          padding: EdgeInsets.only(left: 10),
                           child: Row(
                             children: [
                               CustomText(
