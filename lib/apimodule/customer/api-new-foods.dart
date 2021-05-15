@@ -7,7 +7,6 @@ class ApiNewFoods {
   static Future<List<Foods>> fetchNewFoods() async {
     final response = await Dio()
         .get('https://kltn-foodoffer.herokuapp.com/api/cus/getNewFood');
-    print(response);
     Map<String, dynamic> map = response.data;
     var result = ApiNewFood.fromJson(map);
     return result.data.foods;

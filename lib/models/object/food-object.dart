@@ -11,6 +11,7 @@ class Foods {
   String caption;
   Restaurant restaurant;
   num iV;
+  String resID;
 
   Foods(
       {this.image,
@@ -23,6 +24,19 @@ class Foods {
       this.caption,
       this.restaurant,
       this.iV});
+
+  Foods.fromJsonCart(Map<String, dynamic> json) {
+    image = json['image'];
+    buys = json['buys'];
+    rate = json['rate'];
+    dateCreate = json['dateCreate'];
+    sId = json['_id'];
+    foodName = json['foodName'];
+    price = json['price'];
+    caption = json['caption'];
+    iV = json['__v'];
+    resID =  json['restaurant'];
+  }
 
   Foods.fromJson(Map<String, dynamic> json) {
     image = json['image'];

@@ -8,6 +8,7 @@ import 'package:app_demo_get/views/cart/cart.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
 import 'package:app_demo_get/views/home/widget/home-title.dart';
 import 'package:app_demo_get/views/home/widget/new-items.dart';
+import 'package:app_demo_get/views/search/search.dart';
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,11 @@ class _HomePageState extends State<HomePage> {
   NewFoodController newFoods = Get.put(NewFoodController());
   PopularFoodController popularFoodController =
       Get.put(PopularFoodController());
+  @override
+  void initState() {
+    super.initState();
+    print('init home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,6 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.grey.shade200,
         onPressed: () async {
           var token = await SPref.get(SPrefCache.KEY_TOKEN);
-
           CartController.instance.getCartController(token);
           showBarModalBottomSheet(
             context: context,
@@ -45,19 +50,19 @@ class _HomePageState extends State<HomePage> {
           );
         },
         tooltip: 'Your cart',
-        child: Badge(
-          animationDuration: Duration(milliseconds: 100),
-          animationType: BadgeAnimationType.slide,
-          badgeContent: Text(
-            '${CartController.instance.count}',
-            style: TextStyle(color: Colors.white, fontSize: 10),
-          ),
-          child: Icon(
-            Icons.shopping_cart_outlined,
-            color: Colors.black,
-            size: 30,
-          ),
-        ),
+        child: Obx(() => Badge(
+              animationDuration: Duration(milliseconds: 100),
+              animationType: BadgeAnimationType.slide,
+              badgeContent: Text(
+                '${CartController.instance.count}',
+                style: TextStyle(color: Colors.white, fontSize: 10),
+              ),
+              child: Icon(
+                Icons.shopping_cart_outlined,
+                color: Colors.black,
+                size: 30,
+              ),
+            )),
       ),
       backgroundColor: Colors.grey.shade200,
       body: SingleChildScrollView(
@@ -72,24 +77,30 @@ class _HomePageState extends State<HomePage> {
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.only(left: 16, right: 16),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Tìm kiếm",
-                    hintStyle: TextStyle(color: Colors.grey.shade400),
-                    prefixIcon: Icon(
-                      Icons.search,
-                      size: 20,
-                      color: Colors.grey.shade400,
+                child: GestureDetector(
+                  onTap: () {
+                    showSearch(context: context, delegate: DataSearch());
+                  },
+                  child: TextField(
+                    enabled: false,
+                    decoration: InputDecoration(
+                      hintText: "Tìm kiếm",
+                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      prefixIcon: Icon(
+                        Icons.search,
+                        size: 20,
+                        color: Colors.grey.shade400,
+                      ),
+                      contentPadding: EdgeInsets.all(8),
+                      filled: true,
+                      fillColor: Colors.white,
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(color: Colors.white)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          borderSide: BorderSide(color: Colors.white)),
                     ),
-                    contentPadding: EdgeInsets.all(8),
-                    filled: true,
-                    fillColor: Colors.white,
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide(color: Colors.white)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        borderSide: BorderSide(color: Colors.white)),
                   ),
                 ),
               ),

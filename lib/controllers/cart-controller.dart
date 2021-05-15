@@ -8,7 +8,7 @@ class CartController extends GetxController {
   RxInt count = 0.obs;
   RxList<Cart> carts = RxList([]);
   RxInt total = 0.obs;
-
+  
   increaseItem() => count++;
 
   void addToCartController(String token, String foodID, int amount) async {

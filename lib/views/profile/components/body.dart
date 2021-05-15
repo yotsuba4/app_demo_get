@@ -1,3 +1,4 @@
+import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/models/object/user.dart';
 import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/spref/constain.dart';
@@ -23,30 +24,33 @@ class Body extends StatelessWidget {
           ),
           SizedBox(height: 20),
           ProfileMenu(
-            text: "My Account",
+            text: "Thông tin cá nhân",
             icon: "assets/icons/User Icon.svg",
             press: () => {},
           ),
           ProfileMenu(
-            text: "Notifications",
+            text: "Lịch sử đặt hàng",
             icon: "assets/icons/Bell.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Settings",
+            text: "Cài đặt",
             icon: "assets/icons/Settings.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Help Center",
+            text: "Giúp đỡ",
             icon: "assets/icons/Question mark.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Log Out",
+            text: "Đăng xuất",
             icon: "assets/icons/Log out.svg",
             press: () {
               SPref.set(SPrefCache.KEY_TOKEN, '');
+              CartController.instance.carts.clear();
+              /* print(
+                  'Độ dài của cart luc nay:  ${CartController.instance.carts.length}'); */
               Get.offAll(MainPage());
             },
           ),
