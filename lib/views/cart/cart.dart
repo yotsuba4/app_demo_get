@@ -1,5 +1,8 @@
+import 'package:app_demo_get/components/custom-btn.dart';
 import 'package:app_demo_get/components/custom-text.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/views/bill/bill_screen.dart';
+import 'package:app_demo_get/views/cart/widget/cart_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -9,7 +12,7 @@ class ShoppingCartWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => Container(
           child: ListView.builder(
-              itemCount: CartController.instance.carts.length,
+              itemCount: CartController.instance.restaurants.length,
               itemBuilder: (context, index) {
                 return Container(
                   child: Column(
@@ -26,8 +29,8 @@ class ShoppingCartWidget extends StatelessWidget {
                           child: Row(
                             children: [
                               CustomText(
-                                text: CartController.instance.carts[index]
-                                    .restaurant.restaurantName,
+                                text: CartController
+                                    .instance.restaurants[index].restaurantName,
                                 size: 24,
                                 weight: FontWeight.bold,
                               ),
@@ -36,6 +39,23 @@ class ShoppingCartWidget extends StatelessWidget {
                           ),
                         ),
                       ),
+                      Column(
+                        children: CartController.instance.carts
+                            .where((cartItem) =>
+                                cartItem.restaurant.sId ==
+                                CartController.instance.restaurants[index].sId)
+                            .toList()
+                            .map((e) => CartItemWidget(
+                                  cartItem: e,
+                                ))
+                            .toList(),
+                      ),
+                      CustomButton(
+                          text: "Xác nhận",
+                          onTap: () {
+                            Navigator.pop(context);
+                            Get.to(BillScreen());
+                          }),
                     ],
                   ),
                 );

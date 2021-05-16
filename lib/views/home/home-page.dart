@@ -37,6 +37,7 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         backgroundColor: Colors.grey.shade200,
         onPressed: () {
+          CartController.instance.getCartController();
           showBarModalBottomSheet(
             context: context,
             builder: (context) => Container(

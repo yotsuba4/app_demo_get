@@ -1,5 +1,4 @@
 import 'package:app_demo_get/components/default-button.dart';
-import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -69,7 +68,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Tổng cộng:\n",
                     children: [
                       TextSpan(
-                        text: "${CartController.instance.total} vnđ",
+                        text: "10000000 vnđ",
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],

@@ -1,4 +1,3 @@
-import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:flutter/material.dart';
 
 import 'components/body.dart';
@@ -24,7 +23,7 @@ class BillScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            '${CartController.instance.carts.length} items',
+            '8 items',
             style: Theme.of(context).textTheme.caption,
           ),
         ],
