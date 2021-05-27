@@ -1,10 +1,12 @@
+import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/models/object/restaurant-obj.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'components/body.dart';
 import 'components/check_out_card.dart';
 
 class BillScreen extends StatelessWidget {
-  static String routeName = "/cart";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,15 +17,17 @@ class BillScreen extends StatelessWidget {
   }
 
   AppBar buildAppBar(BuildContext context) {
+    Restaurant restaurant = Get.arguments;
+    int item = CartController.instance.cartByRes.length;
     return AppBar(
       title: Column(
         children: [
           Text(
-            "Your Cart",
+            restaurant.restaurantName,
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            '8 items',
+            '$item items',
             style: Theme.of(context).textTheme.caption,
           ),
         ],

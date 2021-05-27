@@ -18,15 +18,16 @@ class _BodyState extends State<Body> {
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
       child: ListView.builder(
-        itemCount: CartController.instance.carts.length,
+        itemCount: CartController.instance.cartByRes.length,
         itemBuilder: (context, index) => Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Dismissible(
-            key: Key(CartController.instance.carts[index].food.sId.toString()),
+            key: Key(CartController.instance.cartByRes[index].food.sId),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               setState(() {
-                demoCarts.removeAt(index);
+                CartController.instance.cartByRes.removeAt(index);
+                //Lỗi nếu 2 mặt hàng giống nhau (cùng id)
               });
             },
             background: Container(
@@ -42,7 +43,7 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-            child: CartCard(cart: CartController.instance.carts[index]),
+            child: CartCard(cart: CartController.instance.cartByRes[index]),
           ),
         ),
       ),

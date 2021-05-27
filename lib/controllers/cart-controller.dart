@@ -14,6 +14,7 @@ class CartController extends GetxController {
   RxList<Cart> carts = RxList([]);
   RxInt total = 0.obs;
   RxList<Restaurant> restaurants = RxList([]);
+  RxList<Cart> cartByRes = RxList([]);
 
   increaseItem() => count++;
 
@@ -30,21 +31,24 @@ class CartController extends GetxController {
       Restaurant res = Restaurant.fromJson(result[i]);
       listRes.add(res);
     }
-    print(listRes.length);
     restaurants.assignAll(listRes);
   }
 
   void addToCartController(String token, String foodID, int amount) async {
-    try {
-      bool check = await ApiAddToCart.addToCart(token, foodID, amount);
-      if (check == true) {
-        Get.snackbar('Thông báo', 'Thêm thành công');
-        increaseItem();
-      } else {
-        Get.snackbar('Thông báo', 'Thêm thất bại');
+    if (!isExistItem(foodID)) {
+      try {
+        bool check = await ApiAddToCart.addToCart(token, foodID, amount);
+        if (check == true) {
+          Get.snackbar('Thông báo', 'Thêm thành công');
+          increaseItem();
+        } else {
+          Get.snackbar('Thông báo', 'Thêm thất bại');
+        }
+      } catch (e) {
+        debugPrint(e.toString());
       }
-    } catch (e) {
-      debugPrint(e.toString());
+    } else {
+      Get.snackbar('Thông báo', 'Đã tồn tại mặt hàng này');
     }
   }
 
@@ -65,6 +69,16 @@ class CartController extends GetxController {
     }
   }
 
+  void getCartByRes(String resID) {
+    List<Cart> cartByResID = [];
+    for (var i = 0; i < carts.length; i++) {
+      if (carts[i].food.resID == resID) {
+        cartByResID.add(carts[i]);
+      }
+    }
+    cartByRes.assignAll(cartByResID);
+  }
+
   void increaseQuantity(Cart item) async {}
 
   void totalCart() {
@@ -74,5 +88,14 @@ class CartController extends GetxController {
         total += element.food.price * element.amount;
       });
     }
+  }
+
+  bool isExistItem(String foodID) {
+    for (var i = 0; i < carts.length; i++) {
+      if (carts[i].food.sId == foodID) {
+        return true;
+      }
+    }
+    return false;
   }
 }

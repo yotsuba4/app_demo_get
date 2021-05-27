@@ -53,8 +53,12 @@ class ShoppingCartWidget extends StatelessWidget {
                       CustomButton(
                           text: "Xác nhận",
                           onTap: () {
+                            CartController.instance.getCartByRes(
+                                CartController.instance.restaurants[index].sId);
                             Navigator.pop(context);
-                            Get.to(BillScreen());
+                            Get.to(BillScreen(),
+                                arguments:
+                                    CartController.instance.restaurants[index]);
                           }),
                     ],
                   ),
