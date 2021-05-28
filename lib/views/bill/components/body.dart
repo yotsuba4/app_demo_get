@@ -1,5 +1,4 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
-import 'package:app_demo_get/shared/list-image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

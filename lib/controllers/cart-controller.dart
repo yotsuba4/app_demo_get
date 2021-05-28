@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:app_demo_get/apimodule/product/api-bill.dart';
 import 'package:app_demo_get/apimodule/product/api-cart.dart';
 import 'package:app_demo_get/models/get-cart.dart';
+import 'package:app_demo_get/models/object/bill.dart';
 import 'package:app_demo_get/models/object/restaurant-obj.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
@@ -15,6 +17,10 @@ class CartController extends GetxController {
   RxInt total = 0.obs;
   RxList<Restaurant> restaurants = RxList([]);
   RxList<Cart> cartByRes = RxList([]);
+  Bill bill;
+  bool deleteBillEmpty;
+  bool addBill;
+  List<Map<String, String>> listMapCarts;
 
   increaseItem() => count++;
 
@@ -97,5 +103,42 @@ class CartController extends GetxController {
       }
     }
     return false;
+  }
+
+  void createBill(String restaurantID, String code) async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
+    try {
+      bill = await ApiBill.createBill(restaurantID, code, token);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void deleteBill(String billID) async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
+    try {
+      deleteBillEmpty = await ApiBill.deleteBill(billID, token);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  void toListMapCart(String token) {
+    for (var i = 0; i < cartByRes.length; i++) {
+      Map<String, String> map = Map<String, String>();
+      map['food'] = cartByRes[i].food.sId;
+      map['amount'] = cartByRes[i].amount.toString();
+      listMapCarts.add(map);
+    }
+  }
+
+  void addToBill() async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
+    toListMapCart(token);
+    try {
+      addBill = await ApiBill.addToBill(listMapCarts, token, bill.sId);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

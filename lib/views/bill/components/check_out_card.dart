@@ -78,7 +78,9 @@ class CheckoutCard extends StatelessWidget {
                   width: getProportionateScreenWidth(190),
                   child: DefaultButton(
                     text: "Đặt hàng",
-                    press: () {},
+                    press: () {
+                      // CartController.instance.addToBill();
+                    },
                   ),
                 ),
               ],
