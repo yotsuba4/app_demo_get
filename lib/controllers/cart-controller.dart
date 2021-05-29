@@ -20,7 +20,6 @@ class CartController extends GetxController {
   Bill bill;
   bool deleteBillEmpty;
   bool addBill;
-  List<Map<String, String>> listMapCarts;
 
   increaseItem() => count++;
 
@@ -77,6 +76,7 @@ class CartController extends GetxController {
 
   void getCartByRes(String resID) {
     List<Cart> cartByResID = [];
+
     for (var i = 0; i < carts.length; i++) {
       if (carts[i].food.resID == resID) {
         cartByResID.add(carts[i]);
@@ -123,20 +123,28 @@ class CartController extends GetxController {
     }
   }
 
-  void toListMapCart(String token) {
-    for (var i = 0; i < cartByRes.length; i++) {
-      Map<String, String> map = Map<String, String>();
-      map['food'] = cartByRes[i].food.sId;
-      map['amount'] = cartByRes[i].amount.toString();
-      listMapCarts.add(map);
+  void addToBill() async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
+
+    var listFoodID = cartByRes.map((element) => element.food.sId).toList();
+    var listAmountID =
+        cartByRes.map((element) => element.amount.toString()).toList();
+
+    try {
+      addBill =
+          await ApiBill.addToBill(listFoodID, listAmountID, token, bill.sId);
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
-  void addToBill() async {
+  void removeCart() async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
-    toListMapCart(token);
+
+    var listCartID = cartByRes.map((element) => element.sId).toList();
+
     try {
-      addBill = await ApiBill.addToBill(listMapCarts, token, bill.sId);
+      addBill = await ApiAddToCart.removeCart(token, listCartID);
     } catch (e) {
       debugPrint(e.toString());
     }

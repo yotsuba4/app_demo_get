@@ -14,7 +14,9 @@ class ApiBill {
       },
       options: Options(contentType: Headers.formUrlEncodedContentType),
     );
+    print('Day la response createBill $response');
     var map = CreateBill.fromJson(response.data);
+
     return map.data.bill;
   }
 
@@ -32,16 +34,23 @@ class ApiBill {
     return false;
   }
 
-  static Future<bool> addToBill(
-      List<Map<String, String>> carts, String token, String bill) async {
+  static Future<bool> addToBill(List<String> foodIDs, List<String> amounts,
+      String token, String billID) async {
+    print(foodIDs);
+    print(amounts);
+    print(billID);
+    print(token);
     final response = await Dio().post(
       'https://kltn-foodoffer.herokuapp.com/api/user/func/updateBill',
       data: {
-       /*  {'food': '6098f0cb775f4a0015b3a383', 'amount': '5'},
-        {'food': '6098f20a775f4a0015b3a38b', 'amount': '6'},
-        'token': token, */
+        'food': foodIDs,
+        'amount': amounts,
+        'bill': billID,
       },
-      options: Options(contentType: Headers.formUrlEncodedContentType),
+      options:
+          Options(contentType: Headers.formUrlEncodedContentType, headers: {
+        'authorization': token,
+      }),
     );
     print('Day la response addToBill $response');
     if (response.data['status'] == 'success') {

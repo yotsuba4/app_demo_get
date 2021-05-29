@@ -1,7 +1,10 @@
 import 'package:app_demo_get/components/default-button.dart';
+import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
+import 'package:app_demo_get/views/bill/success/success.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../../../size_config.dart';
 
@@ -79,7 +82,15 @@ class CheckoutCard extends StatelessWidget {
                   child: DefaultButton(
                     text: "Đặt hàng",
                     press: () {
-                      // CartController.instance.addToBill();
+                      CartController.instance.addToBill();
+                      if (CartController.instance.addBill == true) {
+                        CartController.instance.removeCart();
+                        Get.to(Success());
+                      } else {
+                        CartController.instance
+                            .deleteBill(CartController.instance.bill.sId);
+                        Get.snackbar('Thông báo', 'Thất bại');
+                      }
                     },
                   ),
                 ),
