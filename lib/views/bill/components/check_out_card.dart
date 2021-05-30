@@ -83,14 +83,6 @@ class CheckoutCard extends StatelessWidget {
                     text: "Đặt hàng",
                     press: () {
                       CartController.instance.addToBill();
-                      if (CartController.instance.addBill == true) {
-                        CartController.instance.removeCart();
-                        Get.to(Success());
-                      } else {
-                        CartController.instance
-                            .deleteBill(CartController.instance.bill.sId);
-                        Get.snackbar('Thông báo', 'Thất bại');
-                      }
                     },
                   ),
                 ),

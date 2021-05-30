@@ -10,9 +10,11 @@ class ApiBill {
       data: {
         'restaurant': restaurantID,
         'code': code,
-        'token': token,
       },
-      options: Options(contentType: Headers.formUrlEncodedContentType),
+      options:
+          Options(contentType: Headers.formUrlEncodedContentType, headers: {
+        'authorization': token,
+      }),
     );
     print('Day la response createBill $response');
     var map = CreateBill.fromJson(response.data);
@@ -23,10 +25,10 @@ class ApiBill {
   static Future<bool> deleteBill(String billID, String token) async {
     final response = await Dio().post(
       'https://kltn-foodoffer.herokuapp.com/api/user/func/delBillById?bill_id=$billID',
-      data: {
-        'token': token,
-      },
-      options: Options(contentType: Headers.formUrlEncodedContentType),
+      options:
+          Options(contentType: Headers.formUrlEncodedContentType, headers: {
+        'authorization': token,
+      }),
     );
     if (response.data['status'] == 'success') {
       return true;

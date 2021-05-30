@@ -7,6 +7,7 @@ import 'package:app_demo_get/models/object/bill.dart';
 import 'package:app_demo_get/models/object/restaurant-obj.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/views/bill/success/success.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -133,6 +134,13 @@ class CartController extends GetxController {
     try {
       addBill =
           await ApiBill.addToBill(listFoodID, listAmountID, token, bill.sId);
+      if (addBill == true) {
+        CartController.instance.removeCart();
+        Get.to(Success());
+      } else {
+        deleteBill(CartController.instance.bill.sId);
+        Get.snackbar('Thông báo', 'Thất bại');
+      }
     } catch (e) {
       debugPrint(e.toString());
     }
