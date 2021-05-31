@@ -1,8 +1,10 @@
 import 'dart:ui';
 
 import 'package:app_demo_get/controllers/find-food-controller.dart';
+import 'package:app_demo_get/controllers/rate-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/views/detailfood/widget/relate-food.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +22,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   FindFoodController findFoodController = Get.put(FindFoodController());
+  RateController rateController = Get.put(RateController());
   final double expandedHeight = 400;
 
   final double roundedContainerHeight = 50;
@@ -28,60 +31,61 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
     var key = widget.food.foodName[0];
-    print('Day la mon tuong tu: $key');
+    //  print('Day la mon tuong tu: $key');
     findFoodController.fetchFoods(key);
+    rateController.fetchRate(widget.food.sId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CustomScrollView(
-          slivers: <Widget>[
-            _buildSliverHead(),
-            SliverToBoxAdapter(
-              child: _buildDetail(),
-            )
-          ],
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-            top: MediaQuery.of(context).padding.top,
-          ),
-          child: SizedBox(
-            height: kToolbarHeight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                    ),
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 15,
-                  ),
-                  child: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  ),
+    return Obx(() => Stack(
+          children: [
+            CustomScrollView(
+              slivers: <Widget>[
+                _buildSliverHead(),
+                SliverToBoxAdapter(
+                  child: _buildDetail(),
                 )
               ],
             ),
-          ),
-        )
-      ],
-    );
+            Padding(
+              padding: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top,
+              ),
+              child: SizedBox(
+                height: kToolbarHeight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15,
+                        ),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 15,
+                      ),
+                      child: Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ));
   }
 
   Widget _buildSliverHead() {
@@ -126,18 +130,11 @@ class _BodyState extends State<Body> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Liên quan",
+                  "Đề xuất khác",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                     fontSize: 20,
-                  ),
-                ),
-                Text(
-                  "Xem tất cả",
-                  style: TextStyle(
-                    color: Colors.deepOrange,
-                    fontSize: 14,
                   ),
                 ),
               ],
@@ -186,7 +183,7 @@ class _BodyState extends State<Body> {
                           color: Colors.black87),
                     ),
                     SmoothStarRating(
-                      allowHalfRating: true,
+                      allowHalfRating: false,
                       color: AppColor.primary,
                       rating: widget.food.rate.toDouble(),
                       isReadOnly: true,
@@ -200,7 +197,7 @@ class _BodyState extends State<Body> {
                     LinearPercentIndicator(
                       width: 180,
                       lineHeight: 10.0,
-                      percent: 0.5,
+                      percent: rateController.list[0].percentVote5.toDouble(),
                       leading: Text('5  '),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       backgroundColor: Colors.grey[300],
@@ -212,7 +209,7 @@ class _BodyState extends State<Body> {
                     LinearPercentIndicator(
                       width: 180,
                       lineHeight: 10.0,
-                      percent: 0,
+                      percent: rateController.list[0].percentVote4.toDouble(),
                       leading: Text('4  '),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       backgroundColor: Colors.grey[300],
@@ -224,7 +221,7 @@ class _BodyState extends State<Body> {
                     LinearPercentIndicator(
                       width: 180,
                       lineHeight: 10.0,
-                      percent: 0,
+                      percent: rateController.list[0].percentVote3.toDouble(),
                       leading: Text('3  '),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       backgroundColor: Colors.grey[300],
@@ -236,7 +233,7 @@ class _BodyState extends State<Body> {
                     LinearPercentIndicator(
                       width: 180,
                       lineHeight: 10.0,
-                      percent: 0,
+                      percent: rateController.list[0].percentVote2.toDouble(),
                       leading: Text('2  '),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       backgroundColor: Colors.grey[300],
@@ -248,7 +245,7 @@ class _BodyState extends State<Body> {
                     LinearPercentIndicator(
                       width: 180,
                       lineHeight: 10.0,
-                      percent: 0,
+                      percent: rateController.list[0].percentVote1.toDouble(),
                       leading: Text('1  '),
                       linearStrokeCap: LinearStrokeCap.roundAll,
                       backgroundColor: Colors.grey[300],
@@ -266,48 +263,54 @@ class _BodyState extends State<Body> {
 
   Widget _buildFoodInfo() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.network(
-              widget.food.image,
-              width: 50,
-              height: 50,
+              xuLyHttp(widget.food.image),
+              width: 70,
+              height: 70,
               fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 10,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  widget.food.foodName,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.food.foodName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-                Text(
-                  widget.food.restaurant.restaurantName == null
-                      ? 'Quán ăn Đức sine'
-                      : widget.food.restaurant.restaurantName,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
+                  Text(
+                    widget.food.restaurant.restaurantName == null
+                        ? 'Quán ăn Đức sine'
+                        : widget.food.restaurant.restaurantName,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Spacer(),
           Text(
             '${widget.food.price} đ',
+            style: TextStyle(fontSize: 20),
           ),
         ],
       ),
@@ -327,7 +330,7 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
     return Stack(
       children: [
         Image.network(
-          food.image,
+          xuLyHttp(food.image),
           width: MediaQuery.of(context).size.width,
           height: expandeHeight,
           fit: BoxFit.cover,
@@ -337,16 +340,6 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
           left: 0,
           child: Container(
             padding: EdgeInsets.only(left: 20, top: 20),
-            child: SmoothStarRating(
-              color: AppColor.primary,
-              borderColor: AppColor.primary,
-              rating: food.rate.toDouble(),
-              onRated: (value) {
-                print(value);
-              },
-              allowHalfRating: false,
-              isReadOnly: false,
-            ),
             width: MediaQuery.of(context).size.width,
             height: roundedContainerHeight,
             decoration: BoxDecoration(

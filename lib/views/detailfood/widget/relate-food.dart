@@ -1,4 +1,5 @@
 import 'package:app_demo_get/controllers/find-food-controller.dart';
+import 'package:app_demo_get/shared/func.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class RelatedWidget extends StatelessWidget {
                 right: 15,
               ),
               child: Image.network(
-                findFoodController.findFoodPopuler[index].image,
+                xuLyHttp(findFoodController.findFoodPopuler[index].image),
                 fit: BoxFit.cover,
               ),
             );

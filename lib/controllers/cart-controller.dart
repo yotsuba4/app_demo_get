@@ -88,12 +88,11 @@ class CartController extends GetxController {
     totalCart();
   }
 
-  void increaseQuantity(Cart item) async {
-    int add = item.amount + 1;
+  void increaseQuantity(Cart item, int d) async {
     try {
       isLoading(true);
       var token = await SPref.get(SPrefCache.KEY_TOKEN);
-      var isIncrease = await ApiAddToCart.updateCart(token, item.food.sId, add);
+      var isIncrease = await ApiAddToCart.updateCart(token, item.food.sId, d);
       if (isIncrease) {
         getCartController();
         print('Update susscess');
@@ -105,13 +104,11 @@ class CartController extends GetxController {
     }
   }
 
-  void decreaseQuantity(Cart item) async {
-    int decrease = item.amount - 1;
+  void decreaseQuantity(Cart item, int d) async {
     try {
       isLoading(true);
       var token = await SPref.get(SPrefCache.KEY_TOKEN);
-      var isIncrease =
-          await ApiAddToCart.updateCart(token, item.food.sId, decrease);
+      var isIncrease = await ApiAddToCart.updateCart(token, item.food.sId, d);
       if (isIncrease) {
         getCartController();
         print('Update susscess');

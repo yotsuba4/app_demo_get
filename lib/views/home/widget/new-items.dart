@@ -1,5 +1,6 @@
 import 'package:app_demo_get/controllers/find-food-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
+import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/views/detailfood/food-detail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class _CuisineItemsCardState extends State<NewItemCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-      /*   var key = widget.newItems.foodName[0];
+        /*   var key = widget.newItems.foodName[0];
         print('Day la mon tuong tu: $key');
         findFoodController.fetchFoods(key); */
         Get.to(DetailsScreen(), arguments: widget.newItems);
@@ -29,7 +30,7 @@ class _CuisineItemsCardState extends State<NewItemCard> {
           children: <Widget>[
             ClipRRect(
               child: Image.network(
-                widget.newItems.image,
+                xuLyHttp(widget.newItems.image),
                 height: 120,
                 width: 200,
                 fit: BoxFit.fill,

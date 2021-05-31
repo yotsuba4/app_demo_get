@@ -1,6 +1,7 @@
 import 'package:app_demo_get/components/default-button.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
+import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +48,7 @@ class _SuccessState extends State<Success> {
             child: DefaultButton(
               text: 'Đồng ý',
               press: () {
-                Get.to(HomePage());
+                Get.to(MainPage());
               },
             ),
           )

@@ -1,6 +1,7 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/detailfood/food-detail.dart';
@@ -30,7 +31,7 @@ class _NearByItemsCardState extends State<CommonItemCard> {
             ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.network(
-                widget.nearByItems.image,
+                xuLyHttp(widget.nearByItems.image),
                 height: 120,
                 width: 115,
                 fit: BoxFit.fill,
@@ -79,7 +80,7 @@ class _NearByItemsCardState extends State<CommonItemCard> {
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                     ),
                     Text(
-                      "(${widget.nearByItems.buys} buys)",
+                      "(${widget.nearByItems.buys} lượt mua)",
                       style:
                           TextStyle(fontSize: 12, color: Colors.grey.shade500),
                     ),

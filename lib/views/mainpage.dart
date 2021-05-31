@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _currentIndex,
         onTap: (index) async {
           var token = await SPref.get(SPrefCache.KEY_TOKEN);
-          if (index == 4) {
+          if (index == 3) {
             if (token == null || token == '')
               Get.to(SignInPage());
             else {
@@ -57,10 +57,6 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
             label: "Nổi bật",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            label: "Yêu thích",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pageview),

@@ -13,6 +13,14 @@ class CartItemWidget extends StatefulWidget {
 }
 
 class _CartItemWidgetState extends State<CartItemWidget> {
+  int d;
+  @override
+  void initState() {
+    super.initState();
+    d = widget.cartItem.amount;
+    print(d);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -40,24 +48,26 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 IconButton(
                     icon: Icon(Icons.chevron_left),
                     onPressed: () {
-                      CartController.instance.decreaseQuantity(widget.cartItem);
-                      /*  setState(() {
-                        widget.cartItem.amount--;
-                      }); */
+                      setState(() {
+                        d--;
+                      });
+                      CartController.instance
+                          .decreaseQuantity(widget.cartItem, d);
                     }),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomText(
-                    text: widget.cartItem.amount.toString(),
+                    text: d <= 0 ? '0' : d.toString(),
                   ),
                 ),
                 IconButton(
                     icon: Icon(Icons.chevron_right),
                     onPressed: () {
-                      CartController.instance.increaseQuantity(widget.cartItem);
-                      /*  setState(() {
-                        widget.cartItem.amount++;
-                      }); */
+                      setState(() {
+                        d++;
+                      });
+                      CartController.instance
+                          .increaseQuantity(widget.cartItem, d);
                     }),
               ],
             )
