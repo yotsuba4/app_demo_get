@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:app_demo_get/controllers/find-food-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/detailfood/widget/relate-food.dart';
@@ -8,11 +9,29 @@ import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final Foods food;
-  final double expandedHeight = 400;
-  final double roundedContainerHeight = 50;
+
   Body({@required this.food});
+
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  FindFoodController findFoodController = Get.put(FindFoodController());
+  final double expandedHeight = 400;
+
+  final double roundedContainerHeight = 50;
+
+  @override
+  void initState() {
+    super.initState();
+    var key = widget.food.foodName[0];
+    print('Day la mon tuong tu: $key');
+    findFoodController.fetchFoods(key);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -69,7 +88,7 @@ class Body extends StatelessWidget {
     return SliverPersistentHeader(
       delegate: DetailSliverDelegate(
         expandeHeight: expandedHeight,
-        food: food,
+        food: widget.food,
         roundedContainerHeight: roundedContainerHeight,
       ),
     );
@@ -88,7 +107,7 @@ class Body extends StatelessWidget {
               horizontal: 15,
             ),
             child: Text(
-              food.caption,
+              widget.food.caption,
               style: TextStyle(
                 color: Colors.black38,
                 height: 1.4,
@@ -160,7 +179,7 @@ class Body extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      food.rate.toString(),
+                      widget.food.rate.toString(),
                       style: TextStyle(
                           fontSize: 50,
                           fontWeight: FontWeight.w600,
@@ -169,7 +188,7 @@ class Body extends StatelessWidget {
                     SmoothStarRating(
                       allowHalfRating: true,
                       color: AppColor.primary,
-                      rating: food.rate.toDouble(),
+                      rating: widget.food.rate.toDouble(),
                       isReadOnly: true,
                       borderColor: AppColor.primary,
                     )
@@ -253,7 +272,7 @@ class Body extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(50),
             child: Image.network(
-              food.image,
+              widget.food.image,
               width: 50,
               height: 50,
               fit: BoxFit.cover,
@@ -267,7 +286,7 @@ class Body extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  food.foodName,
+                  widget.food.foodName,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -275,9 +294,9 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  food.restaurant.restaurantName == null
+                  widget.food.restaurant.restaurantName == null
                       ? 'Quán ăn Đức sine'
-                      : food.restaurant.restaurantName,
+                      : widget.food.restaurant.restaurantName,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
@@ -288,7 +307,7 @@ class Body extends StatelessWidget {
           ),
           Spacer(),
           Text(
-            '${food.price} đ',
+            '${widget.food.price} đ',
           ),
         ],
       ),
