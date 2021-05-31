@@ -4,8 +4,10 @@ import 'package:app_demo_get/models/object/user.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
+import 'package:app_demo_get/views/notifications/notification.dart';
 import 'package:app_demo_get/views/profile/profile.dart';
 import 'package:app_demo_get/views/sign-in/sign-in.dart';
+import 'package:app_demo_get/views/voucher/voucher.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,8 +82,10 @@ class _MainPageState extends State<MainPage> {
   getBodyWidget() {
     if (_currentIndex == 0) {
       return HomePage();
+    } else if (_currentIndex == 1) {
+      return VoucherPage();
     } else {
-      return Container();
+      return NotificationPage();
     }
   }
 }

@@ -41,7 +41,8 @@ class CartController extends GetxController {
     restaurants.assignAll(listRes);
   }
 
-  void addToCartController(String token, String foodID, int amount) async {
+  void addToCartController(String foodID, int amount) async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
     if (!isExistItem(foodID)) {
       try {
         bool check = await ApiAddToCart.addToCart(token, foodID, amount);
@@ -63,13 +64,9 @@ class CartController extends GetxController {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
     try {
       var list = await ApiAddToCart.getCart(token);
-      if (list.isNotEmpty) {
-        createListRes(list);
-        carts.assignAll(list);
-        count.value = list.length;
-      } else {
-        Get.snackbar("Thông báo", "Không load được dữ liệu");
-      }
+      createListRes(list);
+      carts.assignAll(list);
+      count.value = list.length;
     } catch (e) {
       debugPrint(e.toString());
     }

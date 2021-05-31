@@ -2,11 +2,14 @@ import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
 import 'package:app_demo_get/controllers/new-food-controller.dart';
 import 'package:app_demo_get/controllers/popular-food-controller.dart';
+import 'package:app_demo_get/spref/constain.dart';
+import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/cart/cart.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
 import 'package:app_demo_get/views/home/widget/home-title.dart';
 import 'package:app_demo_get/views/home/widget/new-items.dart';
 import 'package:app_demo_get/views/search/search.dart';
+import 'package:app_demo_get/views/sign-in/sign-in.dart';
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -35,16 +38,21 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         elevation: 0,
-        backgroundColor: Colors.grey.shade200,
-        onPressed: () {
-          CartController.instance.getCartController();
-          showBarModalBottomSheet(
-            context: context,
-            builder: (context) => Container(
-              color: Colors.white,
-              child: ShoppingCartWidget(),
-            ),
-          );
+        backgroundColor: Colors.transparent,
+        onPressed: () async {
+          var token = await SPref.get(SPrefCache.KEY_TOKEN);
+          if (token == null || token == '')
+            Get.to(SignInPage());
+          else {
+            CartController.instance.getCartController();
+            showBarModalBottomSheet(
+              context: context,
+              builder: (context) => Container(
+                color: Colors.white,
+                child: ShoppingCartWidget(),
+              ),
+            );
+          }
         },
         tooltip: 'Your cart',
         child: Obx(() => Badge(

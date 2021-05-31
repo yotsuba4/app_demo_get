@@ -21,7 +21,7 @@ class _HomeTitleState extends State<HomeTitle> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(
-            "See all",
+            "Xem tất cả",
             style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 14,

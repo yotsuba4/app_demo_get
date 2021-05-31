@@ -173,85 +173,93 @@ class _BodyState extends State<Body> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    Text(
-                      widget.food.rate.toString(),
-                      style: TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87),
-                    ),
-                    SmoothStarRating(
-                      allowHalfRating: false,
-                      color: AppColor.primary,
-                      rating: widget.food.rate.toDouble(),
-                      isReadOnly: true,
-                      borderColor: AppColor.primary,
-                    )
-                  ],
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        widget.food.rate.toString(),
+                        style: TextStyle(
+                            fontSize: 50,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87),
+                      ),
+                      SmoothStarRating(
+                        allowHalfRating: false,
+                        color: AppColor.primary,
+                        rating: widget.food.rate.toDouble(),
+                        isReadOnly: true,
+                        borderColor: AppColor.primary,
+                      )
+                    ],
+                  ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    LinearPercentIndicator(
-                      width: 180,
-                      lineHeight: 10.0,
-                      percent: rateController.list[0].percentVote5.toDouble(),
-                      leading: Text('5  '),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      backgroundColor: Colors.grey[300],
-                      progressColor: AppColor.primary,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    LinearPercentIndicator(
-                      width: 180,
-                      lineHeight: 10.0,
-                      percent: rateController.list[0].percentVote4.toDouble(),
-                      leading: Text('4  '),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      backgroundColor: Colors.grey[300],
-                      progressColor: AppColor.primary,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    LinearPercentIndicator(
-                      width: 180,
-                      lineHeight: 10.0,
-                      percent: rateController.list[0].percentVote3.toDouble(),
-                      leading: Text('3  '),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      backgroundColor: Colors.grey[300],
-                      progressColor: AppColor.primary,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    LinearPercentIndicator(
-                      width: 180,
-                      lineHeight: 10.0,
-                      percent: rateController.list[0].percentVote2.toDouble(),
-                      leading: Text('2  '),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      backgroundColor: Colors.grey[300],
-                      progressColor: AppColor.primary,
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    LinearPercentIndicator(
-                      width: 180,
-                      lineHeight: 10.0,
-                      percent: rateController.list[0].percentVote1.toDouble(),
-                      leading: Text('1  '),
-                      linearStrokeCap: LinearStrokeCap.roundAll,
-                      backgroundColor: Colors.grey[300],
-                      progressColor: AppColor.primary,
-                    ),
-                  ],
+                Expanded(
+                  child: rateController.list.isEmpty
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            LinearPercentIndicator(
+                              lineHeight: 10.0,
+                              percent: rateController.list[0].percentVote5
+                                  .toDouble(),
+                              leading: Text('5  '),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              backgroundColor: Colors.grey[300],
+                              progressColor: AppColor.primary,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            LinearPercentIndicator(
+                              lineHeight: 10.0,
+                              percent: rateController.list[0].percentVote4
+                                  .toDouble(),
+                              leading: Text('4  '),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              backgroundColor: Colors.grey[300],
+                              progressColor: AppColor.primary,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            LinearPercentIndicator(
+                              lineHeight: 10.0,
+                              percent: rateController.list[0].percentVote3
+                                  .toDouble(),
+                              leading: Text('3  '),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              backgroundColor: Colors.grey[300],
+                              progressColor: AppColor.primary,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            LinearPercentIndicator(
+                              lineHeight: 10.0,
+                              percent: rateController.list[0].percentVote2
+                                  .toDouble(),
+                              leading: Text('2  '),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              backgroundColor: Colors.grey[300],
+                              progressColor: AppColor.primary,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            LinearPercentIndicator(
+                              lineHeight: 10.0,
+                              percent: rateController.list[0].percentVote1
+                                  .toDouble(),
+                              leading: Text('1  '),
+                              linearStrokeCap: LinearStrokeCap.roundAll,
+                              backgroundColor: Colors.grey[300],
+                              progressColor: AppColor.primary,
+                            ),
+                          ],
+                        ),
                 ),
               ],
             ),

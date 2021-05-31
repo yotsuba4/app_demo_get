@@ -26,7 +26,6 @@ class _BodyState extends State<Body> {
             onDismissed: (direction) {
               setState(() {
                 CartController.instance.cartByRes.removeAt(index);
-                //Lỗi nếu 2 mặt hàng giống nhau (cùng id)
               });
             },
             background: Container(

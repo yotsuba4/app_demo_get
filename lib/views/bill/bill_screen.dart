@@ -27,7 +27,7 @@ class BillScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           ),
           Text(
-            '$item items',
+            '$item sản phẩm',
             style: Theme.of(context).textTheme.caption,
           ),
         ],

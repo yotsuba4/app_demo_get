@@ -2,8 +2,6 @@ import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/func.dart';
-import 'package:app_demo_get/spref/constain.dart';
-import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/detailfood/food-detail.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -100,10 +98,9 @@ class _NearByItemsCardState extends State<CommonItemCard> {
                           Icons.add_shopping_cart,
                           size: 20,
                         ),
-                        onPressed: () async {
-                          var token = await SPref.get(SPrefCache.KEY_TOKEN);
-                          CartController.instance.addToCartController(
-                              token, widget.nearByItems.sId, 1);
+                        onPressed: () {
+                          CartController.instance
+                              .addToCartController(widget.nearByItems.sId, 1);
                         })
                   ],
                 ),
