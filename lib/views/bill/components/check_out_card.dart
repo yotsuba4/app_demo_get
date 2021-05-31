@@ -1,10 +1,8 @@
 import 'package:app_demo_get/components/default-button.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
-import 'package:app_demo_get/views/bill/success/success.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 
 import '../../../size_config.dart';
 
@@ -53,7 +51,7 @@ class CheckoutCard extends StatelessWidget {
                   child: SvgPicture.asset("assets/icons/receipt.svg"),
                 ),
                 Spacer(),
-                Text("Add voucher code"),
+                Text("Chọn voucher"),
                 const SizedBox(width: 10),
                 Icon(
                   Icons.arrow_forward_ios,
@@ -71,7 +69,8 @@ class CheckoutCard extends StatelessWidget {
                     text: "Tổng cộng:\n",
                     children: [
                       TextSpan(
-                        text: "10000000 vnđ",
+                        text: CartController.instance.total.value.toString() +
+                            ' vnđ',
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],

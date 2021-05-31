@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   static CartController instance = Get.find();
+  RxBool isLoading = true.obs;
   RxInt count = 0.obs;
   RxList<Cart> carts = RxList([]);
   RxInt total = 0.obs;
@@ -66,7 +67,6 @@ class CartController extends GetxController {
         createListRes(list);
         carts.assignAll(list);
         count.value = list.length;
-        totalCart();
       } else {
         Get.snackbar("Thông báo", "Không load được dữ liệu");
       }
@@ -76,6 +76,7 @@ class CartController extends GetxController {
   }
 
   void getCartByRes(String resID) {
+    total.value = 0;
     List<Cart> cartByResID = [];
 
     for (var i = 0; i < carts.length; i++) {
@@ -84,13 +85,47 @@ class CartController extends GetxController {
       }
     }
     cartByRes.assignAll(cartByResID);
+    totalCart();
   }
 
-  void increaseQuantity(Cart item) async {}
+  void increaseQuantity(Cart item) async {
+    int add = item.amount + 1;
+    try {
+      isLoading(true);
+      var token = await SPref.get(SPrefCache.KEY_TOKEN);
+      var isIncrease = await ApiAddToCart.updateCart(token, item.food.sId, add);
+      if (isIncrease) {
+        getCartController();
+        print('Update susscess');
+      } else {
+        Get.snackbar('Thông báo', 'Đã xảy ra lỗi');
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  void decreaseQuantity(Cart item) async {
+    int decrease = item.amount - 1;
+    try {
+      isLoading(true);
+      var token = await SPref.get(SPrefCache.KEY_TOKEN);
+      var isIncrease =
+          await ApiAddToCart.updateCart(token, item.food.sId, decrease);
+      if (isIncrease) {
+        getCartController();
+        print('Update susscess');
+      } else {
+        Get.snackbar('Thông báo', 'Đã xảy ra lỗi');
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
 
   void totalCart() {
     total.value = 0;
-    if (carts.isNotEmpty) {
+    if (cartByRes.isNotEmpty) {
       carts.forEach((element) {
         total += element.food.price * element.amount;
       });

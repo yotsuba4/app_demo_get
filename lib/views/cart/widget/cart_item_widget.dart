@@ -1,11 +1,18 @@
 import 'package:app_demo_get/components/custom-text.dart';
+import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/models/get-cart.dart';
 import 'package:flutter/material.dart';
 
-class CartItemWidget extends StatelessWidget {
+class CartItemWidget extends StatefulWidget {
   final Cart cartItem;
 
   const CartItemWidget({Key key, this.cartItem}) : super(key: key);
+
+  @override
+  _CartItemWidgetState createState() => _CartItemWidgetState();
+}
+
+class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -14,7 +21,7 @@ class CartItemWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.network(
-            cartItem.food.image,
+            widget.cartItem.food.image,
             width: 80,
           ),
         ),
@@ -25,7 +32,7 @@ class CartItemWidget extends StatelessWidget {
             Container(
                 padding: EdgeInsets.only(left: 14),
                 child: CustomText(
-                  text: cartItem.food.foodName,
+                  text: widget.cartItem.food.foodName,
                 )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -33,18 +40,24 @@ class CartItemWidget extends StatelessWidget {
                 IconButton(
                     icon: Icon(Icons.chevron_left),
                     onPressed: () {
-                      //  cartController.decreaseQuantity(cartItem);
+                      CartController.instance.decreaseQuantity(widget.cartItem);
+                      /*  setState(() {
+                        widget.cartItem.amount--;
+                      }); */
                     }),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CustomText(
-                    text: cartItem.amount.toString(),
+                    text: widget.cartItem.amount.toString(),
                   ),
                 ),
                 IconButton(
                     icon: Icon(Icons.chevron_right),
-                    onPressed: () async {
-                      // CartController.instance.increaseQuantity(cartItem);
+                    onPressed: () {
+                      CartController.instance.increaseQuantity(widget.cartItem);
+                      /*  setState(() {
+                        widget.cartItem.amount++;
+                      }); */
                     }),
               ],
             )
@@ -53,7 +66,7 @@ class CartItemWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(14),
           child: CustomText(
-            text: "${cartItem.food.price * cartItem.amount} vnd",
+            text: "${widget.cartItem.food.price * widget.cartItem.amount} vnd",
             size: 22,
             weight: FontWeight.bold,
           ),
