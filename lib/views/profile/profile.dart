@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -9,9 +8,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Profile"),
       ),
-      body: Body(
-        user: Get.arguments,
-      ),
+      body: Body(),
     );
   }
 }

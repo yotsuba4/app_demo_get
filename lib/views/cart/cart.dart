@@ -67,7 +67,7 @@ class ShoppingCartWidget extends StatelessWidget {
                                 CartController.instance.createBill(
                                     CartController
                                         .instance.restaurants[index].sId,
-                                    'null');
+                                    null);
                                 Navigator.pop(context);
                                 Get.to(BillScreen(),
                                     arguments: CartController

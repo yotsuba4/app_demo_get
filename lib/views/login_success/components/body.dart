@@ -3,7 +3,6 @@ import 'package:app_demo_get/size_config.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/mainpage.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -28,7 +27,7 @@ class _BodyState extends State<Body> {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA4N2NiYTkxMmNkMDUQ.x62vHyE42iONcOn7YKh7pDtHRmOxQ_9Sbin8G1Oy0dM'
       }); */
     });
-    socket.on('billMessage', (data) => print(data));
+    socket.on('billMessage', (data) => Get.snackbar('Thông báo', data));
   }
 
   /* @override
@@ -66,7 +65,7 @@ class _BodyState extends State<Body> {
               print('Day la token dang nhap thanh cong \n $token');
               socket.emit('UserJoin', {'token': token});
 
-              //  Get.to(MainPage());
+              Get.to(MainPage());
             },
           ),
         ),

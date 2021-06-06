@@ -1,6 +1,5 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
-import 'package:app_demo_get/models/object/user.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
@@ -44,10 +43,8 @@ class _MainPageState extends State<MainPage> {
             if (token == null || token == '')
               Get.to(SignInPage());
             else {
-              AuthController.instance.getProfile(token);
-              User user = await AuthController.instance.getProfile(token);
-              //   print(user.avatar);
-              Get.to(ProfileScreen(), arguments: user);
+              authController.getProfile();
+              Get.to(ProfileScreen());
             }
           } else {
             setState(() {

@@ -1,27 +1,27 @@
+import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
-import 'package:app_demo_get/models/object/user.dart';
 import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
-class Body extends StatelessWidget {
-  final User user;
-  Body({@required this.user});
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          ProfilePic(
-            avatar: xuLyHttp(user.avatar),
-          ),
+          ProfilePic(),
           SizedBox(height: 20),
           ProfileMenu(
             text: "Thông tin cá nhân",
