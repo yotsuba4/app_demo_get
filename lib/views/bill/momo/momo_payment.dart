@@ -1,6 +1,8 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/views/bill/success/success.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:momo_vn/momo_vn.dart';
 
 class MomoPayment extends StatefulWidget {
@@ -85,11 +87,11 @@ class _MomoPaymentState extends State<MomoPayment> {
   void _setState() {
     _paymentStatus = 'Đã chuyển thanh toán';
     if (_momoPaymentResult.isSuccess) {
-      CartController.instance.methodPayment.value = 'MOMO';
-      _paymentStatus += "\nTình trạng: Thành công.";
+      CartController.instance.addToBill();
+      /* _paymentStatus += "\nTình trạng: Thành công.";
       _paymentStatus += "\nSố điện thoại: " + _momoPaymentResult.phoneNumber;
-      //_paymentStatus += "\nExtra: " + _momoPaymentResult.extra;
-      // _paymentStatus += "\nToken: " + _momoPaymentResult.token;
+      _paymentStatus += "\nExtra: " + _momoPaymentResult.extra;
+       _paymentStatus += "\nToken: " + _momoPaymentResult.token; */
     } else {
       _paymentStatus += "\nTình trạng: Thất bại.";
       _paymentStatus += "\nExtra: " + _momoPaymentResult.extra;

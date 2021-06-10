@@ -22,7 +22,7 @@ class CartController extends GetxController {
   Bill bill;
   bool deleteBillEmpty;
   bool addBill;
-  RxString methodPayment = ''.obs;
+  String methodPayment = 'Chọn phương thức thanh toán';
 
   increaseItem() => count++;
 

@@ -20,7 +20,7 @@ class _CheckoutCardState extends State<CheckoutCard> {
   @override
   void initState() {
     super.initState();
-    CartController.instance.methodPayment.value = 'Chọn phương thức thanh toán';
+    CartController.instance.methodPayment = 'Chọn phương thức thanh toán';
   }
 
   @override
@@ -76,8 +76,11 @@ class _CheckoutCardState extends State<CheckoutCard> {
                             children: [
                               InkWell(
                                 onTap: () {
-                                  CartController.instance.methodPayment.value =
-                                      'Tiền mặt';
+                                  setState(() {
+                                    CartController.instance.methodPayment =
+                                        'Tiền mặt';
+                                  });
+
                                   Get.back();
                                 },
                                 child: Row(
@@ -101,10 +104,12 @@ class _CheckoutCardState extends State<CheckoutCard> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  /* CartController.instance.methodPayment.value =
-                                      'MOMO'; */
+                                  setState(() {
+                                    CartController.instance.methodPayment =
+                                        'MOMO';
+                                  });
+
                                   Get.back();
-                                  Get.to(MomoPayment());
                                 },
                                 child: Row(
                                   children: [
@@ -130,9 +135,9 @@ class _CheckoutCardState extends State<CheckoutCard> {
                         ),
                       ));
                     },
-                    child: Obx(() => Text(
-                          CartController.instance.methodPayment.value,
-                        ))),
+                    child: Text(
+                      CartController.instance.methodPayment,
+                    )),
                 const SizedBox(width: 10),
                 Icon(
                   Icons.arrow_forward_ios,
@@ -162,7 +167,11 @@ class _CheckoutCardState extends State<CheckoutCard> {
                   child: DefaultButton(
                     text: "Đặt hàng",
                     press: () {
-                      CartController.instance.addToBill();
+                      if (CartController.instance.methodPayment == 'Tiền mặt')
+                        CartController.instance.addToBill();
+                      else {
+                        Get.to(MomoPayment());
+                      }
                     },
                   ),
                 ),
