@@ -1,6 +1,4 @@
-import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
-import 'package:app_demo_get/shared/func.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/mainpage.dart';

@@ -27,7 +27,10 @@ class _BodyState extends State<Body> {
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjA4N2NiYTkxMmNkMDUQ.x62vHyE42iONcOn7YKh7pDtHRmOxQ_9Sbin8G1Oy0dM'
       }); */
     });
-    socket.on('billMessage', (data) => Get.snackbar('Thông báo', data));
+    socket.on('billMessage', (data) {
+      Get.snackbar('Thông báo', data);
+      print(data);
+    });
   }
 
   /* @override

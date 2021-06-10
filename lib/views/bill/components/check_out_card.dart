@@ -1,15 +1,27 @@
 import 'package:app_demo_get/components/default-button.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
+import 'package:app_demo_get/views/bill/momo/momo_payment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
+import 'package:get/get.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
+class CheckoutCard extends StatefulWidget {
   const CheckoutCard({
     Key key,
   }) : super(key: key);
+
+  @override
+  _CheckoutCardState createState() => _CheckoutCardState();
+}
+
+class _CheckoutCardState extends State<CheckoutCard> {
+  @override
+  void initState() {
+    super.initState();
+    CartController.instance.methodPayment.value = 'Chọn phương thức thanh toán';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +63,76 @@ class CheckoutCard extends StatelessWidget {
                   child: SvgPicture.asset("assets/icons/receipt.svg"),
                 ),
                 Spacer(),
-                Text("Chọn voucher"),
+                InkWell(
+                    onTap: () {
+                      Get.bottomSheet(Container(
+                        height: 150,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(100, 30, 30, 30),
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  CartController.instance.methodPayment.value =
+                                      'Tiền mặt';
+                                  Get.back();
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 40,
+                                      width: 40,
+                                      child: Image.asset(
+                                          'assets/images/money.png'),
+                                    ),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text('Tiền mặt',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500))
+                                  ],
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  /* CartController.instance.methodPayment.value =
+                                      'MOMO'; */
+                                  Get.back();
+                                  Get.to(MomoPayment());
+                                },
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      height: 30,
+                                      width: 30,
+                                      child:
+                                          Image.asset('assets/images/momo.jpg'),
+                                    ),
+                                    SizedBox(
+                                      width: 30,
+                                    ),
+                                    Text('Ví momo',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ));
+                    },
+                    child: Obx(() => Text(
+                          CartController.instance.methodPayment.value,
+                        ))),
                 const SizedBox(width: 10),
                 Icon(
                   Icons.arrow_forward_ios,

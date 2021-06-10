@@ -22,6 +22,7 @@ class CartController extends GetxController {
   Bill bill;
   bool deleteBillEmpty;
   bool addBill;
+  RxString methodPayment = ''.obs;
 
   increaseItem() => count++;
 
@@ -118,21 +119,25 @@ class CartController extends GetxController {
   }
 
   void totalCart() {
-    total.value = 0;
     if (cartByRes.isNotEmpty) {
-      carts.forEach((element) {
+      cartByRes.forEach((element) {
         total += element.food.price * element.amount;
       });
     }
   }
 
   bool isExistItem(String foodID) {
+    // getCartController(); bị chậm
+    int d = 0;
     for (var i = 0; i < carts.length; i++) {
       if (carts[i].food.sId == foodID) {
-        return true;
+        d++;
       }
     }
-    return false;
+    if (d > 0)
+      return true;
+    else
+      return false;
   }
 
   void createBill(String restaurantID, String code) async {
