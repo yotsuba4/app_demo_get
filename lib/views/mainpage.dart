@@ -55,19 +55,19 @@ class _MainPageState extends State<MainPage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: "Nổi bật",
+            label: "hot".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pageview),
-            label: "Mã giảm giá",
+            label: "voucher".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notification_important),
-            label: "Thông báo",
+            label: "notification".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_ind),
-            label: "Cá nhân",
+            label: "profile".tr,
           )
         ],
         type: BottomNavigationBarType.fixed,
