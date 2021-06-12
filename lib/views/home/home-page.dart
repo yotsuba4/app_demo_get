@@ -12,6 +12,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -20,11 +21,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomePageController homePageController = Get.put(HomePageController());
+  CartController cartController = Get.put(CartController());
   @override
   void initState() {
     super.initState();
     homePageController.fetchNewFood();
     homePageController.fetchPopularFood();
+    cartController.getCartController();
   }
 
   @override
@@ -39,10 +42,13 @@ class _HomePageState extends State<HomePage> {
                 Get.to(SignInPage());
               else {
                 CartController.instance.getCartController();
-                Get.bottomSheet(Container(
-                  color: Colors.white,
-                  child: ShoppingCartWidget(),
-                ));
+                showBarModalBottomSheet(
+                  context: context,
+                  builder: (context) => Container(
+                    color: Colors.white,
+                    child: ShoppingCartWidget(),
+                  ),
+                );
               }
             },
             tooltip: 'your_cart'.tr,
@@ -50,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               animationDuration: Duration(milliseconds: 100),
               animationType: BadgeAnimationType.slide,
               badgeContent: Text(
-                '${CartController.instance.count}',
+                '${CartController.instance.count.value}',
                 style: TextStyle(color: Colors.white, fontSize: 10),
               ),
               child: Icon(

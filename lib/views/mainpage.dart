@@ -18,7 +18,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AuthController authController = Get.put(AuthController());
-  CartController cartController = Get.put(CartController());
   MainPageController mainPageController = Get.put(MainPageController());
   @override
   void initState() {
