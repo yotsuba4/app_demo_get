@@ -85,7 +85,8 @@ class _MomoPaymentState extends State<MomoPayment> {
   void _setState() {
     _paymentStatus = 'Đã chuyển thanh toán';
     if (_momoPaymentResult.isSuccess) {
-      CartController.instance.addToBill();
+      CartController.instance.order(
+          CartController.instance.cartByRes[0].restaurant.sId, false, '');
       /* _paymentStatus += "\nTình trạng: Thành công.";
       _paymentStatus += "\nSố điện thoại: " + _momoPaymentResult.phoneNumber;
       _paymentStatus += "\nExtra: " + _momoPaymentResult.extra;

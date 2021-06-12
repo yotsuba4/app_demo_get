@@ -1,4 +1,4 @@
-import 'package:app_demo_get/components/default-button.dart';
+/* import 'package:app_demo_get/components/default-button.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:app_demo_get/views/bill/momo/momo_payment.dart';
@@ -168,7 +168,8 @@ class _CheckoutCardState extends State<CheckoutCard> {
                     text: "Đặt hàng",
                     press: () {
                       if (CartController.instance.methodPayment == 'Tiền mặt')
-                        CartController.instance.addToBill();
+                        CartController.instance
+                            .order("restaurantID", false, '');
                       else {
                         Get.to(MomoPayment());
                       }
@@ -183,3 +184,4 @@ class _CheckoutCardState extends State<CheckoutCard> {
     );
   }
 }
+ */

@@ -64,14 +64,8 @@ class ShoppingCartWidget extends StatelessWidget {
                                 CartController.instance.getCartByRes(
                                     CartController
                                         .instance.restaurants[index].sId);
-                                CartController.instance.createBill(
-                                    CartController
-                                        .instance.restaurants[index].sId,
-                                    null);
                                 Navigator.pop(context);
-                                Get.to(BillScreen(),
-                                    arguments: CartController
-                                        .instance.restaurants[index]);
+                                Get.to(BillScreen());
                               }),
                         ],
                       ),
