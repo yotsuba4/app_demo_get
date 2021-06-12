@@ -47,8 +47,6 @@ class _BodyState extends State<Body> {
             press: () {
               SPref.set(SPrefCache.KEY_TOKEN, '');
               CartController.instance.count(0);
-              /* print(
-                  'Độ dài của cart luc nay:  ${CartController.instance.carts.length}'); */
               Get.offAll(MainPage());
             },
           ),

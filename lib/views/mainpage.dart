@@ -1,7 +1,6 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/controllers/cart-controller.dart';
-import 'package:app_demo_get/spref/constain.dart';
-import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/controllers/main-page-controller.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
 import 'package:app_demo_get/views/notifications/notification.dart';
 import 'package:app_demo_get/views/profile/profile.dart';
@@ -20,7 +19,13 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   AuthController authController = Get.put(AuthController());
   CartController cartController = Get.put(CartController());
-  int _currentIndex = 0;
+  MainPageController mainPageController = Get.put(MainPageController());
+  @override
+  void initState() {
+    super.initState();
+    mainPageController.getToken();
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
@@ -30,56 +35,54 @@ class _MainPageState extends State<MainPage> {
       designSize: Size(360, 640),
       orientation: Orientation.portrait,
     );
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.amber,
-        unselectedItemColor: Colors.grey.shade300,
-        selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
-        currentIndex: _currentIndex,
-        onTap: (index) async {
-          var token = await SPref.get(SPrefCache.KEY_TOKEN);
-          if (index == 3) {
-            if (token == null || token == '')
-              Get.to(SignInPage());
-            else {
-              authController.getProfile();
-              Get.to(ProfileScreen());
-            }
-          } else {
-            setState(() {
-              _currentIndex = index;
-            });
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment),
-            label: "hot".tr,
+    return Obx(() => Scaffold(
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: Colors.amber,
+            unselectedItemColor: Colors.grey.shade300,
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+            unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
+            currentIndex: mainPageController.currentIndex.value,
+            onTap: (index) {
+              if (index == 3) {
+                if (mainPageController.token == null ||
+                    mainPageController.token == '')
+                  Get.to(SignInPage());
+                else {
+                  authController.getProfile();
+                  Get.to(ProfileScreen());
+                }
+              } else {
+                mainPageController.currentIndex.value = index;
+              }
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.assignment),
+                label: "hot".tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.pageview),
+                label: "voucher".tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notification_important),
+                label: "notification".tr,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.assignment_ind),
+                label: "profile".tr,
+              )
+            ],
+            type: BottomNavigationBarType.fixed,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pageview),
-            label: "voucher".tr,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important),
-            label: "notification".tr,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.assignment_ind),
-            label: "profile".tr,
-          )
-        ],
-        type: BottomNavigationBarType.fixed,
-      ),
-      body: getBodyWidget(),
-    );
+          body: getBodyWidget(),
+        ));
   }
 
   getBodyWidget() {
-    if (_currentIndex == 0) {
+    if (mainPageController.currentIndex.value == 0) {
       return HomePage();
-    } else if (_currentIndex == 1) {
+    } else if (mainPageController.currentIndex.value == 1) {
       return VoucherPage();
     } else {
       return NotificationPage();

@@ -1,4 +1,6 @@
 const Map<String, String> vi = {
+  'your_cart': 'Giỏ hàng',
+  'buys': 'lượt mua',
   'new_food': 'Món mới',
   'popular': 'Phổ biến',
   'view_all': 'Xem tất cả',
