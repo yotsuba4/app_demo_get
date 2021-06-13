@@ -4,21 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DataSearch extends SearchDelegate<String> {
-  FindFoodController findFoodController = Get.put(FindFoodController());
-
-  final foods = [
-    'bún bò',
-    'bún riêu',
-    'bánh cuốn',
-    'bánh mì',
-    'cơm gà',
-    'cơm sườn',
-  ];
-  final recentFood = [
-    'bún bò',
-    'bún riêu',
-    'bánh cuốn',
-  ];
+  FindFoodController findFoodController = Get.find();
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -44,30 +30,42 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    findFoodController.fetchFoods(query);
-
-    return Obx(() {
-      return SingleChildScrollView(
-        child: ListView.builder(
-            shrinkWrap: true,
-            physics: ClampingScrollPhysics(),
-            itemCount: findFoodController.findFoodPopuler.length,
-            itemBuilder: (context, index) {
-              return CommonItemCard(
-                  nearByItems: findFoodController.findFoodPopuler[index]);
-            }),
+    if (query == null || query == '') {
+      return Center(
+        child: Text('no_result'.tr),
       );
-    });
+    } else {
+      findFoodController.fetchFoods(query);
+      findFoodController.recents.add(query);
+      return Obx(() {
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView.builder(
+                shrinkWrap: true,
+                physics: ClampingScrollPhysics(),
+                itemCount: findFoodController.findFoodPopuler.length,
+                itemBuilder: (context, index) {
+                  return CommonItemCard(
+                      nearByItems: findFoodController.findFoodPopuler[index]);
+                }),
+          ),
+        );
+      });
+    }
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty
-        ? recentFood
-        : foods.where((element) => element.startsWith(query)).toList();
+        ? findFoodController.recents
+        : findFoodController.suggests
+            .where((element) => element.startsWith(query.capitalizeFirst))
+            .toList();
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
+          query = findFoodController.suggests[index];
           showResults(context);
         },
         leading: Icon(Icons.food_bank),

@@ -1,5 +1,4 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
-import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/controllers/main-page-controller.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
 import 'package:app_demo_get/views/notifications/notification.dart';

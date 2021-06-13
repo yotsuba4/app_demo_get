@@ -1,4 +1,5 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/controllers/find-food-controller.dart';
 import 'package:app_demo_get/controllers/home-page-controller.dart';
 import 'package:app_demo_get/controllers/main-page-controller.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
@@ -22,12 +23,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomePageController homePageController = Get.put(HomePageController());
   CartController cartController = Get.put(CartController());
+  FindFoodController findFoodController = Get.put(FindFoodController());
   @override
   void initState() {
     super.initState();
     homePageController.fetchNewFood();
     homePageController.fetchPopularFood();
     cartController.getCartController();
+    findFoodController.fetchAllFood();
   }
 
   @override

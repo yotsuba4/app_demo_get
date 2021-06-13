@@ -1,5 +1,6 @@
 const Map<String, String> en = {
-  'your_cart':'Your cart',
+  'no_result': 'No results',
+  'your_cart': 'Your cart',
   'buys': 'buys',
   'new_food': 'New Foods',
   'popular': 'Popular',
