@@ -1,4 +1,6 @@
 const Map<String, String> en = {
+  'ratings_and_reviews': 'Ratings and reviews',
+  'same_food': 'Others in this restaurant',
   'total_price': 'Total Price',
   'star_ratings': 'Star Ratings',
   'number_of_portions': 'Number of Portions',

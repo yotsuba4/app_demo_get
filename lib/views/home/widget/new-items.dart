@@ -24,6 +24,7 @@ class _CuisineItemsCardState extends State<NewItemCard> {
         Get.to(DetailsScreen(widget.newItems));
       },
       child: Container(
+        width: 180.w,
         padding: EdgeInsets.only(right: 16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,6 +43,8 @@ class _CuisineItemsCardState extends State<NewItemCard> {
             ),
             Text(
               widget.newItems.foodName,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16.sp),
             ),
             SizedBox(
@@ -51,7 +54,7 @@ class _CuisineItemsCardState extends State<NewItemCard> {
               children: <Widget>[
                 SmoothStarRating(
                   size: 15.sp,
-                  allowHalfRating: true,
+                  allowHalfRating: false,
                   color: AppColor.primary,
                   borderColor: AppColor.primary,
                   isReadOnly: true,
@@ -64,6 +67,8 @@ class _CuisineItemsCardState extends State<NewItemCard> {
                 ),
                 Text(
                   '(${widget.newItems.buys} ' + 'buys'.tr + ')',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                   style:
                       TextStyle(fontSize: 14.sp, color: Colors.grey.shade500),
                 ),

@@ -2,6 +2,7 @@ import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/controllers/find-food-controller.dart';
 import 'package:app_demo_get/controllers/home-page-controller.dart';
 import 'package:app_demo_get/controllers/main-page-controller.dart';
+import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
 import 'package:app_demo_get/views/cart/cart.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage> {
   HomePageController homePageController = Get.put(HomePageController());
   CartController cartController = Get.put(CartController());
   FindFoodController findFoodController = Get.put(FindFoodController());
+  RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
   @override
   void initState() {
     super.initState();

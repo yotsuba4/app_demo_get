@@ -67,7 +67,7 @@ class _NearByItemsCardState extends State<CommonItemCard> {
                   children: <Widget>[
                     SmoothStarRating(
                       size: 15.sp,
-                      allowHalfRating: true,
+                      allowHalfRating: false,
                       color: AppColor.primary,
                       borderColor: AppColor.primary,
                       isReadOnly: true,

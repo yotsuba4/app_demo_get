@@ -1,4 +1,6 @@
 const Map<String, String> vi = {
+  'ratings_and_reviews': 'Xếp hạng và đáng giá',
+  'same_food': 'Món khác cùng quán',
   'total_price': 'Tổng tiền',
   'star_ratings': 'sao',
   'number_of_portions': 'Số phần ăn',

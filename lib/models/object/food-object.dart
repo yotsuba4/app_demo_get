@@ -25,6 +25,19 @@ class Foods {
       this.restaurant,
       this.iV});
 
+  Foods.fromJsonMenu(Map<String, dynamic> json) {
+    image = json['image'];
+    buys = json['buys'];
+    rate = json['rate'];
+    dateCreate = json['dateCreate'];
+    sId = json['_id'];
+    foodName = json['foodName'];
+    price = json['price'];
+    caption = json['caption'];
+    resID = json['restaurant'];
+    iV = json['__v'];
+  }
+
   Foods.fromJsonCart(Map<String, dynamic> json) {
     image = json['image'];
     buys = json['buys'];
@@ -35,7 +48,7 @@ class Foods {
     price = json['price'];
     caption = json['caption'];
     iV = json['__v'];
-    resID =  json['restaurant'];
+    resID = json['restaurant'];
   }
 
   Foods.fromJson(Map<String, dynamic> json) {

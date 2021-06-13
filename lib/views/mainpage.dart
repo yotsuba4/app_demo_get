@@ -1,5 +1,6 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/controllers/main-page-controller.dart';
+import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
 import 'package:app_demo_get/views/notifications/notification.dart';
 import 'package:app_demo_get/views/profile/profile.dart';
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
     );
     return Obx(() => Scaffold(
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: Colors.amber,
+            selectedItemColor: AppColor.primary,
             unselectedItemColor: Colors.grey.shade300,
             selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
             unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
