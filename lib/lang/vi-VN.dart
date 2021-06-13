@@ -1,4 +1,9 @@
 const Map<String, String> vi = {
+  'total_price': 'Tổng tiền',
+  'star_ratings': 'sao',
+  'number_of_portions': 'Số phần ăn',
+  'description': 'Mô tả',
+  'per_portion': 'Phần',
   'no_result': 'Không tìm thấy',
   'your_cart': 'Giỏ hàng',
   'buys': 'lượt mua',

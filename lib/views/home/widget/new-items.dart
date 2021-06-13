@@ -21,7 +21,7 @@ class _CuisineItemsCardState extends State<NewItemCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.to(DetailsScreen(), arguments: widget.newItems);
+        Get.to(DetailsScreen(widget.newItems));
       },
       child: Container(
         padding: EdgeInsets.only(right: 16.w),

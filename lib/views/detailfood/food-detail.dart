@@ -1,15 +1,593 @@
+import 'package:app_demo_get/models/object/food-object.dart';
+import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/detailfood/widget/body.dart';
+import 'package:clip_shadow/clip_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
+  final Foods food;
+  DetailsScreen(this.food);
+  @override
+  _DetailsScreenState createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Stack(
+                  children: [
+                    SizedBox(
+                      height: Helper.getScreenHeight(context) * 0.6,
+                      width: Helper.getScreenWidth(context),
+                      child: Image.network(
+                        widget.food.image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      height: Helper.getScreenHeight(context) * 0.4,
+                      width: Helper.getScreenWidth(context),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: [0.0, 0.4],
+                          colors: [
+                            Colors.black.withOpacity(0.9),
+                            Colors.black.withOpacity(0.0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SafeArea(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 2,
+                          blurRadius: 3,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Image.asset(
+                                Helper.getAssetName(
+                                    "cart_white.png", "virtual"),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: Helper.getScreenHeight(context) * 0.35,
+                        ),
+                        SizedBox(
+                          // height: 500.h,
+                          width: double.infinity,
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30.0),
+                                child: Container(
+                                  height: 700,
+                                  width: double.infinity,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 30),
+                                  decoration: ShapeDecoration(
+                                    color: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(40),
+                                        topRight: Radius.circular(40),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Text(
+                                          widget.food.foodName,
+                                          style: Helper.getTheme(context)
+                                              .headline5,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image.asset(
+                                                      Helper.getAssetName(
+                                                          "star_filled.png",
+                                                          "virtual"),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    Image.asset(
+                                                      Helper.getAssetName(
+                                                          "star_filled.png",
+                                                          "virtual"),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    Image.asset(
+                                                      Helper.getAssetName(
+                                                          "star_filled.png",
+                                                          "virtual"),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    Image.asset(
+                                                      Helper.getAssetName(
+                                                          "star_filled.png",
+                                                          "virtual"),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                    Image.asset(
+                                                      Helper.getAssetName(
+                                                          "star.png",
+                                                          "virtual"),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 8,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  widget.food.rate.toString() +
+                                                      ' ' +
+                                                      'star_ratings'.tr,
+                                                  style: TextStyle(
+                                                    color: AppColor.primary,
+                                                    fontSize: 12,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 20,
+                                                  ),
+                                                  Text(
+                                                    (widget.food.price / 1000)
+                                                            .toString() +
+                                                        'K',
+                                                    style: TextStyle(
+                                                      color: AppColor.primary,
+                                                      fontSize: 30,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  Text("/" + "per_portion".tr)
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Text("description".tr,
+                                            style: TextStyle(
+                                                fontSize: 18.sp,
+                                                fontWeight: FontWeight.w600)),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Text(widget.food.caption),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Divider(
+                                          thickness: 1.5,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        child: Row(
+                                          children: [
+                                            Text("number_of_portions".tr,
+                                                style: TextStyle(
+                                                    fontSize: 18.sp,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all<Color>(
+                                                                    AppColor
+                                                                        .primary),
+                                                        elevation:
+                                                            MaterialStateProperty
+                                                                .all(5.0)),
+                                                    onPressed: () {},
+                                                    child: Text("-"),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Container(
+                                                    height: 35,
+                                                    width: 55,
+                                                    decoration: ShapeDecoration(
+                                                      shape: StadiumBorder(
+                                                        side: BorderSide(
+                                                            color: AppColor
+                                                                .primary),
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "2",
+                                                          style: TextStyle(
+                                                            color: AppColor
+                                                                .primary,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ButtonStyle(
+                                                        backgroundColor:
+                                                            MaterialStateProperty
+                                                                .all<Color>(
+                                                                    AppColor
+                                                                        .primary),
+                                                        elevation:
+                                                            MaterialStateProperty
+                                                                .all(5.0)),
+                                                    onPressed: () {},
+                                                    child: Text("+"),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 200,
+                                        width: double.infinity,
+                                        child: Stack(
+                                          children: [
+                                            Container(
+                                              width: 120,
+                                              decoration: ShapeDecoration(
+                                                color: AppColor.primary,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(40),
+                                                    bottomRight:
+                                                        Radius.circular(40),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 20,
+                                                ),
+                                                child: Container(
+                                                  height: 160,
+                                                  width: double.infinity,
+                                                  margin: const EdgeInsets.only(
+                                                    left: 50,
+                                                    right: 40,
+                                                  ),
+                                                  decoration: ShapeDecoration(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topLeft:
+                                                            Radius.circular(40),
+                                                        bottomLeft:
+                                                            Radius.circular(40),
+                                                        topRight:
+                                                            Radius.circular(10),
+                                                        bottomRight:
+                                                            Radius.circular(10),
+                                                      ),
+                                                    ),
+                                                    shadows: [
+                                                      BoxShadow(
+                                                        color: Color(0xFFB6B7B7)
+                                                            .withOpacity(0.3),
+                                                        offset: Offset(0, 5),
+                                                        blurRadius: 5,
+                                                      ),
+                                                    ],
+                                                    color: Colors.white,
+                                                  ),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "total_price".tr,
+                                                      ),
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      Text(
+                                                        "VNĐ 1500",
+                                                        style: TextStyle(
+                                                          color:
+                                                              AppColor.primary,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 10),
+                                                      SizedBox(
+                                                        width: 200,
+                                                        child: ElevatedButton(
+                                                            style: ButtonStyle(
+                                                              backgroundColor:
+                                                                  MaterialStateProperty.all<
+                                                                          Color>(
+                                                                      AppColor
+                                                                          .primary),
+                                                            ),
+                                                            onPressed: () {},
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Image.asset(
+                                                                  Helper.getAssetName(
+                                                                      "add_to_cart.png",
+                                                                      "virtual"),
+                                                                ),
+                                                                Text(
+                                                                  "Add to Cart",
+                                                                )
+                                                              ],
+                                                            )),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                right: 20,
+                                              ),
+                                              child: Align(
+                                                alignment:
+                                                    Alignment.centerRight,
+                                                child: Container(
+                                                  width: 60,
+                                                  height: 60,
+                                                  decoration: ShapeDecoration(
+                                                    color: Colors.white,
+                                                    shadows: [
+                                                      BoxShadow(
+                                                        color: Color(0xFFB6B7B7)
+                                                            .withOpacity(0.3),
+                                                        offset: Offset(0, 5),
+                                                        blurRadius: 5,
+                                                      ),
+                                                    ],
+                                                    shape: CircleBorder(),
+                                                  ),
+                                                  child: Image.asset(
+                                                    Helper.getAssetName(
+                                                        "cart_filled.png",
+                                                        "virtual"),
+                                                    color: AppColor.primary,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  right: 20,
+                                ),
+                                child: Align(
+                                  alignment: Alignment.topRight,
+                                  child: ClipShadow(
+                                    clipper: CustomTriangle(),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0xFFB6B7B7),
+                                        offset: Offset(0, 5),
+                                        blurRadius: 5,
+                                      ),
+                                    ],
+                                    child: Container(
+                                      width: 60,
+                                      height: 60,
+                                      color: Colors.white,
+                                      child: Image.asset(
+                                        Helper.getAssetName(
+                                          "fav_filled.png",
+                                          "virtual",
+                                        ),
+                                        color: AppColor.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+    /* Scaffold(
       body: Body(
         food: Get.arguments,
       ),
-    );
+    ); */
+  }
+}
+
+class Helper {
+  static double getScreenWidth(BuildContext context) {
+    return MediaQuery.of(context).size.width;
+  }
+
+  static double getScreenHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height;
+  }
+
+  static String getAssetName(String fileName, String type) {
+    return "assets/images/$type/$fileName";
+  }
+
+  static TextTheme getTheme(BuildContext context) {
+    return Theme.of(context).textTheme;
+  }
+}
+
+class CustomTriangle extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Offset controlpoint = Offset(size.width * 0, size.height * 0.5);
+    Offset endpoint = Offset(size.width * 0.2, size.height * 0.85);
+    Offset controlpoint2 = Offset(size.width * 0.33, size.height);
+    Offset endpoint2 = Offset(size.width * 0.6, size.height * 0.9);
+    Offset controlpoint3 = Offset(size.width * 1.4, size.height * 0.5);
+    Offset endpoint3 = Offset(size.width * 0.6, size.height * 0.1);
+    Offset controlpoint4 = Offset(size.width * 0.33, size.height * 0);
+    Offset endpoint4 = Offset(size.width * 0.2, size.height * 0.15);
+
+    Path path = new Path()
+      ..moveTo(size.width * 0.2, size.height * 0.15)
+      ..quadraticBezierTo(
+        controlpoint.dx,
+        controlpoint.dy,
+        endpoint.dx,
+        endpoint.dy,
+      )
+      ..quadraticBezierTo(
+        controlpoint2.dx,
+        controlpoint2.dy,
+        endpoint2.dx,
+        endpoint2.dy,
+      )
+      ..quadraticBezierTo(
+        controlpoint3.dx,
+        controlpoint3.dy,
+        endpoint3.dx,
+        endpoint3.dy,
+      )
+      ..quadraticBezierTo(
+        controlpoint4.dx,
+        controlpoint4.dy,
+        endpoint4.dx,
+        endpoint4.dy,
+      );
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
   }
 }

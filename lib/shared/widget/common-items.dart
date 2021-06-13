@@ -21,7 +21,7 @@ class _NearByItemsCardState extends State<CommonItemCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(DetailsScreen(), arguments: widget.nearByItems);
+        Get.to(DetailsScreen(widget.nearByItems));
       },
       child: Container(
         padding: EdgeInsets.only(bottom: 16.h),
