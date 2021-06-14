@@ -57,7 +57,7 @@ class GetBillDetail {
 
   GetBillDetail.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
-    food = json['food'] != null ? new Foods.fromJson(json['food']) : null;
+    food = json['food'] != null ? new Foods.fromJsonBill(json['food']) : null;
     amount = json['amount'];
     bill = json['bill'] != null ? new Bill.fromJson(json['bill']) : null;
     iV = json['__v'];

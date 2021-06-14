@@ -34,7 +34,6 @@ class BillScreen extends StatelessWidget {
       ),
       leading: InkWell(
         onTap: () {
-          CartController.instance.deleteBill(CartController.instance.bill.sId);
           Get.back();
         },
         child: Icon(Icons.arrow_back),

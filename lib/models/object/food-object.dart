@@ -25,6 +25,19 @@ class Foods {
       this.restaurant,
       this.iV});
 
+  Foods.fromJsonBill(Map<String, dynamic> json) {
+    image = json['image'];
+    buys = json['buys'];
+    rate = json['rate'];
+    dateCreate = json['dateCreate'];
+    sId = json['_id'];
+    foodName = json['foodName'];
+    price = json['price'];
+    caption = json['caption'];
+    resID = json['restaurant'];
+    iV = json['__v'];
+  }
+
   Foods.fromJsonMenu(Map<String, dynamic> json) {
     image = json['image'];
     buys = json['buys'];

@@ -43,29 +43,4 @@ class ApiBill {
     }
     return false;
   }
-
-  /* static Future<bool> addToBill(List<String> foodIDs, List<String> amounts,
-      String token, String billID) async {
-    print(foodIDs);
-    print(amounts);
-    print(billID);
-    print(token);
-    final response = await Dio().post(
-      'https://kltn-foodoffer.herokuapp.com/api/user/func/updateBill',
-      data: {
-        'food': foodIDs,
-        'amount': amounts,
-        'bill': billID,
-      },
-      options:
-          Options(contentType: Headers.formUrlEncodedContentType, headers: {
-        'authorization': token,
-      }),
-    );
-    print('Day la response addToBill $response');
-    if (response.data['status'] == 'success') {
-      return true;
-    }
-    return false;
-  } */
 }
