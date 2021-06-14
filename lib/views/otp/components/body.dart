@@ -3,7 +3,7 @@ import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:app_demo_get/size_config.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'otp_form.dart';
 
 class Body extends StatelessWidget {
@@ -20,10 +20,10 @@ class Body extends StatelessWidget {
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
-                "OTP Verification",
+                "otp_verification".tr,
                 style: headingStyle,
               ),
-              Text("We sent your code to +1 898 860 ***"),
+              Text("sent_code".tr),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
@@ -48,13 +48,13 @@ class Body extends StatelessWidget {
                                   TextField(
                                     controller: reEmailControlller,
                                     decoration: InputDecoration(
-                                        hintText: 'Nhập lại email'),
+                                        hintText: 'enter_email_again'.tr),
                                   ),
                                   SizedBox(
                                     height: 20,
                                   ),
                                   DefaultButton(
-                                    text: 'Xác nhận',
+                                    text: 'confirm'.tr,
                                     press: () {
                                       print(
                                           'Email mới là: ${reEmailControlller.text}');
@@ -68,7 +68,7 @@ class Body extends StatelessWidget {
                       });
                 },
                 child: Text(
-                  "Resend OTP Code",
+                  "resend_otp_code".tr,
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -83,7 +83,7 @@ class Body extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("This code will expired in "),
+        Text("code_expired".tr),
         TweenAnimationBuilder(
           tween: Tween(begin: 30.0, end: 0.0),
           duration: Duration(seconds: 30),

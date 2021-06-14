@@ -67,8 +67,7 @@ class _BodyState extends State<Body> {
               var token = await SPref.get(SPrefCache.KEY_TOKEN);
               print('Day la token dang nhap thanh cong \n $token');
               socket.emit('UserJoin', {'token': token});
-
-              Get.to(MainPage());
+              Get.offAll(MainPage());
             },
           ),
         ),

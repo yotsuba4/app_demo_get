@@ -3,6 +3,7 @@ import 'package:app_demo_get/components/socal-card.dart';
 import 'package:flutter/material.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
+import 'package:get/get.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class Body extends StatelessWidget {
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
-                  "Chào mừng",
+                  "welcome".tr,
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: getProportionateScreenWidth(28),
@@ -27,7 +28,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Đăng nhập với tên đăng nhập và mật khẩu  \n hoặc với các tài khoản mạng xã hội",
+                  "intro_sign_in".tr + "\n" + "intro_sign_in_2".tr,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),

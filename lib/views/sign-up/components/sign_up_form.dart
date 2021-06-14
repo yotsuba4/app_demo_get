@@ -3,6 +3,7 @@ import 'package:app_demo_get/components/form-error.dart';
 import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../size_config.dart';
 
@@ -51,7 +52,7 @@ class _SignUpFormState extends State<SignUpForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
+            text: "next".tr,
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
@@ -88,8 +89,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-          labelText: "Tên đăng nhập",
-          hintText: "Nhập tên đăng nhập",
+          labelText: "user_name".tr,
+          hintText: "enter_user_name".tr,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.account_box_outlined)),
     );
@@ -118,8 +119,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Nhập mật khẩu",
-        hintText: "Nhập lại mật khẩu",
+        labelText: "enter_password_again".tr,
+        hintText: "enter_password_again".tr,
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -151,8 +152,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
+        labelText: "password".tr,
+        hintText: "enter_password".tr,
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -184,8 +185,8 @@ class _SignUpFormState extends State<SignUpForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter your email",
+        labelText: "enter_your_email".tr,
+        hintText: "enter_your_email".tr,
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

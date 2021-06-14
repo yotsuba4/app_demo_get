@@ -2,7 +2,7 @@ import 'package:app_demo_get/components/socal-card.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:app_demo_get/size_config.dart';
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'sign_up_form.dart';
 
 class Body extends StatelessWidget {
@@ -18,9 +18,9 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Đăng ký", style: headingStyle),
+                Text("register".tr, style: headingStyle),
                 Text(
-                  "Vui lòng điền thông tin đăng ký \n hoặc sử dụng tài khoản mạng xã hội",
+                  "intro_sign_up".tr,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
@@ -47,7 +47,7 @@ class Body extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(bottom: 20),
                   child: Text(
-                    'By continuing your confirm that you agree \nwith our Term and Condition',
+                    'term_describe'.tr,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.caption,
                   ),

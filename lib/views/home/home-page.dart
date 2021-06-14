@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
     homePageController.fetchNewFood();
     homePageController.fetchPopularFood();
     findFoodController.fetchAllFood();
+    cartController.getCartController();
   }
 
   @override

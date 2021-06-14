@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import '../../../components/default-button.dart';
 import '../../../size_config.dart';
+import 'package:get/get.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -56,12 +57,12 @@ class _SignFormState extends State<SignForm> {
                   });
                 },
               ),
-              Text("Ghi nhớ đăng nhập"),
+              Text("keep_login".tr),
               Spacer(),
               GestureDetector(
                 onTap: () {},
                 child: Text(
-                  "Quên mật khẩu",
+                  "forgot_password".tr,
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -70,7 +71,7 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Tiếp tục",
+            text: "next".tr,
             press: () async {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
@@ -107,8 +108,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-        labelText: "Mật khẩu",
-        hintText: "Nhập mật khẩu",
+        labelText: "password".tr,
+        hintText: "enter_password".tr,
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Icon(Icons.lock),
       ),
@@ -138,8 +139,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: InputDecoration(
-          labelText: "Tên đăng nhập",
-          hintText: "Nhập tên đăng nhập",
+          labelText: "user_name".tr,
+          hintText: "enter_user_name".tr,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Icon(Icons.account_box)),
     );

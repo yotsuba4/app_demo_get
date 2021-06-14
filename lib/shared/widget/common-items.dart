@@ -58,8 +58,13 @@ class _NearByItemsCardState extends State<CommonItemCard> {
                 SizedBox(
                   height: 5.h,
                 ),
-                Text(widget.nearByItems.restaurant.restaurantName,
-                    style: TextStyle(fontSize: 14.sp)),
+                SizedBox(
+                  width: 200.w,
+                  child: Text(widget.nearByItems.restaurant.restaurantName,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(fontSize: 14.sp)),
+                ),
                 SizedBox(
                   height: 5.h,
                 ),

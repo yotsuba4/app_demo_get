@@ -46,20 +46,17 @@ class CartController extends GetxController {
 
   void addToCartController(String foodID, int amount) async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
-    if (!isExistItem(foodID)) {
-      try {
-        bool check = await ApiAddToCart.addToCart(token, foodID, amount);
-        if (check == true) {
-          Get.snackbar('Thông báo', 'Thêm thành công');
-          increaseItem();
-        } else {
-          Get.snackbar('Thông báo', 'Thêm thất bại');
-        }
-      } catch (e) {
-        debugPrint(e.toString());
+
+    try {
+      bool check = await ApiAddToCart.addToCart(token, foodID, amount);
+      if (check == true) {
+        Get.snackbar('Thông báo', 'Thêm thành công');
+        increaseItem();
+      } else {
+        Get.snackbar('Thông báo', 'Thêm thất bại, kiểm tra giỏ hàng');
       }
-    } else {
-      Get.snackbar('Thông báo', 'Đã tồn tại mặt hàng này');
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 

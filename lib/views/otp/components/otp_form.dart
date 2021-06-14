@@ -3,6 +3,7 @@ import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/shared/form-error.dart';
 import 'package:app_demo_get/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class OtpForm extends StatefulWidget {
   const OtpForm({
@@ -176,7 +177,7 @@ class _OtpFormState extends State<OtpForm> {
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           DefaultButton(
-            text: "Continue",
+            text: "next".tr,
             press: () {
               _formKey.currentState.save();
               var otp = 'FO-' + box1 + box2 + box3 + box4 + box5 + box6;

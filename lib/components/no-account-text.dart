@@ -15,7 +15,7 @@ class NoAccountText extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          "Chưa có tài khoản? ",
+          "dont_have_account".tr + "?",
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
@@ -23,7 +23,7 @@ class NoAccountText extends StatelessWidget {
             Get.to(SignUpScreen());
           },
           child: Text(
-            "Đăng ký",
+            "register".tr,
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(16),
                 color: AppColor.primary),

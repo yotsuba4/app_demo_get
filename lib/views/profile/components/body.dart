@@ -22,32 +22,32 @@ class _BodyState extends State<Body> {
           ProfilePic(),
           SizedBox(height: 20),
           ProfileMenu(
-            text: "Thông tin cá nhân",
+            text: "personal_information".tr,
             icon: "assets/icons/User Icon.svg",
             press: () => {},
           ),
           ProfileMenu(
-            text: "Lịch sử đặt hàng",
+            text: "order_history".tr,
             icon: "assets/icons/Bell.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Cài đặt",
+            text: "setting".tr,
             icon: "assets/icons/Settings.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Giúp đỡ",
+            text: "help".tr,
             icon: "assets/icons/Question mark.svg",
             press: () {},
           ),
           ProfileMenu(
-            text: "Đăng xuất",
+            text: "log_out".tr,
             icon: "assets/icons/Log out.svg",
             press: () {
               SPref.set(SPrefCache.KEY_TOKEN, '');
-              CartController.instance.getCartController();
-              Get.offAll(MainPage());
+              CartController.instance.count.value = 0;
+              Get.back();
             },
           ),
         ],
