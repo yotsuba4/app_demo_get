@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app_demo_get/apimodule/product/api-bill.dart';
 import 'package:app_demo_get/apimodule/product/api-cart.dart';
+import 'package:app_demo_get/models/create_bill.dart';
 import 'package:app_demo_get/models/get-cart.dart';
 import 'package:app_demo_get/models/object/bill.dart';
 import 'package:app_demo_get/models/object/restaurant-obj.dart';
@@ -19,10 +20,11 @@ class CartController extends GetxController {
   RxInt total = 0.obs;
   RxList<Restaurant> restaurants = RxList([]);
   RxList<Cart> cartByRes = RxList([]);
+  bool removeCartByRes;
   Bill bill;
   bool deleteBillEmpty;
-  bool addBill;
-  String methodPayment = 'Chọn phương thức thanh toán';
+  List<GetBillDetail> addBill;
+  RxString methodPayment = 'Chọn phương thức thanh toán'.obs;
 
   increaseItem() => count++;
 
@@ -140,14 +142,14 @@ class CartController extends GetxController {
       return false;
   }
 
-  void createBill(String restaurantID, String code) async {
+  /* void createBill(String restaurantID, String code) async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
     try {
       bill = await ApiBill.createBill(restaurantID, code, token);
     } catch (e) {
       debugPrint(e.toString());
     }
-  }
+  } */
 
   void deleteBill(String billID) async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
@@ -158,7 +160,11 @@ class CartController extends GetxController {
     }
   }
 
-  void addToBill() async {
+  void order(
+    String restaurantID,
+    bool payMethod,
+    String code,
+  ) async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
 
     var listFoodID = cartByRes.map((element) => element.food.sId).toList();
@@ -166,13 +172,12 @@ class CartController extends GetxController {
         cartByRes.map((element) => element.amount.toString()).toList();
 
     try {
-      addBill =
-          await ApiBill.addToBill(listFoodID, listAmountID, token, bill.sId);
-      if (addBill == true) {
+      addBill = await ApiBill.createBill(
+          restaurantID, payMethod, code, listFoodID, listAmountID, token);
+      if (addBill.length > 0) {
         CartController.instance.removeCart();
         Get.to(Success());
       } else {
-        deleteBill(CartController.instance.bill.sId);
         Get.snackbar('Thông báo', 'Thất bại');
       }
     } catch (e) {
@@ -185,8 +190,10 @@ class CartController extends GetxController {
 
     var listCartID = cartByRes.map((element) => element.sId).toList();
 
+    removeCartByRes = false;
+
     try {
-      addBill = await ApiAddToCart.removeCart(token, listCartID);
+      removeCartByRes = await ApiAddToCart.removeCart(token, listCartID);
     } catch (e) {
       debugPrint(e.toString());
     }

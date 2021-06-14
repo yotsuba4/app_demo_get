@@ -3,13 +3,19 @@ import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:get/get.dart';
 
 class FindFoodController extends GetxController {
-  var findFoodPopuler = <Foods>[].obs;
+  RxList<Foods> findFoodPopuler = <Foods>[].obs;
+  List<String> suggests = [];
+  List<String> recents = [];
+  void fetchAllFood() async {
+    suggests.clear();
+    var foods = await ApiFindFood.fetchAllFoods();
+    for (var i = 0; i < foods.length; i++) {
+      suggests.add(foods[i].foodName);
+    }
+  }
 
   void fetchFoods(String key) async {
     var foods = await ApiFindFood.fetchFoods(key);
-    print(foods[0].foodName);
     findFoodPopuler.assignAll(foods);
-
-    update();
   }
 }

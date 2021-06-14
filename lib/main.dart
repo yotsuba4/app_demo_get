@@ -1,4 +1,5 @@
-import 'package:app_demo_get/views/mainpage.dart';
+import 'package:app_demo_get/lang/localization-service.dart';
+import 'package:app_demo_get/views/splash/splash.dart';
 import 'package:app_demo_get/views/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: MainPage(),
+      home: SplashScreen(),
+      locale: LocalizationService.locale,
+      fallbackLocale: LocalizationService.fallbackLocale,
+      translations: LocalizationService(),
     );
   }
 }

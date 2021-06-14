@@ -1,12 +1,12 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/controllers/find-food-controller.dart';
+import 'package:app_demo_get/controllers/home-page-controller.dart';
+import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
-import 'package:app_demo_get/controllers/new-food-controller.dart';
-import 'package:app_demo_get/controllers/popular-food-controller.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/cart/cart.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
-import 'package:app_demo_get/views/home/widget/home-title.dart';
 import 'package:app_demo_get/views/home/widget/new-items.dart';
 import 'package:app_demo_get/views/search/search.dart';
 import 'package:app_demo_get/views/sign-in/sign-in.dart';
@@ -14,6 +14,7 @@ import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,13 +23,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  NewFoodController newFoods = Get.put(NewFoodController());
-  PopularFoodController popularFoodController =
-      Get.put(PopularFoodController());
+  HomePageController homePageController = Get.put(HomePageController());
+  CartController cartController = Get.put(CartController());
+  FindFoodController findFoodController = Get.put(FindFoodController());
+  RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
   @override
   void initState() {
     super.initState();
-    CartController.instance.getCartController();
+    homePageController.fetchNewFood();
+    homePageController.fetchPopularFood();
+    findFoodController.fetchAllFood();
   }
 
   @override
@@ -54,12 +58,12 @@ class _HomePageState extends State<HomePage> {
             );
           }
         },
-        tooltip: 'Your cart',
+        tooltip: 'your_cart'.tr,
         child: Obx(() => Badge(
               animationDuration: Duration(milliseconds: 100),
               animationType: BadgeAnimationType.slide,
               badgeContent: Text(
-                '${CartController.instance.count}',
+                '${cartController.count.value}',
                 style: TextStyle(color: Colors.white, fontSize: 10),
               ),
               child: Icon(
@@ -77,11 +81,11 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(left: 16, right: 16),
+                padding: EdgeInsets.only(left: 16.w, right: 16.w),
                 child: GestureDetector(
                   onTap: () {
                     showSearch(context: context, delegate: DataSearch());
@@ -89,21 +93,22 @@ class _HomePageState extends State<HomePage> {
                   child: TextField(
                     enabled: false,
                     decoration: InputDecoration(
-                      hintText: "Tìm kiếm",
-                      hintStyle: TextStyle(color: Colors.grey.shade400),
+                      hintText: "search".tr,
+                      hintStyle: TextStyle(
+                          color: Colors.grey.shade400, fontSize: 14.sp),
                       prefixIcon: Icon(
                         Icons.search,
-                        size: 20,
+                        size: 20.sp,
                         color: Colors.grey.shade400,
                       ),
                       contentPadding: EdgeInsets.all(8),
                       filled: true,
                       fillColor: Colors.white,
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(color: Colors.white)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
+                          borderRadius: BorderRadius.circular(6.r),
                           borderSide: BorderSide(color: Colors.white)),
                     ),
                   ),
@@ -111,7 +116,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
             CarouselSlider(
               items: imageSliders,
@@ -126,47 +131,77 @@ class _HomePageState extends State<HomePage> {
                   }),
             ),
             SizedBox(
-              height: 20,
+              height: 20.h,
             ),
-            HomeTitle(text: "Món mới"),
+            buildHomeTittle("new_food".tr),
             SizedBox(
-              height: 16,
+              height: 16.h,
             ),
-            Obx(() {
-              return Container(
-                height: 200,
-                child: ListView.builder(
-                  itemCount: newFoods.foodList.length,
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.only(left: 16),
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return NewItemCard(newItems: newFoods.foodList[index]);
-                  },
-                ),
-              );
-            }),
+            homePageController.isLoadingNewFoods.value
+                ? Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                  )
+                : Obx(() => Container(
+                      height: 190.h,
+                      child: ListView.builder(
+                        itemCount: homePageController.newFoodList.length,
+                        scrollDirection: Axis.horizontal,
+                        padding: EdgeInsets.only(left: 16),
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return NewItemCard(
+                              newItems: homePageController.newFoodList[index]);
+                        },
+                      ),
+                    )),
+            buildHomeTittle('popular'.tr),
             SizedBox(
-              height: 20,
+              height: 16.h,
             ),
-            HomeTitle(text: "Thịnh hành"),
-            SizedBox(
-              height: 16,
-            ),
-            ListView.builder(
-              itemCount: popularFoodController.foodList.length,
-              scrollDirection: Axis.vertical,
-              padding: EdgeInsets.only(left: 16),
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return CommonItemCard(
-                    nearByItems: popularFoodController.foodList[index]);
-              },
-            ),
+            homePageController.isLoading.value
+                ? Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.white,
+                    ),
+                  )
+                : Obx(() => ListView.builder(
+                      itemCount: homePageController.foodList.length,
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.only(left: 16.w),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return CommonItemCard(
+                            nearByItems: homePageController.foodList[index]);
+                      },
+                    )),
           ],
         ),
+      ),
+    );
+  }
+
+  buildHomeTittle(String tittle) {
+    return Container(
+      padding: EdgeInsets.only(left: 16.w, right: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            tittle,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+          ),
+          Text(
+            "view_all".tr,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 12.sp,
+                color: Colors.grey.shade500),
+          ),
+        ],
       ),
     );
   }

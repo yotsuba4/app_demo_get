@@ -1,15 +1,23 @@
 import 'package:app_demo_get/models/create_bill.dart';
-import 'package:app_demo_get/models/object/bill.dart';
 import 'package:dio/dio.dart';
 
 class ApiBill {
-  static Future<Bill> createBill(
-      String restaurantID, String code, String token) async {
+  static Future<List<GetBillDetail>> createBill(
+    String resID,
+    bool payMethod,
+    String code,
+    List<String> foodIDs,
+    List<String> amounts,
+    String token,
+  ) async {
     final response = await Dio().post(
-      'https://kltn-foodoffer.herokuapp.com/api/user/func/createBill',
+      'https://kltn-foodoffer.herokuapp.com/api/user/func/order',
       data: {
-        'restaurant': restaurantID,
-        'code': code,
+        "restaurant": resID,
+        "payment": payMethod,
+        "code": code,
+        "food": foodIDs,
+        "amount": amounts
       },
       options:
           Options(contentType: Headers.formUrlEncodedContentType, headers: {
@@ -19,7 +27,7 @@ class ApiBill {
     print('Day la response createBill $response');
     var map = CreateBill.fromJson(response.data);
 
-    return map.data.bill;
+    return map.data.getBillDetail;
   }
 
   static Future<bool> deleteBill(String billID, String token) async {
@@ -36,7 +44,7 @@ class ApiBill {
     return false;
   }
 
-  static Future<bool> addToBill(List<String> foodIDs, List<String> amounts,
+  /* static Future<bool> addToBill(List<String> foodIDs, List<String> amounts,
       String token, String billID) async {
     print(foodIDs);
     print(amounts);
@@ -59,5 +67,5 @@ class ApiBill {
       return true;
     }
     return false;
-  }
+  } */
 }

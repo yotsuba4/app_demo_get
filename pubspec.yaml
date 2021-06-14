@@ -46,6 +46,7 @@ dependencies:
   get_storage: 2.0.2
   momo_vn: ^2.0.0
   url_launcher: ^6.0.6
+  clip_shadow: ^0.2.1
   
 
 
@@ -71,6 +72,8 @@ flutter:
   assets:
   - assets/icons/
   - assets/images/
+  - assets/images/real/
+  - assets/images/virtual/
   - images/
   
 

@@ -1,5 +1,5 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
-import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/home/home-page.dart';
@@ -19,7 +19,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AuthController authController = Get.put(AuthController());
-  CartController cartController = Get.put(CartController());
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class _MainPageState extends State<MainPage> {
     );
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.amber,
+        selectedItemColor: AppColor.primary,
         unselectedItemColor: Colors.grey.shade300,
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
         unselectedLabelStyle: TextStyle(fontWeight: FontWeight.w600),
@@ -55,19 +54,19 @@ class _MainPageState extends State<MainPage> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment),
-            label: "Nổi bật",
+            label: "hot".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pageview),
-            label: "Mã giảm giá",
+            label: "voucher".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.notification_important),
-            label: "Thông báo",
+            label: "notification".tr,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.assignment_ind),
-            label: "Cá nhân",
+            label: "profile".tr,
           )
         ],
         type: BottomNavigationBarType.fixed,
