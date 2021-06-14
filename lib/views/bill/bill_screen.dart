@@ -53,7 +53,12 @@ class BillScreen extends StatelessWidget {
             key: Key(CartController.instance.cartByRes[index].food.sId),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
-              CartController.instance.cartByRes.removeAt(index);
+              if (CartController.instance.cartByRes.length > 1) {
+                CartController.instance.cartByRes.removeAt(index);
+                CartController.instance.totalCart();
+              } else {
+                Get.back();
+              }
             },
             background: Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
