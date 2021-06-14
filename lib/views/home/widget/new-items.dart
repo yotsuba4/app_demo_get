@@ -1,3 +1,4 @@
+import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/controllers/find-food-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
@@ -16,7 +17,7 @@ class NewItemCard extends StatefulWidget {
 }
 
 class _CuisineItemsCardState extends State<NewItemCard> {
-  FindFoodController findFoodController = Get.put(FindFoodController());
+  //FindFoodController findFoodController = Get.put(FindFoodController());
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -65,12 +66,34 @@ class _CuisineItemsCardState extends State<NewItemCard> {
                   style:
                       TextStyle(fontWeight: FontWeight.w600, fontSize: 14.sp),
                 ),
+              ],
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            Row(
+              children: [
                 Text(
                   '(${widget.newItems.buys} ' + 'buys'.tr + ')',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   style:
                       TextStyle(fontSize: 14.sp, color: Colors.grey.shade500),
+                ),
+                SizedBox(
+                  width: 10.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    CartController.instance
+                        .addToCartController(widget.newItems.sId, 1);
+                  },
+                  child: Text(
+                    'add'.tr,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(fontSize: 14.sp, color: AppColor.primary),
+                  ),
                 ),
               ],
             ),

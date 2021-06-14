@@ -2,6 +2,7 @@ import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/controllers/find-food-controller.dart';
 import 'package:app_demo_get/controllers/home-page-controller.dart';
 import 'package:app_demo_get/controllers/restaurant-controller.dart';
+import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
@@ -25,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomePageController homePageController = Get.put(HomePageController());
   CartController cartController = Get.put(CartController());
+/*   CartController cartController = Get.put(CartController());
   FindFoodController findFoodController = Get.put(FindFoodController());
   RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
   @override
@@ -34,37 +36,34 @@ class _HomePageState extends State<HomePage> {
     homePageController.fetchPopularFood();
     findFoodController.fetchAllFood();
     cartController.getCartController();
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
-    // ignore: unused_local_variable
-    int _current = 0;
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        onPressed: () async {
-          var token = await SPref.get(SPrefCache.KEY_TOKEN);
-          if (token == null || token == '')
-            Get.to(SignInPage());
-          else {
-            CartController.instance.getCartController();
-            showBarModalBottomSheet(
-              context: context,
-              builder: (context) => Container(
-                color: Colors.white,
-                child: ShoppingCartWidget(),
-              ),
-            );
-          }
-        },
-        tooltip: 'your_cart'.tr,
-        child: Obx(() => Badge(
+    return Obx(() => Scaffold(
+          floatingActionButton: FloatingActionButton(
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            onPressed: () async {
+              var token = await SPref.get(SPrefCache.KEY_TOKEN);
+              if (token == null || token == '')
+                Get.to(SignInPage());
+              else {
+                showBarModalBottomSheet(
+                  context: context,
+                  builder: (context) => Container(
+                    color: Colors.white,
+                    child: ShoppingCartWidget(),
+                  ),
+                );
+              }
+            },
+            tooltip: 'your_cart'.tr,
+            child: Badge(
               animationDuration: Duration(milliseconds: 100),
               animationType: BadgeAnimationType.slide,
               badgeContent: Text(
-                '${cartController.count.value}',
+                cartController.count.value.toString(),
                 style: TextStyle(color: Colors.white, fontSize: 10),
               ),
               child: Icon(
@@ -72,117 +71,116 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
                 size: 30,
               ),
-            )),
-      ),
-      backgroundColor: Colors.grey.shade200,
-      body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(
-              height: 20.h,
             ),
-            SafeArea(
-              child: Padding(
-                padding: EdgeInsets.only(left: 16.w, right: 16.w),
-                child: GestureDetector(
-                  onTap: () {
-                    showSearch(context: context, delegate: DataSearch());
-                  },
-                  child: TextField(
-                    enabled: false,
-                    decoration: InputDecoration(
-                      hintText: "search".tr,
-                      hintStyle: TextStyle(
-                          color: Colors.grey.shade400, fontSize: 14.sp),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 20.sp,
-                        color: Colors.grey.shade400,
+          ),
+          backgroundColor: Colors.grey.shade200,
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  height: 20.h,
+                ),
+                SafeArea(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16.w, right: 16.w),
+                    child: GestureDetector(
+                      onTap: () {
+                        showSearch(context: context, delegate: DataSearch());
+                      },
+                      child: TextField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                          hintText: "search".tr,
+                          hintStyle: TextStyle(
+                              color: Colors.grey.shade400, fontSize: 14.sp),
+                          prefixIcon: Icon(
+                            Icons.search,
+                            size: 20.sp,
+                            color: Colors.grey.shade400,
+                          ),
+                          contentPadding: EdgeInsets.all(8),
+                          filled: true,
+                          fillColor: Colors.white,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.r),
+                              borderSide: BorderSide(color: Colors.white)),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.r),
+                              borderSide: BorderSide(color: Colors.white)),
+                        ),
                       ),
-                      contentPadding: EdgeInsets.all(8),
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6.r),
-                          borderSide: BorderSide(color: Colors.white)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6.r),
-                          borderSide: BorderSide(color: Colors.white)),
                     ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            CarouselSlider(
-              items: imageSliders,
-              options: CarouselOptions(
-                  autoPlay: true,
-                  enlargeCenterPage: true,
-                  aspectRatio: 2.0,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _current = index;
-                    });
-                  }),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            buildHomeTittle("new_food".tr),
-            SizedBox(
-              height: 16.h,
-            ),
-            homePageController.isLoadingNewFoods.value
-                ? Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                    ),
-                  )
-                : Obx(() => Container(
-                      height: 190.h,
-                      child: ListView.builder(
-                        itemCount: homePageController.newFoodList.length,
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.only(left: 16),
+                SizedBox(
+                  height: 20.h,
+                ),
+                CarouselSlider(
+                  items: imageSliders,
+                  options: CarouselOptions(
+                      autoPlay: true,
+                      enlargeCenterPage: true,
+                      aspectRatio: 2.0,
+                      onPageChanged: (index, reason) {
+                        homePageController.currentBanner.value = index;
+                      }),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                buildHomeTittle("new_food".tr),
+                SizedBox(
+                  height: 16.h,
+                ),
+                homePageController.isLoadingNewFoods.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        ),
+                      )
+                    : Container(
+                        height: 210.h,
+                        child: ListView.builder(
+                          itemCount: homePageController.newFoodList.length,
+                          scrollDirection: Axis.horizontal,
+                          padding: EdgeInsets.only(left: 16),
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return NewItemCard(
+                                newItems:
+                                    homePageController.newFoodList[index]);
+                          },
+                        ),
+                      ),
+                buildHomeTittle('top_rate'.tr),
+                SizedBox(
+                  height: 16.h,
+                ),
+                homePageController.isLoading.value
+                    ? Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: Colors.white,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: homePageController.foodList.length,
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.only(left: 16.w),
                         shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return NewItemCard(
-                              newItems: homePageController.newFoodList[index]);
+                          return CommonItemCard(
+                              nearByItems: homePageController.foodList[index]);
                         },
                       ),
-                    )),
-            buildHomeTittle('popular'.tr),
-            SizedBox(
-              height: 16.h,
+              ],
             ),
-            homePageController.isLoading.value
-                ? Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: Colors.white,
-                    ),
-                  )
-                : Obx(() => ListView.builder(
-                      itemCount: homePageController.foodList.length,
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.only(left: 16.w),
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return CommonItemCard(
-                            nearByItems: homePageController.foodList[index]);
-                      },
-                    )),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 
   buildHomeTittle(String tittle) {
@@ -193,13 +191,13 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Text(
             tittle,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.sp),
           ),
           Text(
             "view_all".tr,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 12.sp,
+                fontSize: 16.sp,
                 color: Colors.grey.shade500),
           ),
         ],

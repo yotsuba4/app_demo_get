@@ -1,6 +1,7 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'profile_menu.dart';

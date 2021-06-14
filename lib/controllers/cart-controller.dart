@@ -26,6 +26,12 @@ class CartController extends GetxController {
   List<GetBillDetail> addBill;
   RxString methodPayment = 'Chọn phương thức thanh toán'.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    getCartController();
+  }
+
   increaseItem() => count++;
 
   void createListRes(List<Cart> list) {
@@ -138,15 +144,6 @@ class CartController extends GetxController {
     else
       return false;
   }
-
-  /* void createBill(String restaurantID, String code) async {
-    var token = await SPref.get(SPrefCache.KEY_TOKEN);
-    try {
-      bill = await ApiBill.createBill(restaurantID, code, token);
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  } */
 
   void deleteBill(String billID) async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);

@@ -9,7 +9,14 @@ class HomePageController extends GetxController {
   var newFoodList = <Foods>[].obs;
   var isLoading = true.obs;
   var foodList = <Foods>[].obs;
-  RxInt currentBanner = 0.obs;
+  var currentBanner = 0.obs;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchNewFood();
+    fetchPopularFood();
+  }
+
   void fetchNewFood() async {
     try {
       isLoadingNewFoods(true);
