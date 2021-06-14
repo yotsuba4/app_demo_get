@@ -1,5 +1,4 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
-import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
@@ -20,7 +19,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AuthController authController = Get.put(AuthController());
-  CartController cartController = Get.put(CartController());
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {

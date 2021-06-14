@@ -32,7 +32,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     homePageController.fetchNewFood();
     homePageController.fetchPopularFood();
-    cartController.getCartController();
     findFoodController.fetchAllFood();
   }
 
@@ -64,7 +63,7 @@ class _HomePageState extends State<HomePage> {
               animationDuration: Duration(milliseconds: 100),
               animationType: BadgeAnimationType.slide,
               badgeContent: Text(
-                '${CartController.instance.count}',
+                '${cartController.count.value}',
                 style: TextStyle(color: Colors.white, fontSize: 10),
               ),
               child: Icon(

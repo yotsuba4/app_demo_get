@@ -46,7 +46,7 @@ class _BodyState extends State<Body> {
             icon: "assets/icons/Log out.svg",
             press: () {
               SPref.set(SPrefCache.KEY_TOKEN, '');
-              CartController.instance.count(0);
+              CartController.instance.getCartController();
               Get.offAll(MainPage());
             },
           ),
