@@ -26,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   HomePageController homePageController = Get.put(HomePageController());
   CartController cartController = Get.put(CartController());
+  RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
 /*   CartController cartController = Get.put(CartController());
   FindFoodController findFoodController = Get.put(FindFoodController());
   RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
@@ -49,6 +50,7 @@ class _HomePageState extends State<HomePage> {
               if (token == null || token == '')
                 Get.to(SignInPage());
               else {
+                cartController.getCartController();
                 showBarModalBottomSheet(
                   context: context,
                   builder: (context) => Container(

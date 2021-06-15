@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 class BillScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Obx(() => Scaffold(
           appBar: buildAppBar(context),
           body: buildBody(),

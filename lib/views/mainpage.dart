@@ -1,4 +1,5 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
+import 'package:app_demo_get/controllers/location-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
@@ -19,6 +20,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   AuthController authController = Get.put(AuthController());
+  GeoLocationController geoLocationController =
+      Get.put(GeoLocationController());
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,23 @@ class _MainPageState extends State<MainPage> {
       orientation: Orientation.portrait,
     );
     return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        leading: IconButton(
+            icon: Icon(
+              Icons.location_on,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              geoLocationController.determinePosition();
+            }),
+        title: Obx(() => Text(geoLocationController.currentAddress.value,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: Colors.white,
+            ))),
+        backgroundColor: AppColor.primary,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: AppColor.primary,
         unselectedItemColor: Colors.grey.shade300,
