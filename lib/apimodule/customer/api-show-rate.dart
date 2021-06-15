@@ -1,3 +1,4 @@
+import 'package:app_demo_get/models/show-rate.dart';
 import 'package:dio/dio.dart';
 
 class ApiGetRate {
@@ -6,6 +7,20 @@ class ApiGetRate {
         'https://kltn-foodoffer.herokuapp.com/api/cus/showRate?foodID=$key');
     ApiShowRate parse = ApiShowRate.fromJson(response.data);
     return parse.data.rate;
+  }
+
+  static Future<List<ListRate>> fetchListRates(String key) async {
+    final response = await Dio().get(
+        'https://kltn-foodoffer.herokuapp.com/api/cus/showRate?foodID=$key');
+    var map = ShowRate.fromJson(response.data);
+    return map.data.listRate;
+  }
+
+  static Future<List<ListRate>> fetchListReviews(String key) async {
+    final response = await Dio().get(
+        'https://kltn-foodoffer.herokuapp.com/api/cus/showComment?foodID=$key');
+    var map = ShowRate.fromJson(response.data);
+    return map.data.listRate;
   }
 }
 

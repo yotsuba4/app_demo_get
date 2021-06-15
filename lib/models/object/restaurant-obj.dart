@@ -56,7 +56,7 @@ class Restaurant {
     email = json['email'];
     password = json['password'];
     phone = json['phone'];
-    adress = json['adress'];
+    adress = json['address'];
     type = json['type'];
     iV = json['__v'];
   }

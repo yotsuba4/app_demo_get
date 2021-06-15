@@ -45,8 +45,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
           floatingActionButton: FloatingActionButton(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
+            elevation: 4,
+            backgroundColor: AppColor.primary,
             onPressed: () async {
               var token = await SPref.get(SPrefCache.KEY_TOKEN);
               if (token == null || token == '')
@@ -63,18 +63,10 @@ class _HomePageState extends State<HomePage> {
               }
             },
             tooltip: 'your_cart'.tr,
-            child: Badge(
-              animationDuration: Duration(milliseconds: 100),
-              animationType: BadgeAnimationType.slide,
-              badgeContent: Text(
-                cartController.count.value.toString(),
-                style: TextStyle(color: Colors.white, fontSize: 10),
-              ),
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                color: Colors.black,
-                size: 30,
-              ),
+            child: Icon(
+              Icons.shopping_cart_outlined,
+              color: Colors.white,
+              size: 30,
             ),
           ),
           backgroundColor: Colors.grey.shade200,
@@ -164,21 +156,31 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(
                   height: 16.h,
                 ),
-                RestaurantCard(
-                    restaurantCotroller.listRes[0],
-                    restaurantCotroller.getDistance(
-                        restaurantCotroller.listRes[0].x,
-                        restaurantCotroller.listRes[0].y)),
-                RestaurantCard(
-                    restaurantCotroller.listRes[1],
-                    restaurantCotroller.getDistance(
-                        restaurantCotroller.listRes[1].x,
-                        restaurantCotroller.listRes[1].y)),
-                RestaurantCard(
-                    restaurantCotroller.listRes[2],
-                    restaurantCotroller.getDistance(
-                        restaurantCotroller.listRes[2].x,
-                        restaurantCotroller.listRes[2].y)),
+                restaurantCotroller.loadingResList.value
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        child: Column(
+                          children: [
+                            RestaurantCard(
+                                restaurantCotroller.listRes[0],
+                                restaurantCotroller.getDistance(
+                                    restaurantCotroller.listRes[0].x,
+                                    restaurantCotroller.listRes[0].y)),
+                            RestaurantCard(
+                                restaurantCotroller.listRes[1],
+                                restaurantCotroller.getDistance(
+                                    restaurantCotroller.listRes[1].x,
+                                    restaurantCotroller.listRes[1].y)),
+                            RestaurantCard(
+                                restaurantCotroller.listRes[2],
+                                restaurantCotroller.getDistance(
+                                    restaurantCotroller.listRes[2].x,
+                                    restaurantCotroller.listRes[2].y)),
+                          ],
+                        ),
+                      ),
                 SizedBox(
                   height: 20.h,
                 ),

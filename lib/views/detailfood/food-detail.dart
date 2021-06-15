@@ -3,6 +3,7 @@ import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/restaurant/restaurant.dart';
+import 'package:app_demo_get/views/review/review.dart';
 import 'package:clip_shadow/clip_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -241,7 +242,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 Expanded(child: SizedBox()),
                                                 InkWell(
                                                     onTap: () {
-                                                      Get.to(RestaurantPage());
+                                                      Get.to(
+                                                        RestaurantPage(widget
+                                                            .food.restaurant),
+                                                      );
                                                     },
                                                     child: Icon(
                                                         Icons.arrow_forward))
@@ -285,7 +289,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                         fontWeight:
                                                             FontWeight.w600)),
                                                 Expanded(child: SizedBox()),
-                                                Icon(Icons.arrow_forward)
+                                                InkWell(
+                                                    onTap: () {
+                                                      Get.to(ReviewPage(
+                                                          widget.food));
+                                                    },
+                                                    child: Icon(
+                                                        Icons.arrow_forward))
                                               ],
                                             ),
                                           ),
@@ -758,61 +768,68 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   Widget buildSameFoods(Foods food, String resName) {
-    return Container(
-      width: 95.h,
-      margin: EdgeInsets.only(left: 18.w),
-      child: Column(
-        children: [
-          Container(
-            height: 95.h,
-            width: 95.h,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(7.r),
-              child: Image.network(
-                food.image,
-                fit: BoxFit.cover,
+    return InkWell(
+      onTap: () {
+        Get.to(
+          RestaurantPage(widget.food.restaurant),
+        );
+      },
+      child: Container(
+        width: 95.h,
+        margin: EdgeInsets.only(left: 18.w),
+        child: Column(
+          children: [
+            Container(
+              height: 95.h,
+              width: 95.h,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(7.r),
+                child: Image.network(
+                  food.image,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10.h),
-                Text(
-                  food.foodName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style:
-                      TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.left,
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  resName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13.sp,
-                      color: Color(0xFF9a9a9a)),
-                  textAlign: TextAlign.left,
-                ),
-                SizedBox(height: 2.h),
-                Text(
-                  '${food.price.toInt()} vnđ',
-                  maxLines: 1,
-                  style: TextStyle(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w400,
+            Align(
+              alignment: Alignment.topLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10.h),
+                  Text(
+                    food.foodName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:
+                        TextStyle(fontSize: 13.sp, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
                   ),
-                  textAlign: TextAlign.left,
-                ),
-              ],
-            ),
-          )
-        ],
+                  SizedBox(height: 2.h),
+                  Text(
+                    resName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13.sp,
+                        color: Color(0xFF9a9a9a)),
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(height: 2.h),
+                  Text(
+                    '${food.price.toInt()} vnđ',
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

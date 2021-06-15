@@ -34,6 +34,7 @@ class _MainPageState extends State<MainPage> {
     );
     return Scaffold(
       appBar: AppBar(
+        brightness: Brightness.dark,
         titleSpacing: 0,
         leading: IconButton(
             icon: Icon(

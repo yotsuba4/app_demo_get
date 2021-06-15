@@ -1,15 +1,59 @@
+import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/controllers/restaurant-controller.dart';
+import 'package:app_demo_get/models/object/food-object.dart';
+import 'package:app_demo_get/models/object/restaurant-obj.dart';
+import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/spref/constain.dart';
+import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/views/cart/cart.dart';
+import 'package:app_demo_get/views/sign-in/sign-in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RestaurantPage extends StatefulWidget {
+  final Restaurant restaurant;
+  RestaurantPage(this.restaurant);
   @override
   _RestaurantPageState createState() => _RestaurantPageState();
 }
 
 class _RestaurantPageState extends State<RestaurantPage> {
   @override
+  void initState() {
+    super.initState();
+    RestaurantCotroller.instance.getMenu(widget.restaurant.sId);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        elevation: 4,
+        backgroundColor: AppColor.primary,
+        onPressed: () async {
+          var token = await SPref.get(SPrefCache.KEY_TOKEN);
+          if (token == null || token == '')
+            Get.to(SignInPage());
+          else {
+            CartController.instance.getCartController();
+            showBarModalBottomSheet(
+              context: context,
+              builder: (context) => Container(
+                color: Colors.white,
+                child: ShoppingCartWidget(),
+              ),
+            );
+          }
+        },
+        tooltip: 'your_cart'.tr,
+        child: Icon(
+          Icons.shopping_cart_outlined,
+          color: Colors.white,
+          size: 30,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -17,13 +61,15 @@ class _RestaurantPageState extends State<RestaurantPage> {
             Stack(
               children: <Widget>[
                 Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height / 3,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(30.0),
                     bottomRight: Radius.circular(30.0),
                   )),
-                  child: Image.asset(
-                    "images/sushi.jpeg",
+                  child: Image.network(
+                    widget.restaurant.banner,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -49,7 +95,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                "The Protorix Cafe",
+                widget.restaurant.restaurantName,
                 style: TextStyle(fontSize: 20.0, color: Colors.black),
               ),
             ),
@@ -66,9 +112,14 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       SizedBox(
                         width: 5.0,
                       ),
-                      Text(
-                        "34, Banani-11, Chennai; ",
-                        style: TextStyle(fontSize: 14.0, color: Colors.black),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width - 230,
+                        child: Text(
+                          widget.restaurant.adress,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(fontSize: 14.0, color: Colors.black),
+                        ),
                       ),
                     ],
                   ),
@@ -124,7 +175,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: AppColor.primary,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       ),
                       child: Padding(
@@ -148,7 +199,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        border: new Border.all(color: Colors.green),
+                        border: new Border.all(color: AppColor.primary),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -157,7 +208,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           child: Text(
                             "Lunch",
                             style: TextStyle(
-                                color: Colors.green,
+                                color: AppColor.primary,
                                 fontSize: 16.0,
                                 letterSpacing: 0.5),
                           ),
@@ -171,7 +222,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        border: new Border.all(color: Colors.green),
+                        border: new Border.all(color: AppColor.primary),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -180,7 +231,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           child: Text(
                             "Snacks",
                             style: TextStyle(
-                                color: Colors.green,
+                                color: AppColor.primary,
                                 fontSize: 16.0,
                                 letterSpacing: 0.5),
                           ),
@@ -194,7 +245,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        border: new Border.all(color: Colors.green),
+                        border: new Border.all(color: AppColor.primary),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -203,7 +254,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           child: Text(
                             "Brunch",
                             style: TextStyle(
-                                color: Colors.green,
+                                color: AppColor.primary,
                                 fontSize: 16.0,
                                 letterSpacing: 0.5),
                           ),
@@ -217,7 +268,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                        border: new Border.all(color: Colors.green),
+                        border: new Border.all(color: AppColor.primary),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -226,7 +277,7 @@ class _RestaurantPageState extends State<RestaurantPage> {
                           child: Text(
                             "Dinner",
                             style: TextStyle(
-                                color: Colors.green,
+                                color: AppColor.primary,
                                 fontSize: 16.0,
                                 letterSpacing: 0.5),
                           ),
@@ -237,199 +288,125 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Stack(
-                        alignment: Alignment.topRight,
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                                topLeft: Radius.circular(10)),
-                            child: Image.asset(
-                              "images/sushi.jpeg",
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.grey.withOpacity(0.7),
-                            radius: 25.0,
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.white,
-                              size: 30.0,
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "Goru Mango Waffle",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "Continental",
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0)),
-                                    border: new Border.all(color: Colors.green),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.green,
-                                      size: 20.0,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+            Container(
+              child: Column(
+                children: RestaurantCotroller.instance.menu
+                    .map((element) => buildMenuItem(element))
+                    .toList(),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  ),
-                  child: Column(
-                    children: <Widget>[
-                      Stack(
-                        alignment: Alignment.topRight,
-                        children: <Widget>[
-                          ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10.0),
-                              topLeft: Radius.circular(10.0),
-                            ),
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Hero(
-                                  tag: 'food',
-                                  child: Image.asset(
-                                    "images/sushi.jpeg",
-                                    fit: BoxFit.fitWidth,
-                                  )),
-                            ),
-                          ),
-                          CircleAvatar(
-                            backgroundColor: Colors.grey.withOpacity(0.7),
-                            radius: 25.0,
-                            child: Icon(
-                              Icons.favorite_border,
-                              color: Colors.white,
-                              size: 30.0,
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "Asian Ramen Noodle",
-                                    style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Text(
-                                    "Co & Cookers",
-                                    style: TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10.0)),
-                                    border: new Border.all(color: Colors.green),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.green,
-                                      size: 20.0,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            SizedBox(
+              height: 40,
+            )
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildMenuItem(Foods food) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+          child: Column(
+            children: <Widget>[
+              Stack(
+                alignment: Alignment.topRight,
+                children: <Widget>[
+                  Container(
+                    width: MediaQuery.of(context).size.width - 40,
+                    height: MediaQuery.of(context).size.height / 4,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10)),
+                      child: Image.network(
+                        food.image,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  CircleAvatar(
+                    backgroundColor: Colors.grey.withOpacity(0.7),
+                    radius: 25.0,
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: Colors.white,
+                      size: 30.0,
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          width: 220.w,
+                          child: Text(
+                            food.foodName,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            food.price.toString() + 'đ',
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: <Widget>[
+                        InkWell(
+                          onTap: () {
+                            CartController.instance
+                                .addToCartController(food.sId, 1);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0)),
+                              border: new Border.all(color: AppColor.primary),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.add,
+                                color: AppColor.primary,
+                                size: 20.0,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

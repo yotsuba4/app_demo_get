@@ -1,3 +1,4 @@
+import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -68,8 +69,7 @@ class GeoLocationController extends GetxController {
 
       currentAddress.value =
           " ${place.street}, ${place.subAdministrativeArea}, ${place.administrativeArea} ${place.postalCode}, ${place.country}";
-
-      print(currentAddress.value);
+      RestaurantCotroller.instance.fetchAllRestaurans();
     } catch (e) {
       print(e);
     }
