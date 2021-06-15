@@ -4,9 +4,11 @@ import 'package:app_demo_get/controllers/home-page-controller.dart';
 import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/shared/widget/common-items.dart';
+import 'package:app_demo_get/shared/widget/restaurant-card.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/cart/cart.dart';
+import 'package:app_demo_get/views/detailfood/food-detail.dart';
 import 'package:app_demo_get/views/home/widget/banner-item.dart';
 import 'package:app_demo_get/views/home/widget/new-items.dart';
 import 'package:app_demo_get/views/search/search.dart';
@@ -158,6 +160,34 @@ class _HomePageState extends State<HomePage> {
                           },
                         ),
                       ),
+                buildHomeTittle("nearby".tr),
+                SizedBox(
+                  height: 16.h,
+                ),
+                RestaurantCard(
+                  image: Image.asset(
+                    Helper.getAssetName("pizza2.jpg", "real"),
+                    fit: BoxFit.cover,
+                  ),
+                  name: "Minute by tuk tuk",
+                ),
+                RestaurantCard(
+                  image: Image.asset(
+                    Helper.getAssetName("breakfast.jpg", "real"),
+                    fit: BoxFit.cover,
+                  ),
+                  name: "Cafe de Noir",
+                ),
+                RestaurantCard(
+                  image: Image.asset(
+                    Helper.getAssetName("bakery.jpg", "real"),
+                    fit: BoxFit.cover,
+                  ),
+                  name: "Bakes by Tella",
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
                 buildHomeTittle('top_rate'.tr),
                 SizedBox(
                   height: 16.h,
@@ -199,8 +229,8 @@ class _HomePageState extends State<HomePage> {
             "view_all".tr,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16.sp,
-                color: Colors.grey.shade500),
+                fontSize: 14.sp,
+                color: AppColor.primary),
           ),
         ],
       ),

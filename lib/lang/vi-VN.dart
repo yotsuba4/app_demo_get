@@ -1,4 +1,5 @@
 const Map<String, String> vi = {
+  'nearby': 'Gần tôi',
   'top_rate': 'Đánh giá tốt',
   'add': 'Thêm',
   'ratings_and_reviews': 'Xếp hạng và đáng giá',
