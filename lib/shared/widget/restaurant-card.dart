@@ -1,27 +1,28 @@
+import 'package:app_demo_get/models/object/restaurant-obj.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/detailfood/food-detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RestaurantCard extends StatelessWidget {
-  const RestaurantCard({
-    Key key,
-    @required String name,
-    @required Image image,
-  })  : _image = image,
-        _name = name,
-        super(key: key);
-
-  final String _name;
-  final Image _image;
-
+  final Restaurant restaurant;
+  final double distance;
+  RestaurantCard(this.restaurant, this.distance);
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 270,
+      height: 270.h,
       width: double.infinity,
       child: Column(
         children: [
-          SizedBox(height: 200, width: double.infinity, child: _image),
+          SizedBox(
+            height: 200,
+            width: double.infinity,
+            child: Image.network(
+              restaurant.banner,
+              fit: BoxFit.cover,
+            ),
+          ),
           SizedBox(
             height: 10,
           ),
@@ -34,7 +35,7 @@ class RestaurantCard extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      _name,
+                      restaurant.restaurantName,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                     ),
@@ -64,7 +65,11 @@ class RestaurantCard extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("Cafe"),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(restaurant.adress),
                     SizedBox(
                       width: 5,
                     ),
@@ -81,7 +86,7 @@ class RestaurantCard extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text("Western Food"),
+                    Text('${distance.toInt()}m'),
                   ],
                 ),
               ],

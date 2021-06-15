@@ -165,26 +165,20 @@ class _HomePageState extends State<HomePage> {
                   height: 16.h,
                 ),
                 RestaurantCard(
-                  image: Image.asset(
-                    Helper.getAssetName("pizza2.jpg", "real"),
-                    fit: BoxFit.cover,
-                  ),
-                  name: "Minute by tuk tuk",
-                ),
+                    restaurantCotroller.listRes[0],
+                    restaurantCotroller.getDistance(
+                        restaurantCotroller.listRes[0].x,
+                        restaurantCotroller.listRes[0].y)),
                 RestaurantCard(
-                  image: Image.asset(
-                    Helper.getAssetName("breakfast.jpg", "real"),
-                    fit: BoxFit.cover,
-                  ),
-                  name: "Cafe de Noir",
-                ),
+                    restaurantCotroller.listRes[1],
+                    restaurantCotroller.getDistance(
+                        restaurantCotroller.listRes[1].x,
+                        restaurantCotroller.listRes[1].y)),
                 RestaurantCard(
-                  image: Image.asset(
-                    Helper.getAssetName("bakery.jpg", "real"),
-                    fit: BoxFit.cover,
-                  ),
-                  name: "Bakes by Tella",
-                ),
+                    restaurantCotroller.listRes[2],
+                    restaurantCotroller.getDistance(
+                        restaurantCotroller.listRes[2].x,
+                        restaurantCotroller.listRes[2].y)),
                 SizedBox(
                   height: 20.h,
                 ),
