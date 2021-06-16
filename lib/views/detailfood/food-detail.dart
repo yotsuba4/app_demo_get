@@ -2,6 +2,7 @@ import 'package:app_demo_get/controllers/rate-controller.dart';
 import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/views/detailfood/widget/add-to-cart.dart';
 import 'package:app_demo_get/views/restaurant/restaurant.dart';
 import 'package:app_demo_get/views/review/review.dart';
 import 'package:clip_shadow/clip_shadow.dart';
@@ -472,7 +473,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           SizedBox(
                                             height: 10,
                                           ),
-                                          Padding(
+                                          AddToCartComponent(widget.food.price,
+                                              widget.food.sId)
+                                          /*  Padding(
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 20),
                                             child: Row(
@@ -550,8 +553,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 ),
                                               ],
                                             ),
-                                          ),
-                                          SizedBox(
+                                          ), */
+                                          /* SizedBox(
                                             height: 200,
                                             width: double.infinity,
                                             child: Stack(
@@ -717,7 +720,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 ),
                                               ],
                                             ),
-                                          )
+                                          ) */
                                         ],
                                       ),
                                     ),

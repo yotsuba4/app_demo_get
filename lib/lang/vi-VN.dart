@@ -1,4 +1,5 @@
 const Map<String, String> vi = {
+  'add_to_cart': 'Thêm vào giỏ',
   'all': 'Tất cả',
   'review': 'Đánh giá',
   'rating': 'Xếp hạng',

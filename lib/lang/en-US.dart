@@ -1,4 +1,5 @@
 const Map<String, String> en = {
+  'add_to_cart': 'Add to Cart',
   'all': 'All',
   'review': 'Review',
   'rating': 'Rating',
