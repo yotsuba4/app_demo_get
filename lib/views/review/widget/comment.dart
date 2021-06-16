@@ -38,7 +38,7 @@ class _CommentPageState extends State<CommentPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'all'.tr + '( ${ApiGetRate.countComment})',
+            'all'.tr + ' (${ApiGetRate.countComment})',
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(

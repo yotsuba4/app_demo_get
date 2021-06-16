@@ -1,8 +1,10 @@
 import 'package:app_demo_get/controllers/rate-controller.dart';
 import 'package:app_demo_get/controllers/restaurant-controller.dart';
 import 'package:app_demo_get/models/object/food-object.dart';
+import 'package:app_demo_get/models/show-comment.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/views/detailfood/widget/add-to-cart.dart';
+import 'package:app_demo_get/views/detailfood/widget/post-comment.dart';
 import 'package:app_demo_get/views/restaurant/restaurant.dart';
 import 'package:app_demo_get/views/review/review.dart';
 import 'package:clip_shadow/clip_shadow.dart';
@@ -98,18 +100,64 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   Expanded(child: SizedBox()),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Get.dialog(Center(
+                                          child: Material(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width -
+                                              100,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              5,
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 40,
+                                              ),
+                                              Text(
+                                                'rate_this_food'.tr,
+                                                style: TextStyle(fontSize: 15),
+                                              ),
+                                              SmoothStarRating(
+                                                color: AppColor.primary,
+                                                borderColor: AppColor.primary,
+                                                allowHalfRating: false,
+                                                onRated: (rate) {
+                                                  rateController.postRate(
+                                                      widget.food.sId,
+                                                      rate.toInt());
+                                                },
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      )));
+                                    },
                                     child: Icon(
                                       Icons.star,
                                       color: Colors.white,
                                     ),
                                   ),
                                   SizedBox(width: 10),
-                                  Container(
-                                    padding: EdgeInsets.only(top: 3),
-                                    child: Icon(
-                                      Icons.rate_review,
-                                      color: Colors.white,
+                                  InkWell(
+                                    /* TextField(
+                                    controller: reEmailControlller,
+                                    decoration: InputDecoration(
+                                        hintText: 'enter_email_again'.tr),
+                                  ), */
+                                    onTap: () {
+                                      Get.to(PostComment(widget.food));
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 3),
+                                      child: Icon(
+                                        Icons.rate_review,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 ],
