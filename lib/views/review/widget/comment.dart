@@ -1,13 +1,35 @@
+import 'package:app_demo_get/apimodule/customer/api-show-rate.dart';
+import 'package:app_demo_get/controllers/rate-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:get/get.dart';
 
 class CommentPage extends StatefulWidget {
+  final String foodID;
+  CommentPage(this.foodID);
   @override
   _CommentPageState createState() => _CommentPageState();
 }
 
 class _CommentPageState extends State<CommentPage> {
+  ScrollController scrollController = ScrollController();
+  int p;
+  @override
+  void initState() {
+    super.initState();
+    p = 1;
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          RateController.instance.listComment.length <
+              ApiGetRate.countComment) {
+        p++;
+        RateController.instance.fetchAllComment(widget.foodID, p.toString());
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +38,7 @@ class _CommentPageState extends State<CommentPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tất cả (200 lượt xếp hạng)',
+            'all'.tr + '( ${ApiGetRate.countComment})',
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(
@@ -24,7 +46,8 @@ class _CommentPageState extends State<CommentPage> {
           ),
           Expanded(
             child: ListView.builder(
-                itemCount: 30,
+                controller: scrollController,
+                itemCount: RateController.instance.listComment.length,
                 itemBuilder: (builder, index) {
                   return Container(
                     child: Column(
@@ -36,15 +59,16 @@ class _CommentPageState extends State<CommentPage> {
                               height: 40,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                    'https://res.cloudinary.com/ducsine/image/upload/v1620808216/iv2rjt6cm5b2mueqkmfq.jpg'),
+                                child: Image.network(RateController
+                                    .instance.listComment[index].user.avatar),
                               ),
                             ),
                             SizedBox(
                               width: 30,
                             ),
                             Text(
-                              'Lê Hồng Phúc',
+                              RateController
+                                  .instance.listComment[index].user.fullName,
                               style: TextStyle(fontSize: 16),
                             ),
                             Expanded(child: SizedBox()),
@@ -53,15 +77,19 @@ class _CommentPageState extends State<CommentPage> {
                         ),
                         Row(
                           children: [
-                            Text('11/06/2021'),
+                            Text(RateController
+                                .instance.listComment[index].dateCreate),
                           ],
                         ),
                         SizedBox(
                           height: 5,
                         ),
-                        Text(
-                          'Món này rất ngon tôi sẽ lại ghé quán trong một tương lai không xa để có thể tiếp tục được thưởng thức hương vị từ lúa ngô thịt đậm đà mà nó mang lại gợi lên nhiều cung bậc cảm xúc lạ thường',
-                          maxLines: 5,
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            RateController.instance.listComment[index].message,
+                            maxLines: 5,
+                          ),
                         ),
                         Divider(
                           thickness: 0.5,

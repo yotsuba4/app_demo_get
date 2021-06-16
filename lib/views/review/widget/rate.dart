@@ -3,6 +3,7 @@ import 'package:app_demo_get/controllers/rate-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:get/get.dart';
 
 class RatePage extends StatefulWidget {
   final String foodID;
@@ -12,10 +13,20 @@ class RatePage extends StatefulWidget {
 }
 
 class _RatePageState extends State<RatePage> {
+  ScrollController scrollController = ScrollController();
+  int p;
   @override
   void initState() {
     super.initState();
-    RateController.instance.fetchAllRate(widget.foodID, '1');
+    p = 1;
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+              scrollController.position.maxScrollExtent &&
+          RateController.instance.listRate.length < ApiGetRate.countRate) {
+        p++;
+        RateController.instance.fetchAllRate(widget.foodID, p.toString());
+      }
+    });
   }
 
   @override
@@ -26,7 +37,7 @@ class _RatePageState extends State<RatePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tất cả (${ApiGetRate.countRate} lượt xếp hạng)',
+            'all'.tr + ' (${ApiGetRate.countRate})',
             style: TextStyle(fontSize: 20),
           ),
           SizedBox(
@@ -34,6 +45,7 @@ class _RatePageState extends State<RatePage> {
           ),
           Expanded(
             child: ListView.builder(
+                controller: scrollController,
                 itemCount: RateController.instance.listRate.length,
                 itemBuilder: (builder, index) {
                   return Container(

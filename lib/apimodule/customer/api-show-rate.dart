@@ -1,8 +1,10 @@
+import 'package:app_demo_get/models/show-comment.dart';
 import 'package:app_demo_get/models/show-rate.dart';
 import 'package:dio/dio.dart';
 
 class ApiGetRate {
   static int countRate = 0;
+  static int countComment = 0;
   static Future<Rate> fetchRates(String key) async {
     final response = await Dio().get(
         'https://kltn-foodoffer.herokuapp.com/api/cus/showRate?foodID=$key');
@@ -18,11 +20,12 @@ class ApiGetRate {
     return map.data.listRate;
   }
 
-  static Future<List<ListRate>> fetchListReviews(String key) async {
+  static Future<List<Comment>> fetchListReviews(String key, String p) async {
     final response = await Dio().get(
-        'https://kltn-foodoffer.herokuapp.com/api/cus/showComment?foodID=$key');
-    var map = ShowRate.fromJson(response.data);
-    return map.data.listRate;
+        'https://kltn-foodoffer.herokuapp.com/api/cus/showComment?foodID=$key&p=$p');
+    var map = ShowComment.fromJson(response.data);
+    countComment = map.data.totalComent;
+    return map.data.comment;
   }
 }
 

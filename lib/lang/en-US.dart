@@ -1,4 +1,5 @@
 const Map<String, String> en = {
+  'all': 'All',
   'review': 'Review',
   'rating': 'Rating',
   'nearby': 'Nearby',
