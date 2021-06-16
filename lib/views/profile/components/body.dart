@@ -1,6 +1,7 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/views/history/history.dart';
 import 'package:app_demo_get/views/mainpage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,9 @@ class _BodyState extends State<Body> {
           ProfileMenu(
             text: "order_history".tr,
             icon: "assets/icons/Bell.svg",
-            press: () {},
+            press: () {
+              Get.to(OrderHistory());
+            },
           ),
           ProfileMenu(
             text: "setting".tr,

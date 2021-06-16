@@ -1,4 +1,12 @@
 const Map<String, String> en = {
+  'cancel': 'Cancel',
+  're_order': 'Re-Order',
+  'view_detail': 'View detail',
+  'total': 'Total',
+  'cancelled': 'Cancelled',
+  'paid': 'Paid',
+  'confirmed': 'Confirmed',
+  'processing': 'Processing',
   'add_to_cart': 'Add to Cart',
   'all': 'All',
   'review': 'Review',

@@ -1,4 +1,12 @@
 const Map<String, String> vi = {
+  'cancel': 'Hủy',
+  're_order': 'Mua lại',
+  'view_detail': 'Xem chi tiết',
+  'total': 'Tổng cộng',
+  'cancelled': 'Đã hủy',
+  'paid': 'Đã thanh toán',
+  'confirmed': 'Đã xác nhận',
+  'processing': 'Đang xử lý',
   'add_to_cart': 'Thêm vào giỏ',
   'all': 'Tất cả',
   'review': 'Đánh giá',
