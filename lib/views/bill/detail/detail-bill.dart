@@ -33,7 +33,7 @@ class BillDetaiPage extends StatelessWidget {
                       Expanded(
                         child: Text(
                           "bill_detail".tr,
-                          style: Helper.getTheme(context).headline5,
+                          style: TextStyle(fontSize: 20, color: Colors.black),
                         ),
                       )
                     ],
