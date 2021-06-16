@@ -1,5 +1,7 @@
 import 'package:app_demo_get/models/object/food-object.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/views/review/widget/comment.dart';
+import 'package:app_demo_get/views/review/widget/rate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,12 +56,8 @@ class ReviewPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Container(
-              child: Text('1'),
-            ),
-            Container(
-              child: Text('2'),
-            )
+            RatePage(food.sId),
+            CommentPage(),
           ],
         ),
       ),

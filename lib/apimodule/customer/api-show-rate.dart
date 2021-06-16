@@ -2,6 +2,7 @@ import 'package:app_demo_get/models/show-rate.dart';
 import 'package:dio/dio.dart';
 
 class ApiGetRate {
+  static int countRate = 0;
   static Future<Rate> fetchRates(String key) async {
     final response = await Dio().get(
         'https://kltn-foodoffer.herokuapp.com/api/cus/showRate?foodID=$key');
@@ -9,10 +10,11 @@ class ApiGetRate {
     return parse.data.rate;
   }
 
-  static Future<List<ListRate>> fetchListRates(String key) async {
+  static Future<List<ListRate>> fetchListRates(String key, String p) async {
     final response = await Dio().get(
-        'https://kltn-foodoffer.herokuapp.com/api/cus/showRate?foodID=$key');
+        'https://kltn-foodoffer.herokuapp.com/api/cus/showRate?foodID=$key&p=$p');
     var map = ShowRate.fromJson(response.data);
+    countRate = map.data.total;
     return map.data.listRate;
   }
 
