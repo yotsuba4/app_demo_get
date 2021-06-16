@@ -1,4 +1,5 @@
 import 'package:app_demo_get/models/create_bill.dart';
+import 'package:app_demo_get/models/get-bill-detail.dart';
 import 'package:dio/dio.dart';
 
 class ApiBill {
@@ -42,5 +43,18 @@ class ApiBill {
       return true;
     }
     return false;
+  }
+
+  static Future<List<BillDetail>> getBillDetail(
+      String billID, String token) async {
+    final response = await Dio().get(
+      'https://kltn-foodoffer.herokuapp.com/api/user/func/billDetail?bill_id=$billID',
+      options:
+          Options(contentType: Headers.formUrlEncodedContentType, headers: {
+        'authorization': token,
+      }),
+    );
+    var map = GetBillItem.fromJson(response.data);
+    return map.data.billDetail;
   }
 }

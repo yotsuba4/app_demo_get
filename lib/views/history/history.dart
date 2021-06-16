@@ -1,6 +1,7 @@
 import 'package:app_demo_get/controllers/order-history-controller.dart';
 import 'package:app_demo_get/models/order-history.dart';
 import 'package:app_demo_get/shared/color.dart';
+import 'package:app_demo_get/views/bill/detail/detail-bill.dart';
 import 'package:app_demo_get/views/restaurant/restaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -137,15 +138,20 @@ class _OrderHistoryState extends State<OrderHistory> {
           Row(
             children: [
               Expanded(
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColor.primary),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text(
-                      'view_detail'.tr,
-                      style: TextStyle(color: AppColor.primary, fontSize: 18),
+                child: InkWell(
+                  onTap: () {
+                    orderHistoryController.getBillDetail(his.sId, his);
+                  },
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: AppColor.primary),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Center(
+                      child: Text(
+                        'view_detail'.tr,
+                        style: TextStyle(color: AppColor.primary, fontSize: 18),
+                      ),
                     ),
                   ),
                 ),

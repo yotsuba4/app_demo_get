@@ -9,6 +9,7 @@ import 'package:app_demo_get/models/object/restaurant-obj.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/bill/success/success.dart';
+import 'package:app_demo_get/views/sign-in/sign-in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,17 +53,20 @@ class CartController extends GetxController {
 
   void addToCartController(String foodID, int amount) async {
     var token = await SPref.get(SPrefCache.KEY_TOKEN);
-
-    try {
-      bool check = await ApiAddToCart.addToCart(token, foodID, amount);
-      if (check == true) {
-        Get.snackbar('Thông báo', 'Thêm thành công');
-        increaseItem();
-      } else {
-        Get.snackbar('Thông báo', 'Thêm thất bại, kiểm tra giỏ hàng');
+    if (token == null || token == '') {
+      Get.to(SignInPage());
+    } else {
+      try {
+        bool check = await ApiAddToCart.addToCart(token, foodID, amount);
+        if (check == true) {
+          Get.snackbar('Thông báo', 'Thêm thành công');
+          increaseItem();
+        } else {
+          Get.snackbar('Thông báo', 'Thêm thất bại, kiểm tra giỏ hàng');
+        }
+      } catch (e) {
+        debugPrint(e.toString());
       }
-    } catch (e) {
-      debugPrint(e.toString());
     }
   }
 

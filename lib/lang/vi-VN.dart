@@ -1,4 +1,6 @@
 const Map<String, String> vi = {
+  'payment_method':'Hình thức thanh toán',
+  'bill_detail': 'Chi tiết đơn hàng',
   'post_comment': 'Đăng bình luận',
   'hint_comment': 'Để lại bài luận của bạn về món ăn này',
   'rate_this_food': 'Đánh giá sản phẩm',

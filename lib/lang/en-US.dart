@@ -1,4 +1,6 @@
 const Map<String, String> en = {
+  'payment_method': 'Payment method',
+  'bill_detail': 'Bill detail',
   'post_comment': 'Post Comment',
   'hint_comment': 'Please type something for this food',
   'rate_this_food': 'Rate this food',

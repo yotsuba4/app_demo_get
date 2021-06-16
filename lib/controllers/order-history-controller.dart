@@ -1,7 +1,10 @@
+import 'package:app_demo_get/apimodule/product/api-bill.dart';
 import 'package:app_demo_get/apimodule/product/api-order-history.dart';
+import 'package:app_demo_get/models/get-bill-detail.dart';
 import 'package:app_demo_get/models/order-history.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
+import 'package:app_demo_get/views/bill/detail/detail-bill.dart';
 import 'package:get/get.dart';
 
 class OrderHistoryController extends GetxController {
@@ -11,6 +14,8 @@ class OrderHistoryController extends GetxController {
   RxList<HisTran> listPaid = <HisTran>[].obs;
   RxList<HisTran> listCancelled = <HisTran>[].obs;
   RxBool loadHis = true.obs;
+  RxList<BillDetail> listItemBill = <BillDetail>[].obs;
+  RxBool loadItem = true.obs;
   @override
   void onInit() {
     super.onInit();
@@ -67,6 +72,19 @@ class OrderHistoryController extends GetxController {
       fetchOrderHistory();
     } else {
       Get.snackbar('Thông báo', 'Hủy thất bại');
+    }
+  }
+
+  void getBillDetail(String billID, HisTran his) async {
+    var token = await SPref.get(SPrefCache.KEY_TOKEN);
+    try {
+      loadItem.value = true;
+      var list = await ApiBill.getBillDetail(billID, token);
+      listItemBill.assignAll(list);
+      print(listItemBill.length);
+      Get.to(BillDetaiPage(his));
+    } finally {
+      loadItem.value = false;
     }
   }
 }
