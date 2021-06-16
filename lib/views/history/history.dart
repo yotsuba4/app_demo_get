@@ -11,8 +11,7 @@ class OrderHistory extends StatefulWidget {
 }
 
 class _OrderHistoryState extends State<OrderHistory> {
-  OrderHistoryController orderHistoryController =
-      Get.put(OrderHistoryController());
+  OrderHistoryController orderHistoryController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(() => DefaultTabController(

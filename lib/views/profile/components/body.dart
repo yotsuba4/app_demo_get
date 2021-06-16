@@ -1,4 +1,5 @@
 import 'package:app_demo_get/controllers/cart-controller.dart';
+import 'package:app_demo_get/controllers/order-history-controller.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
 import 'package:app_demo_get/views/history/history.dart';
@@ -14,6 +15,8 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  OrderHistoryController orderHistoryController =
+      Get.put(OrderHistoryController());
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,6 +34,7 @@ class _BodyState extends State<Body> {
             text: "order_history".tr,
             icon: "assets/icons/Bell.svg",
             press: () {
+              orderHistoryController.fetchOrderHistory();
               Get.to(OrderHistory());
             },
           ),

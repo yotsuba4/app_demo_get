@@ -288,13 +288,13 @@ class _RestaurantPageState extends State<RestaurantPage> {
                 ),
               ),
             ),
-            Container(
-              child: Column(
-                children: RestaurantCotroller.instance.menu
-                    .map((element) => buildMenuItem(element))
-                    .toList(),
-              ),
-            ),
+            Obx(() => Container(
+                  child: Column(
+                    children: RestaurantCotroller.instance.menu
+                        .map((element) => buildMenuItem(element))
+                        .toList(),
+                  ),
+                )),
             SizedBox(
               height: 40,
             )
