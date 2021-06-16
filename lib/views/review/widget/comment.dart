@@ -57,9 +57,8 @@ class _CommentPageState extends State<CommentPage> {
                             Container(
                               width: 40,
                               height: 40,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(RateController
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(RateController
                                     .instance.listComment[index].user.avatar),
                               ),
                             ),

@@ -56,9 +56,8 @@ class _RatePageState extends State<RatePage> {
                             Container(
                               width: 40,
                               height: 40,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(RateController
+                              child: CircleAvatar(
+                                backgroundImage: NetworkImage(RateController
                                     .instance.listRate[index].user.avatar),
                               ),
                             ),
