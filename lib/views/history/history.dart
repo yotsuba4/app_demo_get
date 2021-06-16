@@ -66,28 +66,28 @@ class _OrderHistoryState extends State<OrderHistory> {
                               orderHistoryController.listOrder[index]);
                         }),
                 ListView.builder(
-                    itemCount: 10,
+                    itemCount: orderHistoryController.listProcessing.length,
                     itemBuilder: (builder, index) {
                       return buildHitoryItem(
-                          orderHistoryController.listOrder[index]);
+                          orderHistoryController.listProcessing[index]);
                     }),
                 ListView.builder(
-                    itemCount: 10,
+                    itemCount: orderHistoryController.listConfirmed.length,
                     itemBuilder: (builder, index) {
                       return buildHitoryItem(
-                          orderHistoryController.listOrder[index]);
+                          orderHistoryController.listConfirmed[index]);
                     }),
                 ListView.builder(
-                    itemCount: 10,
+                    itemCount: orderHistoryController.listPaid.length,
                     itemBuilder: (builder, index) {
                       return buildHitoryItem(
-                          orderHistoryController.listOrder[index]);
+                          orderHistoryController.listPaid[index]);
                     }),
                 ListView.builder(
-                    itemCount: 10,
+                    itemCount: orderHistoryController.listCancelled.length,
                     itemBuilder: (builder, index) {
                       return buildHitoryItem(
-                          orderHistoryController.listOrder[index]);
+                          orderHistoryController.listCancelled[index]);
                     })
               ],
             ),
@@ -157,9 +157,84 @@ class _OrderHistoryState extends State<OrderHistory> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    if (his.status == 'đang xử lý')
+                    if (his.status == 'đang xử lý') {
                       print('hủy bill');
-                    else
+                      Get.dialog(Center(
+                        child: Material(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(20, 50, 20, 50),
+                            width: MediaQuery.of(context).size.width - 100,
+                            height: MediaQuery.of(context).size.height / 4,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'cancel_allert'.tr,
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          orderHistoryController
+                                              .cancelBill(his.sId);
+                                        },
+                                        child: Container(
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              color: AppColor.primary,
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Center(
+                                            child: Text(
+                                              'yes'.tr,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      child: InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: Container(
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: AppColor.primary),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Center(
+                                            child: Text(
+                                              'no'.tr,
+                                              style: TextStyle(
+                                                  color: AppColor.primary),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                      ));
+                    } else
                       Get.to(RestaurantPage(his.restaurant));
                   },
                   child: Container(

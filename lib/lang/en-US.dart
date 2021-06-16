@@ -1,4 +1,7 @@
 const Map<String, String> en = {
+  'yes': 'Yes',
+  'no': 'No',
+  'cancel_allert': 'Are you sure to cancel this bill?',
   'cancel': 'Cancel',
   're_order': 'Re-Order',
   'view_detail': 'View detail',

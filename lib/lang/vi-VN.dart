@@ -1,4 +1,7 @@
 const Map<String, String> vi = {
+  'yes': 'Đồng ý',
+  'no': 'Không',
+  'cancel_allert': 'Bạn có chắc muốn hủy?',
   'cancel': 'Hủy',
   're_order': 'Mua lại',
   'view_detail': 'Xem chi tiết',
