@@ -6,6 +6,12 @@ class FindFoodController extends GetxController {
   RxList<Foods> findFoodPopuler = <Foods>[].obs;
   List<String> suggests = [];
   List<String> recents = [];
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAllFood();
+  }
+
   void fetchAllFood() async {
     suggests.clear();
     var foods = await ApiFindFood.fetchAllFoods();

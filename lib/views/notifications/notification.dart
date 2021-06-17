@@ -13,8 +13,7 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   NotificationController notificationController = Get.find();
-  OrderHistoryController orderHistoryController =
-      Get.put(OrderHistoryController());
+  OrderHistoryController orderHistoryController = Get.find();
   @override
   void initState() {
     super.initState();

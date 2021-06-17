@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   HomePageController homePageController = Get.put(HomePageController());
   CartController cartController = Get.put(CartController());
   RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
+  FindFoodController findFoodController = Get.put(FindFoodController());
 /*   CartController cartController = Get.put(CartController());
   FindFoodController findFoodController = Get.put(FindFoodController());
   RestaurantCotroller restaurantCotroller = Get.put(RestaurantCotroller());
@@ -178,6 +179,16 @@ class _HomePageState extends State<HomePage> {
                                 restaurantCotroller.getDistance(
                                     restaurantCotroller.listRes[2].x,
                                     restaurantCotroller.listRes[2].y)),
+                            RestaurantCard(
+                                restaurantCotroller.listRes[3],
+                                restaurantCotroller.getDistance(
+                                    restaurantCotroller.listRes[3].x,
+                                    restaurantCotroller.listRes[3].y)),
+                            RestaurantCard(
+                                restaurantCotroller.listRes[4],
+                                restaurantCotroller.getDistance(
+                                    restaurantCotroller.listRes[4].x,
+                                    restaurantCotroller.listRes[4].y)),
                           ],
                         ),
                       ),

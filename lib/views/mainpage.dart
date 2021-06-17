@@ -26,6 +26,8 @@ class _MainPageState extends State<MainPage> {
       Get.put(GeoLocationController());
   NotificationController notificationController =
       Get.put(NotificationController());
+  OrderHistoryController orderHistoryController =
+      Get.put(OrderHistoryController());
   int _currentIndex = 0;
 
   @override
