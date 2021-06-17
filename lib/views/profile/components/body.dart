@@ -15,8 +15,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  OrderHistoryController orderHistoryController =
-      Get.put(OrderHistoryController());
+  OrderHistoryController orderHistoryController = Get.find();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

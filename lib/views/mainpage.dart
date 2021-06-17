@@ -1,5 +1,7 @@
 import 'package:app_demo_get/controllers/auth-controller.dart';
 import 'package:app_demo_get/controllers/location-controller.dart';
+import 'package:app_demo_get/controllers/notification-controller.dart';
+import 'package:app_demo_get/controllers/order-history-controller.dart';
 import 'package:app_demo_get/shared/color.dart';
 import 'package:app_demo_get/spref/constain.dart';
 import 'package:app_demo_get/spref/spref.dart';
@@ -22,7 +24,10 @@ class _MainPageState extends State<MainPage> {
   AuthController authController = Get.put(AuthController());
   GeoLocationController geoLocationController =
       Get.put(GeoLocationController());
+  NotificationController notificationController =
+      Get.put(NotificationController());
   int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(
